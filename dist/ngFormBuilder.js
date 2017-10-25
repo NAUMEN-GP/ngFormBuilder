@@ -8680,6 +8680,13 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/conditional.html',
         '<form-builder-conditional></form-builder-conditional>'
       );
+
+      $templateCache.put('formio/components/common/customSettings.html',
+          '<ng-form>' +
+              '<form-builder-option property="customSettings.customView"></form-builder-option>' +
+              '<form-builder-option property="customSettings.editOnConsideration"></form-builder-option>' +
+          '</ng-form>'
+      );
     }
   ]);
 };
@@ -11031,6 +11038,10 @@ module.exports = function(app) {
           {
             name: 'Conditional',
             template: 'formio/components/common/conditional.html'
+          },
+          {
+            name: 'Специальные настройки',
+            template: 'formio/components/common/customSettings.html'
           }
         ],
         documentation: 'http://help.form.io/userguide/#textfield'
@@ -11470,6 +11481,16 @@ module.exports = {
     label: 'Add Resource Text',
     placeholder: 'Add Resource',
     tooltip: 'Set the text of the Add Resource button.'
+  },
+  'customSettings.customView': {
+      label: 'Специальное отображение',
+      type: 'checkbox',
+      tooltip: 'Это поле будет отображаться на форме при просмотре особенным образом.'
+  },
+  'customSettings.editOnConsideration': {
+      label: 'Редактировать при рассмотрении',
+      type: 'checkbox',
+      tooltip: 'Разрешить редактирование поля при рассмотрении заявки.'
   }
 };
 

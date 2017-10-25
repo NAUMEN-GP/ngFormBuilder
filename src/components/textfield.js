@@ -27,6 +27,10 @@ module.exports = function(app) {
           {
             name: 'Conditional',
             template: 'formio/components/common/conditional.html'
+          },
+          {
+            name: 'Специальные настройки',
+            template: 'formio/components/common/customSettings.html'
           }
         ],
         documentation: 'http://help.form.io/userguide/#textfield'

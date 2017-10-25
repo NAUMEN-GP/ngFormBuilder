@@ -143,6 +143,13 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/conditional.html',
         '<form-builder-conditional></form-builder-conditional>'
       );
+
+      $templateCache.put('formio/components/common/customSettings.html',
+          '<ng-form>' +
+              '<form-builder-option property="customSettings.customView"></form-builder-option>' +
+              '<form-builder-option property="customSettings.editOnConsideration"></form-builder-option>' +
+          '</ng-form>'
+      );
     }
   ]);
 };

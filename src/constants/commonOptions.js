@@ -293,5 +293,15 @@ module.exports = {
     label: 'Add Resource Text',
     placeholder: 'Add Resource',
     tooltip: 'Set the text of the Add Resource button.'
+  },
+  'customSettings.customView': {
+      label: 'Специальное отображение',
+      type: 'checkbox',
+      tooltip: 'Это поле будет отображаться на форме при просмотре особенным образом.'
+  },
+  'customSettings.editOnConsideration': {
+      label: 'Редактировать при рассмотрении',
+      type: 'checkbox',
+      tooltip: 'Разрешить редактирование поля при рассмотрении заявки.'
   }
 };
