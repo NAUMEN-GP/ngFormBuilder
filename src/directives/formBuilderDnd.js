@@ -336,17 +336,19 @@ module.exports = [
 
     $scope.filterViews = function(){
         if(!builderSettings) return;
+        var ct = this.component.type;
         this.formComponent.views = this.formComponent.views.filter(function(v){
-            return builderSettings.hasOwnProperty(this.type) &&
-                builderSettings[this.type].hasOwnProperty(v.name)
+            return builderSettings.hasOwnProperty(ct) &&
+                builderSettings[ct].hasOwnProperty(v.name)
         })
     };
 
     $scope.displayOption = function(view, option){
         if(!builderSettings) return true;
-        return builderSettings.hasOwnProperty(this.type) &&
-            builderSettings[this.type].hasOwnProperty(view) &&
-            builderSettings[this.type][view][option];
+        var ct = this.component.type;
+        return builderSettings.hasOwnProperty(ct) &&
+            builderSettings[ct].hasOwnProperty(view) &&
+            builderSettings[ct][view][option];
     };
 
   }
