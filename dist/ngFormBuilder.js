@@ -11015,11 +11015,7 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('textfield', {
         onEdit: ['$scope', function($scope) {
-            if(typeof $scope.builderSettings === 'function'){
-                $scope.builderSettings();
-            }else{
-                console.log("No builder settings for " + $scope.type)
-            }
+            $scope.filterViews();
         }],
         views: [
           {
@@ -11060,36 +11056,37 @@ module.exports = function(app) {
     '$templateCache',
     function($templateCache) {
       // Create the settings markup.
-      $templateCache.put('formio/components/textfield/display.html',
+      var view = 'display';
+        $templateCache.put('formio/components/textfield/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="inputMask"></form-builder-option>' +
-          '<form-builder-option property="prefix"></form-builder-option>' +
-          '<form-builder-option property="suffix"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="mask"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label"       view="display"></form-builder-option>' +
+          '<form-builder-option property="placeholder" view="display"></form-builder-option>' +
+          '<form-builder-option property="description" view="display"></form-builder-option>' +
+          '<form-builder-option property="tooltip"     view="display"></form-builder-option>' +
+          '<form-builder-option property="errorLabel"  view="display"></form-builder-option>' +
+          '<form-builder-option property="inputMask"   view="display"></form-builder-option>' +
+          '<form-builder-option property="prefix"      view="display"></form-builder-option>' +
+          '<form-builder-option property="suffix"      view="display"></form-builder-option>' +
+          '<form-builder-option property="customClass" view="display"></form-builder-option>' +
+          '<form-builder-option property="tabindex"    view="display"></form-builder-option>' +
+          '<form-builder-option property="multiple"    view="display"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" view="display"></form-builder-option>' +
+          '<form-builder-option property="protected"   view="display"></form-builder-option>' +
+          '<form-builder-option property="persistent"  view="display"></form-builder-option>' +
+          '<form-builder-option property="hidden"      view="display"></form-builder-option>' +
+          '<form-builder-option property="mask"        view="display"></form-builder-option>' +
+          '<form-builder-option property="disabled"    view="display"></form-builder-option>' +
+          '<form-builder-option property="tableView"   view="display"></form-builder-option>' +
         '</ng-form>'
       );
-
+      view = 'validate';
       $templateCache.put('formio/components/textfield/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
-          '<form-builder-option property="validate.minLength"></form-builder-option>' +
-          '<form-builder-option property="validate.maxLength"></form-builder-option>' +
-          '<form-builder-option property="validate.pattern"></form-builder-option>' +
+          '<form-builder-option property="validate.required" view="validate"></form-builder-option>' +
+          '<form-builder-option property="unique" view="validate"></form-builder-option>' +
+          '<form-builder-option property="validate.minLength" view="validate"></form-builder-option>' +
+          '<form-builder-option property="validate.maxLength" view="validate"></form-builder-option>' +
+          '<form-builder-option property="validate.pattern" view="validate"></form-builder-option>' +
           '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
@@ -12380,9 +12377,23 @@ module.exports = [
     // Add to scope so it can be used in templates
     $scope.dndDragIframeWorkaround = dndDragIframeWorkaround;
 
-    $scope.builderSettings = function(){
-        console.log("Builder Settings");
-    }
+    var builderSettings = $rootScope.builderSettings;
+
+    $scope.filterViews = function(){
+        if(!builderSettings) return;
+        this.formComponent.views = this.formComponent.views.filter(function(v){
+            return builderSettings.hasOwnProperty(this.type) &&
+                builderSettings[this.type].hasOwnProperty(v.name)
+        })
+    };
+
+    $scope.displayOption = function(view, option){
+        if(!builderSettings) return true;
+        return builderSettings.hasOwnProperty(this.type) &&
+            builderSettings[this.type].hasOwnProperty(view) &&
+            builderSettings[this.type][view][option];
+    };
+
   }
 ];
 
@@ -12454,6 +12465,9 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
     require: 'property',
     priority: 2,
     replace: true,
+    scope: {
+        view: '=?'
+    },
     template: function(el, attrs) {
       var formioTranslate = $filter('formioTranslate');
 
@@ -12502,7 +12516,12 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
                 input.prop('outerHTML') +
               '</div>';
     },
-    controller: ['$scope', function($scope, BuilderUtils) {
+    controller: ['$scope', function($scope) {
+        if(typeof $scope.displayOption === 'function'){
+            console.log($scope.formComponent, $scope.view);
+        }else{
+            console.log('No component scope');
+        }
 
     }]
   };

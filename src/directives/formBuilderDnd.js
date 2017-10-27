@@ -332,8 +332,22 @@ module.exports = [
     // Add to scope so it can be used in templates
     $scope.dndDragIframeWorkaround = dndDragIframeWorkaround;
 
-    $scope.builderSettings = function(){
-        console.log("Builder Settings");
-    }
+    var builderSettings = $rootScope.builderSettings;
+
+    $scope.filterViews = function(){
+        if(!builderSettings) return;
+        this.formComponent.views = this.formComponent.views.filter(function(v){
+            return builderSettings.hasOwnProperty(this.type) &&
+                builderSettings[this.type].hasOwnProperty(v.name)
+        })
+    };
+
+    $scope.displayOption = function(view, option){
+        if(!builderSettings) return true;
+        return builderSettings.hasOwnProperty(this.type) &&
+            builderSettings[this.type].hasOwnProperty(view) &&
+            builderSettings[this.type][view][option];
+    };
+
   }
 ];
