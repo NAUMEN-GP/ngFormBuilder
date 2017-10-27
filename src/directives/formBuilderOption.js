@@ -64,14 +64,6 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
                 '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' + formioTranslate(label) + '</label>' +
                 input.prop('outerHTML') +
               '</div>';
-    },
-    controller: ['$scope', function($scope) {
-        if(typeof $scope.displayOption === 'function'){
-            console.log($scope.formComponent, $scope.view);
-        }else{
-            console.log('No component scope');
-        }
-
-    }]
+    }
   };
 }];
