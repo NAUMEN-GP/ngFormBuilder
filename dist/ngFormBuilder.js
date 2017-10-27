@@ -11048,6 +11048,16 @@ module.exports = function(app) {
       });
     }
   ]);
+
+  app.controller(['$scope', function($scope) {
+    if(typeof $scope.builderSettings === 'function'){
+        $scope.builderSettings();
+    }else{
+        console.log("No builder settings for " + $scope.type)
+    }
+
+  }]);
+
   app.run([
     '$templateCache',
     function($templateCache) {
@@ -12489,7 +12499,10 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
                 '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' + formioTranslate(label) + '</label>' +
                 input.prop('outerHTML') +
               '</div>';
-    }
+    },
+    controller: ['$scope', function($scope, BuilderUtils) {
+
+    }]
   };
 }];
 

@@ -61,6 +61,9 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
                 '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' + formioTranslate(label) + '</label>' +
                 input.prop('outerHTML') +
               '</div>';
-    }
+    },
+    controller: ['$scope', function($scope, BuilderUtils) {
+
+    }]
   };
 }];

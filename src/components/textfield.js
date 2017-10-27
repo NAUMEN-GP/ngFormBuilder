@@ -37,6 +37,16 @@ module.exports = function(app) {
       });
     }
   ]);
+
+  app.controller(['$scope', function($scope) {
+    if(typeof $scope.builderSettings === 'function'){
+        $scope.builderSettings();
+    }else{
+        console.log("No builder settings for " + $scope.type)
+    }
+
+  }]);
+
   app.run([
     '$templateCache',
     function($templateCache) {
