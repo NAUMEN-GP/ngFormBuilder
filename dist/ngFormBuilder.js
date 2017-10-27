@@ -12379,6 +12379,10 @@ module.exports = [
 
     // Add to scope so it can be used in templates
     $scope.dndDragIframeWorkaround = dndDragIframeWorkaround;
+
+    $scope.builderSettings = function(){
+        console.log("Builder Settings");
+    }
   }
 ];
 
