@@ -13,6 +13,9 @@ module.exports = function(app) {
       });
       formioComponentsProvider.register('time', {
         icon: 'fa fa-clock-o',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: views,
         documentation: 'http://help.form.io/userguide/#time'
       });
@@ -23,21 +26,21 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/time/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="format"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="format" ng-if="displayOption(\'Display\', \'format\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }

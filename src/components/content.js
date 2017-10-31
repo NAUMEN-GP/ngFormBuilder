@@ -6,6 +6,9 @@ module.exports = function(app) {
         fbtemplate: 'formio/formbuilder/content.html',
         icon: 'fa fa-html5',
         documentation: 'http://help.form.io/userguide/#content-component',
+        onEdit: ['$scope', function($scope) {
+              $scope.filterViews();
+        }],
         controller: function(settings, $scope) {
           $scope.ckeditorOptions = {
             allowedContent: true,
@@ -60,7 +63,7 @@ module.exports = function(app) {
       );
       $templateCache.put('formio/components/common/display.html',
         '<ng-form>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
         '</ng-form>'
       );
     }

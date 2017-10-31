@@ -4,6 +4,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('custom', {
         icon: 'fa fa-cubes',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',

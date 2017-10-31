@@ -339,7 +339,8 @@ module.exports = [
         var ct = this.component.type;
         this.formComponent.views = this.formComponent.views.filter(function(v){
             return builderSettings.hasOwnProperty(ct) &&
-                builderSettings[ct].hasOwnProperty(v.name)
+                builderSettings[ct].view.hasOwnProperty(v) &&
+                builderSettings[ct].view[v].enabled
         })
     };
 
@@ -347,8 +348,9 @@ module.exports = [
         if(!builderSettings) return true;
         var ct = this.component.type;
         return builderSettings.hasOwnProperty(ct) &&
-            builderSettings[ct].hasOwnProperty(view) &&
-            builderSettings[ct][view][option];
+            builderSettings[ct].view.hasOwnProperty(view) &&
+            builderSettings[ct].view[view].enabled &&
+            builderSettings[ct].view[view].option[option];
     };
 
   }

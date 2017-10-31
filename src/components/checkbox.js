@@ -15,6 +15,7 @@ module.exports = function(app) {
               title: 'Radio'
             }
           ];
+          $scope.filterViews();
         }],
         views: [
           {
@@ -52,10 +53,10 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/checkbox/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'inputType\')">' +
             '<label for="inputType" form-builder-tooltip="This is the input type used for this checkbox.">{{\'Input Type\' | formioTranslate}}</label>' +
             '<select class="form-control" id="inputType" name="inputType" ng-options="inputType.name as inputType.title | formioTranslate for inputType in inputTypes" ng-model="component.inputType"></select>' +
           '</div>' +
@@ -67,23 +68,22 @@ module.exports = function(app) {
           '  <label for="value" form-builder-tooltip="The value used with this radio button.">{{\'Radio Value\' | formioTranslate}}</label>' +
           '  <input type="text" class="form-control" id="value" name="value" ng-model="component.value" placeholder="{{ component.value }}" />' +
           '</div>' +
-          '<form-builder-option property="datagridLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="datagridLabel" ng-if="displayOption(\'Display\', \'datagridLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/checkbox/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }

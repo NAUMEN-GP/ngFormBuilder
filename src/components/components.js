@@ -45,9 +45,9 @@ module.exports = function(app) {
 
       // Create the common API tab markup.
       $templateCache.put('formio/components/common/data.html',
-        '<form-builder-option property="defaultValue"></form-builder-option>' +
+        '<form-builder-option property="defaultValue" ng-if="displayOption(\'Data\', \'defaultValue\')"></form-builder-option>' +
         '<uib-accordion>' +
-        '  <div uib-accordion-group heading="Custom Default Value" class="panel panel-default">' +
+        '  <div uib-accordion-group heading="Custom Default Value" class="panel panel-default" ng-if="displayOption(\'Data\', \'customDefaultValue\')">' +
         '    <uib-accordion>' +
         '      <div uib-accordion-group heading="JavaScript Default" class="panel panel-default" is-open="true">' +
         '        <formio-script-editor rows="5" id="customDefaultValue" name="customDefaultValue" ng-model="component.customDefaultValue" placeholder="/*** Example Code ***/\nvalue = data[\'mykey\'] + data[\'anotherKey\'];"></formio-script-editor>' +
@@ -68,7 +68,7 @@ module.exports = function(app) {
         '      </div>' +
         '    </uib-accordion>' +
         '  </div>' +
-        '  <div uib-accordion-group heading="Calculated Value" class="panel panel-default">' +
+        '  <div uib-accordion-group heading="Calculated Value" class="panel panel-default" ng-if="displayOption(\'Data\', \'calculatedValue\')">' +
         '    <uib-accordion>' +
         '      <div uib-accordion-group heading="JavaScript Value" class="panel panel-default" is-open="true">' +
         '        <formio-script-editor rows="5" id="calculateValue" name="calculateValue" ng-model="component.calculateValue" placeholder="/*** Example Code ***/\nvalue = data[\'mykey\'] + data[\'anotherKey\'];"></formio-script-editor>' +
@@ -94,8 +94,8 @@ module.exports = function(app) {
       // Create the common API tab markup.
       $templateCache.put('formio/components/common/api.html',
         '<ng-form>' +
-          '<form-builder-option-key></form-builder-option-key>' +
-          '<form-builder-option-tags></form-builder-option-tags>' +
+          '<form-builder-option-key ng-if="displayOption(\'API\', \'optionKey\')"></form-builder-option-key>' +
+          '<form-builder-option-tags ng-if="displayOption(\'API\', \'optionTags\')"></form-builder-option-tags>' +
           '<uib-accordion>' +
             '<div uib-accordion-group heading="Custom Properties" class="panel panel-default">' +
               '<object-builder data="component.properties" label="Custom Properties" tooltip-text="This allows you to configure any custom properties for this component." />' +
@@ -108,29 +108,29 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/layout.html',
         '<ng-form>' +
           // Need to use array notation to have dash in name
-          '<form-builder-option property="style[\'margin-top\']"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-right\']"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-bottom\']"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-left\']"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-top\']" ng-if="displayOption(\'Layout\', \'marginTop\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-right\']" ng-if="displayOption(\'Layout\', \'marginRight\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-bottom\']" ng-if="displayOption(\'Layout\', \'marginBottom\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-left\']" ng-if="displayOption(\'Layout\', \'marginLeft\')"></form-builder-option>' +
           '<uib-accordion>' +
           '  <div uib-accordion-group heading="Overlay" class="panel panel-default">' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayStyle\')">' +
           '      <label for="overlay-style">Style</label>' +
           '      <input class="form-control" id="overlay-style" name="overlay-style" ng-model="component.overlay.style"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayLeft\')">' +
           '      <label for="overlay-left">Left</label>' +
           '      <input class="form-control" id="overlay-left" name="overlay-left" ng-model="component.overlay.left"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayRight\')">' +
           '      <label for="overlay-right">Top</label>' +
           '      <input class="form-control" id="overlay-top" name="overlay-top" ng-model="component.overlay.top"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayWidth\')">' +
           '      <label for="overlay-width">Width</label>' +
           '      <input class="form-control" id="overlay-width" name="overlay-width" ng-model="component.overlay.width"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayHeight\')">' +
           '      <label for="overlay-height">Height</label>' +
           '      <input class="form-control" id="overlay-height" name="overlay-height" ng-model="component.overlay.height"></input>' +
           '    </div>' +
@@ -141,7 +141,7 @@ module.exports = function(app) {
 
       // Create the common Layout tab markup.
       $templateCache.put('formio/components/common/conditional.html',
-        '<form-builder-conditional></form-builder-conditional>'
+        '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')></form-builder-conditional>'
       );
 
       $templateCache.put('formio/components/common/customSettings.html',

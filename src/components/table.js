@@ -8,6 +8,9 @@ module.exports = function(app) {
         noDndOverlay: true,
         confirmRemove: true,
         icon: 'fa fa-table',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -56,12 +59,12 @@ module.exports = function(app) {
       $templateCache.put('formio/components/table/display.html',
         '<ng-form>' +
           '<form-builder-table></form-builder-table>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="striped"></form-builder-option>' +
-          '<form-builder-option property="bordered"></form-builder-option>' +
-          '<form-builder-option property="hover"></form-builder-option>' +
-          '<form-builder-option property="condensed"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="striped" ng-if="displayOption(\'Display\', \'striped\')"></form-builder-option>' +
+          '<form-builder-option property="bordered" ng-if="displayOption(\'Display\', \'bordered\')"></form-builder-option>' +
+          '<form-builder-option property="hover" ng-if="displayOption(\'Display\', \'hover\')"></form-builder-option>' +
+          '<form-builder-option property="condensed" ng-if="displayOption(\'Display\', \'condensed\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }

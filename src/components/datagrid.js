@@ -5,6 +5,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('datagrid', {
         fbtemplate: 'formio/formbuilder/datagrid.html',
         icon: 'fa fa-th',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -35,29 +38,29 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/datagrid/display.html',
         '<ng-form>' +
-        '<form-builder-option property="label"></form-builder-option>' +
-        '<form-builder-option property="tooltip"></form-builder-option>' +
-        '<form-builder-option property="errorLabel"></form-builder-option>' +
-        '<form-builder-option property="addAnother"></form-builder-option>' +
-        '<form-builder-option property="customClass"></form-builder-option>' +
-        '<form-builder-option property="striped"></form-builder-option>' +
-        '<form-builder-option property="bordered"></form-builder-option>' +
-        '<form-builder-option property="hover"></form-builder-option>' +
-        '<form-builder-option property="condensed"></form-builder-option>' +
-        '<form-builder-option property="clearOnHide"></form-builder-option>' +
-        '<form-builder-option property="protected"></form-builder-option>' +
-        '<form-builder-option property="persistent"></form-builder-option>' +
-        '<form-builder-option property="hidden"></form-builder-option>' +
-        '<form-builder-option property="disabled"></form-builder-option>' +
-        '<form-builder-option property="tableView"></form-builder-option>' +
+        '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+        '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+        '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+        '<form-builder-option property="addAnother" ng-if="displayOption(\'Display\', \'addAnother\')"></form-builder-option>' +
+        '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+        '<form-builder-option property="striped" ng-if="displayOption(\'Display\', \'striped\')"></form-builder-option>' +
+        '<form-builder-option property="bordered" ng-if="displayOption(\'Display\', \'bordered\')"></form-builder-option>' +
+        '<form-builder-option property="hover" ng-if="displayOption(\'Display\', \'hover\')"></form-builder-option>' +
+        '<form-builder-option property="condensed" ng-if="displayOption(\'Display\', \'condensed\')"></form-builder-option>' +
+        '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+        '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+        '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+        '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+        '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+        '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/datagrid/validate.html',
         '<ng-form>' +
-        '<form-builder-option property="validate.minLength"></form-builder-option>' +
-        '<form-builder-option property="validate.maxLength"></form-builder-option>' +
-        '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+        '<form-builder-option property="validate.minLength" ng-if="displayOption(\'Validation\', \'validate.minLength\')"></form-builder-option>' +
+        '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'Validation\', \'validate.maxLength\')"></form-builder-option>' +
+        '<form-builder-option-custom-validation  ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }

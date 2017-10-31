@@ -8209,6 +8209,9 @@ module.exports = function(app) {
     'formioComponentsProvider',
     function(formioComponentsProvider) {
       formioComponentsProvider.register('address', {
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         icon: 'fa fa-home',
         views: [
           {
@@ -8242,35 +8245,34 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/address/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'mapRegion\')">' +
             '<label for="mapRegion" form-builder-tooltip="The region bias to use for this search. See <a href=\'https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes\' target=\'_blank\'>Region Biasing</a> for more information.">{{\'Region Bias\' | formioTranslate}}</label>' +
             '<input type="text" class="form-control" id="mapRegion" name="mapRegion" ng-model="component.map.region" placeholder="Dallas" />' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group"  ng-if="displayOption(\'Display\', \'mapKey\')">' +
             '<label for="mapKey" form-builder-tooltip="The API key for Google Maps. See <a href=\'https://developers.google.com/maps/documentation/geocoding/get-api-key\' target=\'_blank\'>Get an API Key</a> for more information.">{{\'Google Maps API Key\' | formioTranslate}}</label>' +
             '<input type="text" class="form-control" id="mapKey" name="mapKey" ng-model="component.map.key" placeholder="xxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxx"/>' +
           '</div>' +
-          '<form-builder-option property="multiple" label="Allow Multiple Addresses"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')" label="Allow Multiple Addresses"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/address/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -8292,6 +8294,7 @@ module.exports = function(app) {
           $scope.actions = FORM_OPTIONS.actions;
           $scope.sizes = FORM_OPTIONS.sizes;
           $scope.themes = FORM_OPTIONS.themes;
+          $scope.filterViews();
         }],
         icon: 'fa fa-stop',
         views: [
@@ -8322,8 +8325,8 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/button/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'action\')">' +
             '<label for="action" form-builder-tooltip="This is the action to be performed by this button.">{{\'Action\' | formioTranslate}}</label>' +
             '<select class="form-control" id="action" name="action" ng-options="action.name as action.title | formioTranslate for action in actions" ng-model="component.action"></select>' +
           '</div>' +
@@ -8335,21 +8338,21 @@ module.exports = function(app) {
           '  <label for="custom" form-builder-tooltip="The custom logic to evaluate when the button is clicked.">{{\'Button Custom Logic\' | formioTranslate}}</label>' +
           '  <formio-script-editor rows="10" id="custom" name="custom" ng-model="component.custom" placeholder="/*** Example Code ***/\ndata[\'mykey\'] = data[\'anotherKey\'];"></formio-script-editor>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'theme\')">' +
             '<label for="theme" form-builder-tooltip="The color theme of this panel.">{{\'Theme\' | formioTranslate}}</label>' +
             '<select class="form-control" id="theme" name="theme" ng-options="theme.name as theme.title | formioTranslate for theme in themes" ng-model="component.theme"></select>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'size\')">' +
             '<label for="size" form-builder-tooltip="The size of this button.">{{\'Size\' | formioTranslate}}</label>' +
             '<select class="form-control" id="size" name="size" ng-options="size.name as size.title | formioTranslate for size in sizes" ng-model="component.size"></select>' +
           '</div>' +
-          '<form-builder-option property="leftIcon"></form-builder-option>' +
-          '<form-builder-option property="rightIcon"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="block"></form-builder-option>' +
-          '<form-builder-option property="disableOnInvalid"></form-builder-option>' +
+          '<form-builder-option property="leftIcon" ng-if="displayOption(\'Display\', \'leftIcon\')"></form-builder-option>' +
+          '<form-builder-option property="rightIcon" ng-if="displayOption(\'Display\', \'rightIcon\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="block" ng-if="displayOption(\'Display\', \'block\')"></form-builder-option>' +
+          '<form-builder-option property="disableOnInvalid" ng-if="displayOption(\'Display\', \'disableOnInvalid\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -8375,6 +8378,7 @@ module.exports = function(app) {
               title: 'Radio'
             }
           ];
+          $scope.filterViews();
         }],
         views: [
           {
@@ -8412,10 +8416,10 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/checkbox/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'inputType\')">' +
             '<label for="inputType" form-builder-tooltip="This is the input type used for this checkbox.">{{\'Input Type\' | formioTranslate}}</label>' +
             '<select class="form-control" id="inputType" name="inputType" ng-options="inputType.name as inputType.title | formioTranslate for inputType in inputTypes" ng-model="component.inputType"></select>' +
           '</div>' +
@@ -8427,23 +8431,22 @@ module.exports = function(app) {
           '  <label for="value" form-builder-tooltip="The value used with this radio button.">{{\'Radio Value\' | formioTranslate}}</label>' +
           '  <input type="text" class="form-control" id="value" name="value" ng-model="component.value" placeholder="{{ component.value }}" />' +
           '</div>' +
-          '<form-builder-option property="datagridLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="datagridLabel" ng-if="displayOption(\'Display\', \'datagridLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/checkbox/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -8464,6 +8467,7 @@ module.exports = function(app) {
           $scope.addColumn = function() {
             $scope.component.columns.push({components: [], width: 1, offset: 0, push: 0, pull: 0});
           };
+          $scope.filterViews();
         }],
         fbtemplate: 'formio/formbuilder/columns.html',
         icon: 'fa fa-columns',
@@ -8582,9 +8586,9 @@ module.exports = function(app) {
 
       // Create the common API tab markup.
       $templateCache.put('formio/components/common/data.html',
-        '<form-builder-option property="defaultValue"></form-builder-option>' +
+        '<form-builder-option property="defaultValue" ng-if="displayOption(\'Data\', \'defaultValue\')"></form-builder-option>' +
         '<uib-accordion>' +
-        '  <div uib-accordion-group heading="Custom Default Value" class="panel panel-default">' +
+        '  <div uib-accordion-group heading="Custom Default Value" class="panel panel-default" ng-if="displayOption(\'Data\', \'customDefaultValue\')">' +
         '    <uib-accordion>' +
         '      <div uib-accordion-group heading="JavaScript Default" class="panel panel-default" is-open="true">' +
         '        <formio-script-editor rows="5" id="customDefaultValue" name="customDefaultValue" ng-model="component.customDefaultValue" placeholder="/*** Example Code ***/\nvalue = data[\'mykey\'] + data[\'anotherKey\'];"></formio-script-editor>' +
@@ -8605,7 +8609,7 @@ module.exports = function(app) {
         '      </div>' +
         '    </uib-accordion>' +
         '  </div>' +
-        '  <div uib-accordion-group heading="Calculated Value" class="panel panel-default">' +
+        '  <div uib-accordion-group heading="Calculated Value" class="panel panel-default" ng-if="displayOption(\'Data\', \'calculatedValue\')">' +
         '    <uib-accordion>' +
         '      <div uib-accordion-group heading="JavaScript Value" class="panel panel-default" is-open="true">' +
         '        <formio-script-editor rows="5" id="calculateValue" name="calculateValue" ng-model="component.calculateValue" placeholder="/*** Example Code ***/\nvalue = data[\'mykey\'] + data[\'anotherKey\'];"></formio-script-editor>' +
@@ -8631,8 +8635,8 @@ module.exports = function(app) {
       // Create the common API tab markup.
       $templateCache.put('formio/components/common/api.html',
         '<ng-form>' +
-          '<form-builder-option-key></form-builder-option-key>' +
-          '<form-builder-option-tags></form-builder-option-tags>' +
+          '<form-builder-option-key ng-if="displayOption(\'API\', \'optionKey\')"></form-builder-option-key>' +
+          '<form-builder-option-tags ng-if="displayOption(\'API\', \'optionTags\')"></form-builder-option-tags>' +
           '<uib-accordion>' +
             '<div uib-accordion-group heading="Custom Properties" class="panel panel-default">' +
               '<object-builder data="component.properties" label="Custom Properties" tooltip-text="This allows you to configure any custom properties for this component." />' +
@@ -8645,29 +8649,29 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/layout.html',
         '<ng-form>' +
           // Need to use array notation to have dash in name
-          '<form-builder-option property="style[\'margin-top\']"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-right\']"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-bottom\']"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-left\']"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-top\']" ng-if="displayOption(\'Layout\', \'marginTop\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-right\']" ng-if="displayOption(\'Layout\', \'marginRight\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-bottom\']" ng-if="displayOption(\'Layout\', \'marginBottom\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-left\']" ng-if="displayOption(\'Layout\', \'marginLeft\')"></form-builder-option>' +
           '<uib-accordion>' +
           '  <div uib-accordion-group heading="Overlay" class="panel panel-default">' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayStyle\')">' +
           '      <label for="overlay-style">Style</label>' +
           '      <input class="form-control" id="overlay-style" name="overlay-style" ng-model="component.overlay.style"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayLeft\')">' +
           '      <label for="overlay-left">Left</label>' +
           '      <input class="form-control" id="overlay-left" name="overlay-left" ng-model="component.overlay.left"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayRight\')">' +
           '      <label for="overlay-right">Top</label>' +
           '      <input class="form-control" id="overlay-top" name="overlay-top" ng-model="component.overlay.top"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayWidth\')">' +
           '      <label for="overlay-width">Width</label>' +
           '      <input class="form-control" id="overlay-width" name="overlay-width" ng-model="component.overlay.width"></input>' +
           '    </div>' +
-          '    <div class="form-group">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayHeight\')">' +
           '      <label for="overlay-height">Height</label>' +
           '      <input class="form-control" id="overlay-height" name="overlay-height" ng-model="component.overlay.height"></input>' +
           '    </div>' +
@@ -8678,7 +8682,7 @@ module.exports = function(app) {
 
       // Create the common Layout tab markup.
       $templateCache.put('formio/components/common/conditional.html',
-        '<form-builder-conditional></form-builder-conditional>'
+        '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')></form-builder-conditional>'
       );
 
       $templateCache.put('formio/components/common/customSettings.html',
@@ -8699,6 +8703,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('container', {
         fbtemplate: 'formio/formbuilder/container.html',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -8758,6 +8765,9 @@ module.exports = function(app) {
         fbtemplate: 'formio/formbuilder/content.html',
         icon: 'fa fa-html5',
         documentation: 'http://help.form.io/userguide/#content-component',
+        onEdit: ['$scope', function($scope) {
+              $scope.filterViews();
+        }],
         controller: function(settings, $scope) {
           $scope.ckeditorOptions = {
             allowedContent: true,
@@ -8812,7 +8822,7 @@ module.exports = function(app) {
       );
       $templateCache.put('formio/components/common/display.html',
         '<ng-form>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -8827,6 +8837,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('currency', {
         icon: 'fa fa-usd',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -8863,28 +8876,28 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/currency/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="prefix"></form-builder-option>' +
-          '<form-builder-option property="suffix"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="prefix" ng-if="displayOption(\'Display\', \'prefix\')"></form-builder-option>' +
+          '<form-builder-option property="suffix" ng-if="displayOption(\'Display\', \'suffix\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       // Create the API markup.
       $templateCache.put('formio/components/currency/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -8899,6 +8912,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('custom', {
         icon: 'fa fa-cubes',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -8963,6 +8979,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('datagrid', {
         fbtemplate: 'formio/formbuilder/datagrid.html',
         icon: 'fa fa-th',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -8993,29 +9012,29 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/datagrid/display.html',
         '<ng-form>' +
-        '<form-builder-option property="label"></form-builder-option>' +
-        '<form-builder-option property="tooltip"></form-builder-option>' +
-        '<form-builder-option property="errorLabel"></form-builder-option>' +
-        '<form-builder-option property="addAnother"></form-builder-option>' +
-        '<form-builder-option property="customClass"></form-builder-option>' +
-        '<form-builder-option property="striped"></form-builder-option>' +
-        '<form-builder-option property="bordered"></form-builder-option>' +
-        '<form-builder-option property="hover"></form-builder-option>' +
-        '<form-builder-option property="condensed"></form-builder-option>' +
-        '<form-builder-option property="clearOnHide"></form-builder-option>' +
-        '<form-builder-option property="protected"></form-builder-option>' +
-        '<form-builder-option property="persistent"></form-builder-option>' +
-        '<form-builder-option property="hidden"></form-builder-option>' +
-        '<form-builder-option property="disabled"></form-builder-option>' +
-        '<form-builder-option property="tableView"></form-builder-option>' +
+        '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+        '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+        '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+        '<form-builder-option property="addAnother" ng-if="displayOption(\'Display\', \'addAnother\')"></form-builder-option>' +
+        '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+        '<form-builder-option property="striped" ng-if="displayOption(\'Display\', \'striped\')"></form-builder-option>' +
+        '<form-builder-option property="bordered" ng-if="displayOption(\'Display\', \'bordered\')"></form-builder-option>' +
+        '<form-builder-option property="hover" ng-if="displayOption(\'Display\', \'hover\')"></form-builder-option>' +
+        '<form-builder-option property="condensed" ng-if="displayOption(\'Display\', \'condensed\')"></form-builder-option>' +
+        '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+        '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+        '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+        '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+        '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+        '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/datagrid/validate.html',
         '<ng-form>' +
-        '<form-builder-option property="validate.minLength"></form-builder-option>' +
-        '<form-builder-option property="validate.maxLength"></form-builder-option>' +
-        '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+        '<form-builder-option property="validate.minLength" ng-if="displayOption(\'Validation\', \'validate.minLength\')"></form-builder-option>' +
+        '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'Validation\', \'validate.maxLength\')"></form-builder-option>' +
+        '<form-builder-option-custom-validation  ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -9075,6 +9094,7 @@ module.exports = function(app) {
               label: 'Year'
             }
           ];
+          $scope.filterViews();
         }],
         icon: 'fa fa-calendar-plus-o',
         views: [
@@ -9117,69 +9137,69 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/datetime/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="defaultDate"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="format" label="Date Format" placeholder="Enter the Date format" title="The format for displaying this field\'s date. The format must be specified like the <a href=\'https://docs.angularjs.org/api/ng/filter/date\' target=\'_blank\'>AngularJS date filter</a>."></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="defaultDate" ng-if="displayOption(\'Display\', \'defaultDate\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="format" ng-if="displayOption(\'Display\', \'format\')" label="Date Format" placeholder="Enter the Date format" title="The format for displaying this field\'s date. The format must be specified like the <a href=\'https://docs.angularjs.org/api/ng/filter/date\' target=\'_blank\'>AngularJS date filter</a>."></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/datetime/date.html',
         '<ng-form>' +
-          '<div class="checkbox">' +
+          '<div class="checkbox" ng-if="displayOption(\'Date\', \'enableDate\')">' +
             '<label form-builder-tooltip="Enables date input for this field.">' +
               '<input type="checkbox" id="enableDate" name="enableDate" ng-model="component.enableDate" ng-checked="component.enableDate" ng-change="setFormat()"> {{\'Enable Date Input\' | formioTranslate}}' +
             '</label>' +
           '</div>' +
-          '<form-builder-option property="datePicker.minDate"></form-builder-option>' +
-          '<form-builder-option property="datePicker.maxDate"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option ng-if="displayOption(\'Date\', \'datePicker.minDate\')" property="datePicker.minDate"></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Date\', \'datePicker.maxDate\')" property="datePicker.maxDate"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Date\', \'startingDay\')">' +
             '<label for="startingDay" form-builder-tooltip="The first day of the week.">{{\'Starting Day\' | formioTranslate}}</label>' +
             '<select class="form-control" id="startingDay" name="startingDay" ng-model="component.datePicker.startingDay" ng-options="idx as day | formioTranslate for (idx, day) in startingDays"></select>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Date\', \'minMode\')">' +
             '<label for="minMode" form-builder-tooltip="The smallest unit of time view to display in the date picker.">{{\'Minimum Mode\' | formioTranslate}}</label>' +
             '<select class="form-control" id="minMode" name="minMode" ng-model="component.datePicker.minMode" ng-options="mode.name as mode.label | formioTranslate for mode in modes"></select>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Date\', \'maxMode\')">' +
             '<label for="maxMode" form-builder-tooltip="The largest unit of time view to display in the date picker.">{{\'Maximum Mode\' | formioTranslate}}</label>' +
             '<select class="form-control" id="maxMode" name="maxMode" ng-model="component.datePicker.maxMode" ng-options="mode.name as mode.label | formioTranslate for mode in modes"></select>' +
           '</div>' +
-          '<form-builder-option property="datePicker.yearRows" label="Number of Years Displayed (Rows)" placeholder="Year Range (Rows)" title="The number of years to display in the years view (Rows)."></form-builder-option>' +
-          '<form-builder-option property="datePicker.yearColumns" label="Number of Years Displayed (Columns)" placeholder="Year Range (Columns)" title="The number of years to display in the years view (Columns)."></form-builder-option>' +
-          '<form-builder-option property="datePicker.showWeeks" type="checkbox" label="Show Week Numbers" title="Displays the week numbers on the date picker."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Date\', \'datePicker.yearRows\')" property="datePicker.yearRows" label="Number of Years Displayed (Rows)" placeholder="Year Range (Rows)" title="The number of years to display in the years view (Rows)."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Date\', \'datePicker.yearColumns\')" property="datePicker.yearColumns" label="Number of Years Displayed (Columns)" placeholder="Year Range (Columns)" title="The number of years to display in the years view (Columns)."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Date\', \'datePicker.showWeeks\')" property="datePicker.showWeeks" type="checkbox" label="Show Week Numbers" title="Displays the week numbers on the date picker."></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/datetime/time.html',
         '<ng-form>' +
-          '<div class="checkbox">' +
+          '<div class="checkbox" ng-if="displayOption(\'Time\', \'enableTime\')">' +
             '<label form-builder-tooltip="Enables time input for this field.">' +
               '<input type="checkbox" id="enableTime" name="enableTime" ng-model="component.enableTime" ng-checked="component.enableTime" ng-change="setFormat()"> {{\'Enable Time Input\' | formioTranslate}}' +
             '</label>' +
           '</div>' +
-          '<form-builder-option property="timePicker.hourStep" type="number" label="Hour Step Size" title="The number of hours to increment/decrement in the time picker."></form-builder-option>' +
-          '<form-builder-option property="timePicker.minuteStep" type="number" label="Minute Step Size" title="The number of minutes to increment/decrement in the time picker."></form-builder-option>' +
-          '<form-builder-option property="timePicker.showMeridian" type="checkbox" label="12 Hour Time (AM/PM)" title="Display time in 12 hour time with AM/PM."></form-builder-option>' +
-          '<form-builder-option property="timePicker.readonlyInput" type="checkbox" label="Read-Only Input" title="Makes the time picker input boxes read-only. The time can only be changed by the increment/decrement buttons."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Time\', \'timePicker.hourStep\')" property="timePicker.hourStep" type="number" label="Hour Step Size" title="The number of hours to increment/decrement in the time picker."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Time\', \'timePicker.minuteStep\')" property="timePicker.minuteStep" type="number" label="Minute Step Size" title="The number of minutes to increment/decrement in the time picker."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Time\', \'timePicker.showMeridian\')" property="timePicker.showMeridian" type="checkbox" label="12 Hour Time (AM/PM)" title="Display time in 12 hour time with AM/PM."></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Time\', \'timePicker.readonlyInput\')" property="timePicker.readonlyInput" type="checkbox" label="Read-Only Input" title="Makes the time picker input boxes read-only. The time can only be changed by the increment/decrement buttons."></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/datetime/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -9194,6 +9214,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('day', {
         icon: 'fa fa-calendar',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -9230,34 +9253,33 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/day/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="fields.day.placeholder" label="Day Placeholder"></form-builder-option>' +
-          '<form-builder-option property="fields.month.placeholder" label="Month Placeholder"></form-builder-option>' +
-          '<form-builder-option property="fields.year.placeholder" label="Year Placeholder"></form-builder-option>' +
-          '<form-builder-option property="dayFirst" type="checkbox" label="Day first" title="Display the Day field before the Month field."></form-builder-option>' +
-          '<form-builder-option property="fields.day.hide" type="checkbox" label="Hide Day" title="Hide the day part of the component."></form-builder-option>' +
-          '<form-builder-option property="fields.month.hide" type="checkbox" label="Hide Month" title="Hide the month part of the component."></form-builder-option>' +
-          '<form-builder-option property="fields.year.hide" type="checkbox" label="Hide Year" title="Hide the year part of the component."></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="fields.day.placeholder" ng-if="displayOption(\'Display\', \'fields.day.placeholder\')" label="Day Placeholder"></form-builder-option>' +
+          '<form-builder-option property="fields.month.placeholder" ng-if="displayOption(\'Display\', \'fields.month.placeholder\')" label="Month Placeholder"></form-builder-option>' +
+          '<form-builder-option property="fields.year.placeholder" ng-if="displayOption(\'Display\', \'fields.year.placeholder\')" label="Year Placeholder"></form-builder-option>' +
+          '<form-builder-option property="dayFirst" ng-if="displayOption(\'Display\', \'dayFirst\')" type="checkbox" label="Day first" title="Display the Day field before the Month field."></form-builder-option>' +
+          '<form-builder-option property="fields.day.hide" ng-if="displayOption(\'Display\', \'fields.day.hide\')" type="checkbox" label="Hide Day" title="Hide the day part of the component."></form-builder-option>' +
+          '<form-builder-option property="fields.month.hide" ng-if="displayOption(\'Display\', \'fields.month.hide\')" type="checkbox" label="Hide Month" title="Hide the month part of the component."></form-builder-option>' +
+          '<form-builder-option property="fields.year.hide" ng-if="displayOption(\'Display\', \'fields.year.hide\')" type="checkbox" label="Hide Year" title="Hide the year part of the component."></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/day/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="fields.day.required" label="Require Day" type="checkbox"></form-builder-option>' +
-          '<form-builder-option property="fields.month.required" label="Require Month" type="checkbox"></form-builder-option>' +
-          '<form-builder-option property="fields.year.required" label="Require Year" type="checkbox"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="fields.day.required" ng-if="displayOption(\'Validation\', \'fields.day.required\')" label="Require Day" type="checkbox"></form-builder-option>' +
+          '<form-builder-option property="fields.month.required" ng-if="displayOption(\'Validation\', \'fields.month.required\')" label="Require Month" type="checkbox"></form-builder-option>' +
+          '<form-builder-option property="fields.year.required" ng-if="displayOption(\'Validation\', \'fields.year.required\')" label="Require Year" type="checkbox"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -9273,6 +9295,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('editgrid', {
         fbtemplate: 'formio/formbuilder/editgrid.html',
         icon: 'fa fa-tasks',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -9307,39 +9332,39 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/editgrid/display.html',
         '<ng-form>' +
-        '<form-builder-option property="label"></form-builder-option>' +
-        '<form-builder-option property="tooltip"></form-builder-option>' +
-        '<form-builder-option property="clearOnHide"></form-builder-option>' +
-        '<form-builder-option property="protected"></form-builder-option>' +
-        '<form-builder-option property="persistent"></form-builder-option>' +
-        '<form-builder-option property="hidden"></form-builder-option>' +
-        '<form-builder-option property="disabled"></form-builder-option>' +
-        '<form-builder-option property="tableView"></form-builder-option>' +
+        '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+        '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+        '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+        '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+        '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+        '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+        '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+        '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/editgrid/templates.html',
         '<ng-form>' +
-        '<div class="form-group">' +
+        '<div class="form-group" ng-if="displayOption(\'Templates\', \'headerTemplate\')">' +
         '  <label for="headerTemplate">{{\'Header Template\' | formioTranslate}}</label>' +
         '  <textarea class="form-control" rows="3" name="headerTemplate" ng-model="component.templates.header" placeholder="/*** Lodash Template Code ***/"></textarea>' +
         '  <p class="text-muted">Two available variables. "value" is the array of row data and "components" is the array of components in the grid.</p>' +
         '</div>' +
-        '<div class="form-group">' +
+        '<div class="form-group" ng-if="displayOption(\'Templates\', \'rowTemplate\')">' +
         '  <label for="rowTemplate">{{\'Row Template\' | formioTranslate}}</label>' +
         '  <textarea class="form-control" rows="6" name="rowTemplate" ng-model="component.templates.row" placeholder="/*** Lodash Template Code ***/"></textarea>' +
         '  <p class="text-muted">Two available variables. "row" is an object of one row\'s data and "components" is the array of components in the grid. To add click events, add the classes "editRow" and "removeRow" to elements.</p>' +
         '</div>' +
-        '<div class="form-group">' +
+        '<div class="form-group" ng-if="displayOption(\'Templates\', \'footerTemplate\')">' +
         '  <label for="footerTemplate">{{\'Footer Template\' | formioTranslate}}</label>' +
         '  <textarea class="form-control" rows="3" name="footerTemplate" ng-model="component.templates.footer" placeholder="/*** Lodash Template Code ***/"></textarea>' +
         '  <p class="text-muted">Two available variables. "value" is the array of row data and "components" is the array of components in the grid.</p>' +
         '</div>' +
-        '<form-builder-option property="customClass"></form-builder-option>' +
-        '<form-builder-option property="rowClass"></form-builder-option>' +
-        '<form-builder-option property="addAnother"></form-builder-option>' +
-        '<form-builder-option property="saveRow"></form-builder-option>' +
-        '<form-builder-option property="removeRow"></form-builder-option>' +
+        '<form-builder-option property="customClass" ng-if="displayOption(\'Templates\', \'customClass\')"></form-builder-option>' +
+        '<form-builder-option property="rowClass" ng-if="displayOption(\'Templates\', \'rowClass\')"></form-builder-option>' +
+        '<form-builder-option property="addAnother" ng-if="displayOption(\'Templates\', \'addAnother\')"></form-builder-option>' +
+        '<form-builder-option property="saveRow" ng-if="displayOption(\'Templates\', \'saveRow\')"></form-builder-option>' +
+        '<form-builder-option property="removeRow" ng-if="displayOption(\'Templates\', \'removeRow\')"></form-builder-option>' +
         '</ng-form>'
       );
 
@@ -9352,7 +9377,7 @@ module.exports = function(app) {
         '      <p>You must assign the <strong>valid</strong> variable as either <strong>true</strong> or an error message if validation fails.</p>' +
         '      <p>The variables <strong>row</strong>, <strong>component</strong>, and <strong>valid</strong> are provided.</p>' +
         '    </small>' +
-        '    <form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+        '    <form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
 
@@ -9386,6 +9411,9 @@ module.exports = function(app) {
       });
       formioComponentsProvider.register('email', {
         icon: 'fa fa-at',
+        onEdit: ['$scope', function($scope) {
+              $scope.filterViews();
+        }],
         views: views,
         documentation: 'http://help.form.io/userguide/#email'
       });
@@ -9396,9 +9424,9 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/email/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
-          '<div class="panel panel-default">' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
+          '<div class="panel panel-default" ng-if="displayOption(\'Validation\', \'kickboxEnable\')>' +
             '<div class="panel-heading"><h3 class="panel-title">{{\'Kickbox\' | formioTranslate}}</h3></div>' +
             '<div class="panel-body">' +
               '<p>{{\'Validate this email using the Kickbox email validation service.\' | formioTranslate}}</p>' +
@@ -9409,10 +9437,10 @@ module.exports = function(app) {
               '</div>' +
             '</div>' +
           '</div>' +
-          '<form-builder-option property="validate.minLength"></form-builder-option>' +
-          '<form-builder-option property="validate.maxLength"></form-builder-option>' +
-          '<form-builder-option property="validate.pattern"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.minLength" ng-if="displayOption(\'Validation\', \'validate.minLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'Validation\', \'validate.maxLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.pattern" ng-if="displayOption(\'Validation\', \'validate.pattern\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -9428,6 +9456,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('fieldset', {
         fbtemplate: 'formio/formbuilder/fieldset.html',
         icon: 'fa fa-th-large',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -9469,10 +9500,10 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/fieldset/display.html',
         '<ng-form>' +
-          '<form-builder-option property="legend" label="Legend" placeholder="FieldSet Legend" title="The legend text to appear above this fieldset."></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="legend" ng-if="displayOption(\'Display\', \'legend\')" label="Legend" placeholder="FieldSet Legend" title="The legend text to appear above this fieldset."></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -9500,6 +9531,7 @@ module.exports = function(app) {
                 name: key
               };
             });
+            $scope.filterViews();
           }
         ],
         icon: 'fa fa-file',
@@ -9535,32 +9567,31 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/file/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'storage\')">' +
             '<label for="storage" form-builder-tooltip="Which storage to save the files in.">{{\'Storage\' | formioTranslate}}</label>' +
             '<select class="form-control" id="storage" name="storage" ng-options="store.name as store.title | formioTranslate for store in storage" ng-model="component.storage"></select>' +
           '</div>' +
           '<form-builder-option property="url" ng-show="component.storage === \'url\'"></form-builder-option>' +
-          '<form-builder-option property="dir"></form-builder-option>' +
-          '<form-builder-option property="image"></form-builder-option>' +
+          '<form-builder-option property="dir" ng-if="displayOption(\'Display\', \'dir\')"></form-builder-option>' +
+          '<form-builder-option property="image" ng-if="displayOption(\'Display\', \'image\')"></form-builder-option>' +
           '<form-builder-option property="imageSize" ng-if="component.image"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/file/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -9616,6 +9647,7 @@ module.exports = function(app) {
               $scope.component.form = forms[0]._id;
             }
           });
+          $scope.filterViews();
         }]
       });
 
@@ -9667,16 +9699,16 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/form/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label" label="Name" placeholder="Enter the name for this form field" title="The name for this field. It is only used for administrative purposes such as generating the automatic property name in the API tab (which may be changed manually)."></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')" label="Name" placeholder="Enter the name for this form field" title="The name for this field. It is only used for administrative purposes such as generating the automatic property name in the API tab (which may be changed manually)."></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'form\')">' +
             '<label for="form" form-builder-tooltip="The form to load within this form component..">{{\'Form\' | formioTranslate}}</label>' +
             '<select class="form-control" id="form" name="form" ng-options="value._id as value.title for value in forms" ng-model="component.form"></select>' +
           '</div>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="reference"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="reference" ng-if="displayOption(\'Display\', \'reference\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -9692,6 +9724,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('hidden', {
         fbtemplate: 'formio/formbuilder/hidden.html',
         icon: 'fa fa-user-secret',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -9726,17 +9761,17 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/hidden/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label" label="Name" placeholder="Enter the name for this hidden field" title="The name for this field. It is only used for administrative purposes such as generating the automatic property name in the API tab (which may be changed manually)."></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')" label="Name" placeholder="Enter the name for this hidden field" title="The name for this field. It is only used for administrative purposes such as generating the automatic property name in the API tab (which may be changed manually)."></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/hidden/validation.html',
         '<ng-form>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -9752,6 +9787,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('htmlelement', {
         fbtemplate: 'formio/formbuilder/htmlelement.html',
         icon: 'fa fa-code',
+        onEdit: ['$scope', function($scope) {
+           $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -9780,10 +9818,10 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/htmlelement/display.html',
         '<ng-form>' +
-        '<form-builder-option property="customClass" label="Container Custom Class"></form-builder-option>' +
-          '<form-builder-option property="tag" label="HTML Tag" placeholder="HTML Element Tag" title="The tag of this HTML element."></form-builder-option>' +
-          '<form-builder-option property="className" label="CSS Class" placeholder="CSS Class" title="The CSS class for this HTML element."></form-builder-option>' +
-          '<value-builder ' +
+        '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'label\')" label="Container Custom Class"></form-builder-option>' +
+          '<form-builder-option property="tag" ng-if="displayOption(\'Display\', \'tag\')" label="HTML Tag" placeholder="HTML Element Tag" title="The tag of this HTML element."></form-builder-option>' +
+          '<form-builder-option property="className" ng-if="displayOption(\'Display\', \'className\')" label="CSS Class" placeholder="CSS Class" title="The CSS class for this HTML element."></form-builder-option>' +
+          '<value-builder ng-if="displayOption(\'Display\', \'attributes\')" ' +
             'data="component.attrs" ' +
             'label="Attributes" ' +
             'tooltip-text="The attributes for this HTML element. Only safe attributes are allowed, such as src, href, and title." ' +
@@ -9793,7 +9831,7 @@ module.exports = function(app) {
             'label-label="Attribute" ' +
             'no-autocomplete-value="true" ' +
           '></value-builder>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'content\')">' +
             '<label for="content" form-builder-tooltip="The content of this HTML element.">{{\'Content\' | formioTranslate}}</label>' +
             '<textarea class="form-control" id="content" name="content" ng-model="component.content" placeholder="HTML Content" rows="3">{{ component.content }}</textarea>' +
           '</div>' +
@@ -9856,6 +9894,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('number', {
         icon: 'fa fa-hashtag',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -9892,33 +9933,33 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/number/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="validate.step" label="Increment (Step)" placeholder="Enter how much to increment per step (or precision)." title="The amount to increment/decrement for each step."></form-builder-option>' +
-          '<form-builder-option property="prefix"></form-builder-option>' +
-          '<form-builder-option property="suffix"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="validate.step" ng-if="displayOption(\'Display\', \'validate.step\')" label="Increment (Step)" placeholder="Enter how much to increment per step (or precision)." title="The amount to increment/decrement for each step."></form-builder-option>' +
+          '<form-builder-option property="prefix" ng-if="displayOption(\'Display\', \'prefix\')"></form-builder-option>' +
+          '<form-builder-option property="suffix" ng-if="displayOption(\'Display\', \'suffix\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       // Create the API markup.
       $templateCache.put('formio/components/number/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="validate.min" type="number" label="Minimum Value" placeholder="Minimum Value" title="The minimum value this field must have before the form can be submitted."></form-builder-option>' +
-          '<form-builder-option property="validate.max" type="number" label="Maximum Value" placeholder="Maximum Value" title="The maximum value this field must have before the form can be submitted."></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="validate.min" ng-if="displayOption(\'Validation\', \'validate.min\')" type="number" label="Minimum Value" placeholder="Minimum Value" title="The minimum value this field must have before the form can be submitted."></form-builder-option>' +
+          '<form-builder-option property="validate.max" ng-if="displayOption(\'Validation\', \'validate.max\')" type="number" label="Maximum Value" placeholder="Maximum Value" title="The maximum value this field must have before the form can be submitted."></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -9974,6 +10015,7 @@ module.exports = function(app) {
               title: 'No'
             }
           ];
+          $scope.filterViews();
         }],
         views: [
           {
@@ -10017,25 +10059,25 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/panel/display.html',
         '<ng-form>' +
-          '<form-builder-option property="title" label="Title" placeholder="Panel Title" title="The title text that appears in the header of this panel."></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="title" ng-if="displayOption(\'Display\', \'title\')" label="Title" placeholder="Panel Title" title="The title text that appears in the header of this panel."></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'theme\')">' +
             '<label for="theme" form-builder-tooltip="The color theme of this panel.">{{\'Theme\' | formioTranslate}}</label>' +
             '<select class="form-control" id="theme" name="theme" ng-options="theme.name as theme.title | formioTranslate for theme in themes" ng-model="component.theme"></select>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'breadcrumb\')">' +
             '<label for="breadcrumb" form-builder-tooltip="The breadcrumb to show with this page.">Show Breadcrumb</label>' +
             '<select class="form-control" id="breadcrumb" name="breadcrumb" ng-options="breadcrumb.name as breadcrumb.title for breadcrumb in breadcrumbs" ng-model="component.breadcrumb"></select>' +
           '</div>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/panel/conditional.html',
         '<form-builder-conditional></form-builder-conditional>' +
         '<uib-accordion>' +
-          '<div uib-accordion-group heading="Advanced Next Page" class="panel panel-default">' +
+          '<div uib-accordion-group heading="Advanced Next Page" ng-if="displayOption(\'Conditional\', \'custom\')" class="panel panel-default">' +
             '<formio-script-editor rows="5" id="custom" name="custom" ng-model="component.nextPage" placeholder="/*** Example Code ***/\nnext = (data[\'mykey\'] > 1) ? \'pageA\' : \'pageB\';"></formio-script-editor>' +
             '<small>' +
               '<p>Enter custom conditional code.</p>' +
@@ -10043,7 +10085,7 @@ module.exports = function(app) {
               '<p>The global variable <strong>data</strong> is provided, and allows you to access the data of any form component, by using its API key.</p>' +
             '</small>' +
           '</div>' +
-          '<div uib-accordion-group heading="JSON Next Page" class="panel panel-default">' +
+          '<div uib-accordion-group heading="JSON Next Page" ng-if="displayOption(\'Conditional\', \'json\')" class="panel panel-default">' +
             '<small>' +
               '<p>Execute custom next page with JSON and <a href="http://jsonlogic.com/">JsonLogic</a>.</p>' +
               '<p>Submission data is available as JsonLogic variables, with the same api key as your components.</p>' +
@@ -10065,6 +10107,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('password', {
         icon: 'fa fa-asterisk',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10108,21 +10153,21 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/password/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="prefix"></form-builder-option>' +
-          '<form-builder-option property="suffix"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="prefix" ng-if="displayOption(\'Display\', \'prefix\')"></form-builder-option>' +
+          '<form-builder-option property="suffix" ng-if="displayOption(\'Display\', \'suffix\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -10137,6 +10182,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('phoneNumber', {
         icon: 'fa fa-phone-square',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10173,31 +10221,31 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/phoneNumber/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="inputMask"></form-builder-option>' +
-          '<form-builder-option property="prefix"></form-builder-option>' +
-          '<form-builder-option property="suffix"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip"\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="inputMask" ng-if="displayOption(\'Display\', inputMask\')"></form-builder-option>' +
+          '<form-builder-option property="prefix" ng-if="displayOption(\'Display\', \'prefix\')"></form-builder-option>' +
+          '<form-builder-option property="suffix" ng-if="displayOption(\'Display\', \'suffix\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       // Create the Validation markup.
       $templateCache.put('formio/components/phoneNumber/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique"\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -10212,6 +10260,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('radio', {
         icon: 'fa fa-dot-circle-o',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10248,27 +10299,26 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/radio/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<value-builder data="component.values" default="component.defaultValue" label="Values" tooltip-text="The radio button values that can be picked for this field. Values are text submitted with the form data. Labels are text that appears next to the radio buttons on the form."></value-builder>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="inline" type="checkbox" label="Inline Layout" title="Displays the radio buttons horizontally."></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<value-builder data="component.values" ng-if="displayOption(\'Display\', \'component.values\')" default="component.defaultValue" label="Values" tooltip-text="The radio button values that can be picked for this field. Values are text submitted with the form data. Labels are text that appears next to the radio buttons on the form."></value-builder>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="inline" ng-if="displayOption(\'Display\', \'inline\')" type="checkbox" label="Inline Layout" title="Displays the radio buttons horizontally."></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
       // Create the API markup.
       $templateCache.put('formio/components/radio/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -10291,6 +10341,7 @@ module.exports = function(app) {
               $scope.component.resource = resources[0]._id;
             }
           });
+          $scope.filterViews();
         }],
         icon: 'fa fa-files-o',
         views: [
@@ -10325,38 +10376,37 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/resource/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'resource\')">' +
             '<label for="resource" form-builder-tooltip="The resource to be used with this field.">{{\'Resource\' | formioTranslate}}</label>' +
             '<select class="form-control" id="resource" name="resource" ng-options="value._id as value.title for value in resources" ng-model="component.resource"></select>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'selectFields\')">' +
             '<label for="selectFields" form-builder-tooltip="The properties on the resource to return as part of the options. Separate property names by commas. If left blank, all properties will be returned.">{{\'Select Fields\' | formioTranslate}}</label>' +
             '<input type="text" class="form-control" id="selectFields" name="selectFields" ng-model="component.selectFields" placeholder="Comma separated list of fields to select." value="{{ component.selectFields }}">' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'searchFields\')">' +
             '<label for="searchFields" form-builder-tooltip="A list of search filters based on the fields of the resource. See the <a target=\'_blank\' href=\'https://github.com/travist/resourcejs#filtering-the-results\'>Resource.js documentation</a> for the format of these filters.">{{\'Search Fields\' | formioTranslate}}</label>' +
             '<input type="text" class="form-control" id="searchFields" name="searchFields" ng-model="component.searchFields" ng-list placeholder="The fields to query on the server" value="{{ component.searchFields }}">' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'template\')">' +
             '<label for="template" form-builder-tooltip="The HTML template for the result data items.">{{\'Item Template\' | formioTranslate}}</label>' +
             '<textarea class="form-control" id="template" name="template" ng-model="component.template" rows="3">{{ component.template }}</textarea>' +
           '</div>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple" label="Allow Multiple Resources"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="reference"></form-builder-option>' +
-          '<form-builder-option property="addResource"></form-builder-option>' +
-          '<form-builder-option property="addResourceLabel" ng-if="component.addResource"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')" label="Allow Multiple Resources"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="reference" ng-if="displayOption(\'Display\', \'reference\')"></form-builder-option>' +
+          '<form-builder-option property="addResource" ng-if="displayOption(\'Display\', \'addResource\')"></form-builder-option>' +
+          '<form-builder-option property="addResourceLabel" ng-if="displayOption(\'Display\', \'addResourceLabel\')" ng-if="component.addResource"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
@@ -10511,6 +10561,7 @@ module.exports = function(app) {
           });
 
           loadFields();
+          $scope.filterViews();
         }],
         documentation: 'http://help.form.io/userguide/#select'
       });
@@ -10522,26 +10573,26 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/select/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       $templateCache.put('formio/components/select/data.html',
         '<ng-form>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Data\', \'dataSrc\')">' +
             '<label for="dataSrc" form-builder-tooltip="The source to use for the select data. Values lets you provide your own values and labels. JSON lets you provide raw JSON data. URL lets you provide a URL to retrieve the JSON data from.">{{\'Data Source Type\' | formioTranslate}}</label>' +
             '<select class="form-control" id="dataSrc" name="dataSrc" ng-model="component.dataSrc" ng-options="value as label | formioTranslate for (value, label) in dataSources"></select>' +
           '</div>' +
@@ -10592,7 +10643,7 @@ module.exports = function(app) {
           '  <label for="custom" form-builder-tooltip="Write custom code to return the value options. The form data object is available.">{{\'Custom Values\' | formioTranslate}}</label>' +
           '  <formio-script-editor rows="10" id="custom" name="custom" ng-model="component.data.custom" placeholder="/*** Example Code ***/\nvalues = data[\'mykey\'];"></formio-script-editor>' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Data\', \'template\')">' +
             '<label for="placeholder" form-builder-tooltip="The HTML template for the result data items.">{{\'Item Template\' | formioTranslate}}</label>' +
             '<textarea class="form-control" id="template" name="template" ng-model="component.template" rows="3">{{ component.template }}</textarea>' +
           '</div>' +
@@ -10603,16 +10654,16 @@ module.exports = function(app) {
           '<form-builder-option ng-show="component.dataSrc == \'resource\' || component.dataSrc == \'url\' || component.dataSrc == \'custom\'" property="clearOnRefresh"></form-builder-option>' +
           '<form-builder-option ng-show="component.dataSrc == \'resource\'" property="reference"></form-builder-option>' +
           '<form-builder-option ng-show="component.dataSrc == \'url\'" property="authenticate"></form-builder-option>' +
-          '<form-builder-option property="defaultValue"></form-builder-option>' +
+          '<form-builder-option property="defaultValue" ng-if="displayOption(\'Data\', \'defaultValue\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       // Create the API markup.
       $templateCache.put('formio/components/select/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -10627,6 +10678,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('selectboxes', {
         icon: 'fa fa-plus-square',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10659,35 +10713,34 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/selectboxes/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<value-builder data="component.values" label="Select Boxes" tooltip-text="Checkboxes to display. Labels are shown in the form. Values are the corresponding values saved with the submission."></value-builder>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="inline" type="checkbox" label="Inline Layout" title="Displays the checkboxes horizontally."></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<value-builder data="component.values" ng-if="displayOption(\'Display\', \'component.values\')" label="Select Boxes" tooltip-text="Checkboxes to display. Labels are shown in the form. Values are the corresponding values saved with the submission."></value-builder>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="inline" ng-if="displayOption(\'Display\', \'inline\')" type="checkbox" label="Inline Layout" title="Displays the checkboxes horizontally."></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       // Create the API markup.
       $templateCache.put('formio/components/selectboxes/api.html',
         '<ng-form>' +
-          '<form-builder-option-key></form-builder-option-key>' +
+          '<form-builder-option-key ng-if="displayOption(\'API\', \'optionKey\')"></form-builder-option-key>' +
         '</ng-form>'
       );
 
       // Create the API markup.
       $templateCache.put('formio/components/selectboxes/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -10702,6 +10755,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('signature', {
         icon: 'fa fa-pencil',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10734,24 +10790,24 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/signature/display.html',
         '<ng-form>' +
-          '<form-builder-option property="footer" label="Footer Label" placeholder="Footer Label" title="The footer text that appears below the signature area."></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="width" label="Width" placeholder="Width" title="The width of the signature area."></form-builder-option>' +
-          '<form-builder-option property="height" label="Height" placeholder="Height" title="The height of the signature area."></form-builder-option>' +
-          '<form-builder-option property="backgroundColor" label="Background Color" placeholder="Background Color" title="The background color of the signature area."></form-builder-option>' +
-          '<form-builder-option property="penColor" label="Pen Color" placeholder="Pen Color" title="The ink color for the signature area."></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="footer" ng-if="displayOption(\'Display\', \'footer\')" label="Footer Label" placeholder="Footer Label" title="The footer text that appears below the signature area."></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="width" ng-if="displayOption(\'Display\', \'width\')" label="Width" placeholder="Width" title="The width of the signature area."></form-builder-option>' +
+          '<form-builder-option property="height" ng-if="displayOption(\'Display\', \'height\')" label="Height" placeholder="Height" title="The height of the signature area."></form-builder-option>' +
+          '<form-builder-option property="backgroundColor" ng-if="displayOption(\'Display\', \'backgroundColor\')" label="Background Color" placeholder="Background Color" title="The background color of the signature area."></form-builder-option>' +
+          '<form-builder-option property="penColor" ng-if="displayOption(\'Display\', \'penColor\')" label="Pen Color" placeholder="Pen Color" title="The ink color for the signature area."></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
 
       // Create the Validation markup.
       $templateCache.put('formio/components/signature/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -10766,6 +10822,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('survey', {
         icon: 'fa fa-list',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10798,29 +10857,28 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/survey/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<value-builder data="component.questions" default="component.questions" label="Questions" tooltip-text="The questions you would like to as in this survey question."></value-builder>' +
-          '<value-builder data="component.values" default="component.values" label="Values" tooltip-text="The values that can be selected per question. Example: \'Satisfied\', \'Very Satisfied\', etc."></value-builder>' +
-          '<form-builder-option property="defaultValue"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="inline" type="checkbox" label="Inline Layout" title="Displays the radio buttons horizontally."></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<value-builder data="component.questions" ng-if="displayOption(\'Display\', \'component.questions\')" default="component.questions" label="Questions" tooltip-text="The questions you would like to as in this survey question."></value-builder>' +
+          '<value-builder data="component.values" ng-if="displayOption(\'Display\', \'component.values\')" default="component.values" label="Values" tooltip-text="The values that can be selected per question. Example: \'Satisfied\', \'Very Satisfied\', etc."></value-builder>' +
+          '<form-builder-option property="defaultValue" ng-if="displayOption(\'Display\', \'defaultValue\')" ng-if="displayOption(\'Display\', \'footer\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="inline" ng-if="displayOption(\'Display\', \'inline" ng\')" type="checkbox" label="Inline Layout" title="Displays the radio buttons horizontally."></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
       // Create the API markup.
       $templateCache.put('formio/components/survey/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -10839,6 +10897,9 @@ module.exports = function(app) {
         noDndOverlay: true,
         confirmRemove: true,
         icon: 'fa fa-table',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10887,12 +10948,12 @@ module.exports = function(app) {
       $templateCache.put('formio/components/table/display.html',
         '<ng-form>' +
           '<form-builder-table></form-builder-table>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="striped"></form-builder-option>' +
-          '<form-builder-option property="bordered"></form-builder-option>' +
-          '<form-builder-option property="hover"></form-builder-option>' +
-          '<form-builder-option property="condensed"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="striped" ng-if="displayOption(\'Display\', \'striped\')"></form-builder-option>' +
+          '<form-builder-option property="bordered" ng-if="displayOption(\'Display\', \'bordered\')"></form-builder-option>' +
+          '<form-builder-option property="hover" ng-if="displayOption(\'Display\', \'hover\')"></form-builder-option>' +
+          '<form-builder-option property="condensed" ng-if="displayOption(\'Display\', \'condensed\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -10907,6 +10968,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('textarea', {
         icon: 'fa fa-font',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -10975,13 +11039,13 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/textarea/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="rows"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="inputMask"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="rows" ng-if="displayOption(\'Display\', \'rows\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="inputMask" ng-if="displayOption(\'Display\', \'inputMask\')"></form-builder-option>' +
           '<div ng-controller="wysiwygSettings">' +
             '<div class="checkbox">' +
               '<label><input type="checkbox" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
@@ -10991,16 +11055,16 @@ module.exports = function(app) {
               '<textarea class="form-control" rows="5" id="wysiwyg" ng-model="wysiwygSettings" json-input placeholder="Enter the CKEditor JSON configuration to turn this TextArea into a WYSIWYG."></textarea>' +
             '</div>' +
           '</div>' +
-          '<form-builder-option property="prefix"></form-builder-option>' +
-          '<form-builder-option property="suffix"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="prefix" ng-if="displayOption(\'Display\', \'prefix\')"></form-builder-option>' +
+          '<form-builder-option property="suffix" ng-if="displayOption(\'Display\', \'suffix\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -11080,12 +11144,12 @@ module.exports = function(app) {
       );
       $templateCache.put('formio/components/textfield/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required" ng-if="displayOption(\'validate\', \'validate.required\')"></form-builder-option>' +
-          '<form-builder-option property="unique" ng-if="displayOption(\'validate\', \'unique\')"></form-builder-option>' +
-          '<form-builder-option property="validate.minLength" ng-if="displayOption(\'validate\', \'validate.minLength\')"></form-builder-option>' +
-          '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'validate\', \'validate.maxLength\')"></form-builder-option>' +
-          '<form-builder-option property="validate.pattern" ng-if="displayOption(\'validate\', \'validate.pattern\')"></form-builder-option>' +
-          '<form-builder-option-custom-validation ng-if="displayOption(\'validate\', \'custom\')"></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
+          '<form-builder-option property="validate.minLength" ng-if="displayOption(\'Validation\', \'validate.minLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'Validation\', \'validate.maxLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.pattern" ng-if="displayOption(\'Validation\', \'validate.pattern\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }
@@ -11109,6 +11173,9 @@ module.exports = function(app) {
       });
       formioComponentsProvider.register('time', {
         icon: 'fa fa-clock-o',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: views,
         documentation: 'http://help.form.io/userguide/#time'
       });
@@ -11119,21 +11186,21 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/time/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"></form-builder-option>' +
-          '<form-builder-option property="placeholder"></form-builder-option>' +
-          '<form-builder-option property="description"></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"></form-builder-option>' +
-          '<form-builder-option property="format"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tabindex"></form-builder-option>' +
-          '<form-builder-option property="multiple"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="hidden"></form-builder-option>' +
-          '<form-builder-option property="disabled"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="format" ng-if="displayOption(\'Display\', \'format\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -11152,6 +11219,9 @@ module.exports = function(app) {
         documentation: 'http://help.form.io/userguide/#well',
         noDndOverlay: true,
         confirmRemove: true,
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -11179,8 +11249,8 @@ module.exports = function(app) {
       );
       $templateCache.put('formio/components/well/display.html',
         '<ng-form>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Display\', \'customClass\')" property="customClass"></form-builder-option>' +
+          '<form-builder-option  ng-if="displayOption(\'Display\', \'tableView\')" property="tableView"></form-builder-option>' +
         '<ng-form>'
       );
     }
@@ -12382,7 +12452,8 @@ module.exports = [
         var ct = this.component.type;
         this.formComponent.views = this.formComponent.views.filter(function(v){
             return builderSettings.hasOwnProperty(ct) &&
-                builderSettings[ct].hasOwnProperty(v.name)
+                builderSettings[ct].view.hasOwnProperty(v) &&
+                builderSettings[ct].view[v].enabled
         })
     };
 
@@ -12390,8 +12461,9 @@ module.exports = [
         if(!builderSettings) return true;
         var ct = this.component.type;
         return builderSettings.hasOwnProperty(ct) &&
-            builderSettings[ct].hasOwnProperty(view) &&
-            builderSettings[ct][view][option];
+            builderSettings[ct].view.hasOwnProperty(view) &&
+            builderSettings[ct].view[view].enabled &&
+            builderSettings[ct].view[view].option[option];
     };
 
   }

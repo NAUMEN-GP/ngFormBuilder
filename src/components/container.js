@@ -4,6 +4,9 @@ module.exports = function(app) {
     function(formioComponentsProvider) {
       formioComponentsProvider.register('container', {
         fbtemplate: 'formio/formbuilder/container.html',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',

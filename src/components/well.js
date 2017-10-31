@@ -8,6 +8,9 @@ module.exports = function(app) {
         documentation: 'http://help.form.io/userguide/#well',
         noDndOverlay: true,
         confirmRemove: true,
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -35,8 +38,8 @@ module.exports = function(app) {
       );
       $templateCache.put('formio/components/well/display.html',
         '<ng-form>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option ng-if="displayOption(\'Display\', \'customClass\')" property="customClass"></form-builder-option>' +
+          '<form-builder-option  ng-if="displayOption(\'Display\', \'tableView\')" property="tableView"></form-builder-option>' +
         '<ng-form>'
       );
     }

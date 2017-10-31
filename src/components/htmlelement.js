@@ -5,6 +5,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('htmlelement', {
         fbtemplate: 'formio/formbuilder/htmlelement.html',
         icon: 'fa fa-code',
+        onEdit: ['$scope', function($scope) {
+           $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -33,10 +36,10 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/htmlelement/display.html',
         '<ng-form>' +
-        '<form-builder-option property="customClass" label="Container Custom Class"></form-builder-option>' +
-          '<form-builder-option property="tag" label="HTML Tag" placeholder="HTML Element Tag" title="The tag of this HTML element."></form-builder-option>' +
-          '<form-builder-option property="className" label="CSS Class" placeholder="CSS Class" title="The CSS class for this HTML element."></form-builder-option>' +
-          '<value-builder ' +
+        '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'label\')" label="Container Custom Class"></form-builder-option>' +
+          '<form-builder-option property="tag" ng-if="displayOption(\'Display\', \'tag\')" label="HTML Tag" placeholder="HTML Element Tag" title="The tag of this HTML element."></form-builder-option>' +
+          '<form-builder-option property="className" ng-if="displayOption(\'Display\', \'className\')" label="CSS Class" placeholder="CSS Class" title="The CSS class for this HTML element."></form-builder-option>' +
+          '<value-builder ng-if="displayOption(\'Display\', \'attributes\')" ' +
             'data="component.attrs" ' +
             'label="Attributes" ' +
             'tooltip-text="The attributes for this HTML element. Only safe attributes are allowed, such as src, href, and title." ' +
@@ -46,7 +49,7 @@ module.exports = function(app) {
             'label-label="Attribute" ' +
             'no-autocomplete-value="true" ' +
           '></value-builder>' +
-          '<div class="form-group">' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'content\')">' +
             '<label for="content" form-builder-tooltip="The content of this HTML element.">{{\'Content\' | formioTranslate}}</label>' +
             '<textarea class="form-control" id="content" name="content" ng-model="component.content" placeholder="HTML Content" rows="3">{{ component.content }}</textarea>' +
           '</div>' +

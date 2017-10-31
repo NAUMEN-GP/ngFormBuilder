@@ -5,6 +5,9 @@ module.exports = function(app) {
       formioComponentsProvider.register('fieldset', {
         fbtemplate: 'formio/formbuilder/fieldset.html',
         icon: 'fa fa-th-large',
+        onEdit: ['$scope', function($scope) {
+            $scope.filterViews();
+        }],
         views: [
           {
             name: 'Display',
@@ -46,10 +49,10 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/fieldset/display.html',
         '<ng-form>' +
-          '<form-builder-option property="legend" label="Legend" placeholder="FieldSet Legend" title="The legend text to appear above this fieldset."></form-builder-option>' +
-          '<form-builder-option property="tooltip"></form-builder-option>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="legend" ng-if="displayOption(\'Display\', \'legend\')" label="Legend" placeholder="FieldSet Legend" title="The legend text to appear above this fieldset."></form-builder-option>' +
+          '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }

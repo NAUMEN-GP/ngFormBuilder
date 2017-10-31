@@ -69,12 +69,12 @@ module.exports = function(app) {
       );
       $templateCache.put('formio/components/textfield/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required" ng-if="displayOption(\'validate\', \'validate.required\')"></form-builder-option>' +
-          '<form-builder-option property="unique" ng-if="displayOption(\'validate\', \'unique\')"></form-builder-option>' +
-          '<form-builder-option property="validate.minLength" ng-if="displayOption(\'validate\', \'validate.minLength\')"></form-builder-option>' +
-          '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'validate\', \'validate.maxLength\')"></form-builder-option>' +
-          '<form-builder-option property="validate.pattern" ng-if="displayOption(\'validate\', \'validate.pattern\')"></form-builder-option>' +
-          '<form-builder-option-custom-validation ng-if="displayOption(\'validate\', \'custom\')"></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
+          '<form-builder-option property="validate.minLength" ng-if="displayOption(\'Validation\', \'validate.minLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'Validation\', \'validate.maxLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.pattern" ng-if="displayOption(\'Validation\', \'validate.pattern\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }

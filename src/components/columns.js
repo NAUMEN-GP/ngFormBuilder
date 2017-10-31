@@ -10,6 +10,7 @@ module.exports = function(app) {
           $scope.addColumn = function() {
             $scope.component.columns.push({components: [], width: 1, offset: 0, push: 0, pull: 0});
           };
+          $scope.filterViews();
         }],
         fbtemplate: 'formio/formbuilder/columns.html',
         icon: 'fa fa-columns',

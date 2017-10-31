@@ -12,6 +12,9 @@ module.exports = function(app) {
       });
       formioComponentsProvider.register('email', {
         icon: 'fa fa-at',
+        onEdit: ['$scope', function($scope) {
+              $scope.filterViews();
+        }],
         views: views,
         documentation: 'http://help.form.io/userguide/#email'
       });
@@ -22,9 +25,9 @@ module.exports = function(app) {
     function($templateCache) {
       $templateCache.put('formio/components/email/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
-          '<form-builder-option property="unique"></form-builder-option>' +
-          '<div class="panel panel-default">' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
+          '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
+          '<div class="panel panel-default" ng-if="displayOption(\'Validation\', \'kickboxEnable\')>' +
             '<div class="panel-heading"><h3 class="panel-title">{{\'Kickbox\' | formioTranslate}}</h3></div>' +
             '<div class="panel-body">' +
               '<p>{{\'Validate this email using the Kickbox email validation service.\' | formioTranslate}}</p>' +
@@ -35,10 +38,10 @@ module.exports = function(app) {
               '</div>' +
             '</div>' +
           '</div>' +
-          '<form-builder-option property="validate.minLength"></form-builder-option>' +
-          '<form-builder-option property="validate.maxLength"></form-builder-option>' +
-          '<form-builder-option property="validate.pattern"></form-builder-option>' +
-          '<form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '<form-builder-option property="validate.minLength" ng-if="displayOption(\'Validation\', \'validate.minLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.maxLength" ng-if="displayOption(\'Validation\', \'validate.maxLength\')"></form-builder-option>' +
+          '<form-builder-option property="validate.pattern" ng-if="displayOption(\'Validation\', \'validate.pattern\')"></form-builder-option>' +
+          '<form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
         '</ng-form>'
       );
     }

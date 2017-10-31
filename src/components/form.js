@@ -45,6 +45,7 @@ module.exports = function(app) {
               $scope.component.form = forms[0]._id;
             }
           });
+          $scope.filterViews();
         }]
       });
 
@@ -96,16 +97,16 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/form/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label" label="Name" placeholder="Enter the name for this form field" title="The name for this field. It is only used for administrative purposes such as generating the automatic property name in the API tab (which may be changed manually)."></form-builder-option>' +
-          '<div class="form-group">' +
+          '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')" label="Name" placeholder="Enter the name for this form field" title="The name for this field. It is only used for administrative purposes such as generating the automatic property name in the API tab (which may be changed manually)."></form-builder-option>' +
+          '<div class="form-group" ng-if="displayOption(\'Display\', \'form\')">' +
             '<label for="form" form-builder-tooltip="The form to load within this form component..">{{\'Form\' | formioTranslate}}</label>' +
             '<select class="form-control" id="form" name="form" ng-options="value._id as value.title for value in forms" ng-model="component.form"></select>' +
           '</div>' +
-          '<form-builder-option property="customClass"></form-builder-option>' +
-          '<form-builder-option property="reference"></form-builder-option>' +
-          '<form-builder-option property="protected"></form-builder-option>' +
-          '<form-builder-option property="persistent"></form-builder-option>' +
-          '<form-builder-option property="tableView"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="reference" ng-if="displayOption(\'Display\', \'reference\')"></form-builder-option>' +
+          '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
