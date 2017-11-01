@@ -141,7 +141,7 @@ module.exports = function(app) {
 
       // Create the common Layout tab markup.
       $templateCache.put('formio/components/common/conditional.html',
-        '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')></form-builder-conditional>'
+        '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')"></form-builder-conditional>'
       );
 
       $templateCache.put('formio/components/common/customSettings.html',
