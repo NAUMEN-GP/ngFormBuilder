@@ -12452,8 +12452,8 @@ module.exports = [
         var ct = this.component.type;
         this.formComponent.views = this.formComponent.views.filter(function(v){
             return builderSettings.hasOwnProperty(ct) &&
-                builderSettings[ct].view.hasOwnProperty(v) &&
-                builderSettings[ct].view[v].enabled
+                builderSettings[ct].view.hasOwnProperty(v.name) &&
+                builderSettings[ct].view[v.name].enabled
         })
     };
 
