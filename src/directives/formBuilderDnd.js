@@ -358,7 +358,7 @@ module.exports = [
             if(builderSettings[ct].view[view].hasOwnProperty('option')){
                 for(var optKey in builderSettings[ct].view[view].option){
                     var opt = builderSettings[ct].view[view].option[optKey];
-                    if(!opt.enabled){
+                    if(!builderSettings[ct].view[view].enabled || !opt.enabled){
                         index(this.component, optKey, opt.defaultValue);
                     }
                 }
