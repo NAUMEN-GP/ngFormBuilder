@@ -47,7 +47,7 @@ module.exports = function(app) {
       // Create the settings markup.
         $templateCache.put('formio/components/textfield/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"       ></form-builder-option>' +
+          '<form-builder-option property="label"       ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
           '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
           '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
           '<form-builder-option property="tooltip"     ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +

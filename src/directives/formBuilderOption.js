@@ -14,9 +14,6 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
     require: 'property',
     priority: 2,
     replace: true,
-    scope: {
-        view: '=?'
-    },
     template: function(el, attrs) {
       var formioTranslate = $filter('formioTranslate');
 
