@@ -11122,24 +11122,24 @@ module.exports = function(app) {
       // Create the settings markup.
         $templateCache.put('formio/components/textfield/display.html',
         '<ng-form>' +
-          '<form-builder-option property="label"       ng-if="displayOption(\'display\', \'label\')"></form-builder-option>' +
-          '<form-builder-option property="placeholder" ng-if="displayOption(\'display\', \'placeholder\')"></form-builder-option>' +
-          '<form-builder-option property="description" ng-if="displayOption(\'display\', \'description\')"></form-builder-option>' +
-          '<form-builder-option property="tooltip"     ng-if="displayOption(\'display\', \'tooltip\')"></form-builder-option>' +
-          '<form-builder-option property="errorLabel"  ng-if="displayOption(\'display\', \'errorLabel\')"></form-builder-option>' +
-          '<form-builder-option property="inputMask"   ng-if="displayOption(\'display\', \'inputMask\')"></form-builder-option>' +
-          '<form-builder-option property="prefix"      ng-if="displayOption(\'display\', \'prefix\')"></form-builder-option>' +
-          '<form-builder-option property="suffix"      ng-if="displayOption(\'display\', \'suffix\')"></form-builder-option>' +
-          '<form-builder-option property="customClass" ng-if="displayOption(\'display\', \'customClass\')"></form-builder-option>' +
-          '<form-builder-option property="tabindex"    ng-if="displayOption(\'display\', \'tabindex\')"></form-builder-option>' +
-          '<form-builder-option property="multiple"    ng-if="displayOption(\'display\', \'multiple\')"></form-builder-option>' +
-          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'display\', \'clearOnHide\')"></form-builder-option>' +
-          '<form-builder-option property="protected"   ng-if="displayOption(\'display\', \'protected\')"></form-builder-option>' +
-          '<form-builder-option property="persistent"  ng-if="displayOption(\'display\', \'persistent\')"></form-builder-option>' +
-          '<form-builder-option property="hidden"      ng-if="displayOption(\'display\', \'hidden\')"></form-builder-option>' +
-          '<form-builder-option property="mask"        ng-if="displayOption(\'display\', \'mask\')"></form-builder-option>' +
-          '<form-builder-option property="disabled"    ng-if="displayOption(\'display\', \'disabled\')"></form-builder-option>' +
-          '<form-builder-option property="tableView"   ng-if="displayOption(\'display\', \'tableView\')"></form-builder-option>' +
+          '<form-builder-option property="label"       ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
+          '<form-builder-option property="placeholder" ng-if="displayOption(\'Display\', \'placeholder\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
+          '<form-builder-option property="tooltip"     ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="errorLabel"  ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
+          '<form-builder-option property="inputMask"   ng-if="displayOption(\'Display\', \'inputMask\')"></form-builder-option>' +
+          '<form-builder-option property="prefix"      ng-if="displayOption(\'Display\', \'prefix\')"></form-builder-option>' +
+          '<form-builder-option property="suffix"      ng-if="displayOption(\'Display\', \'suffix\')"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
+          '<form-builder-option property="tabindex"    ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
+          '<form-builder-option property="multiple"    ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
+          '<form-builder-option property="protected"   ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
+          '<form-builder-option property="persistent"  ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
+          '<form-builder-option property="hidden"      ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
+          '<form-builder-option property="mask"        ng-if="displayOption(\'Display\', \'mask\')"></form-builder-option>' +
+          '<form-builder-option property="disabled"    ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
+          '<form-builder-option property="tableView"   ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
         '</ng-form>'
       );
       $templateCache.put('formio/components/textfield/validate.html',
