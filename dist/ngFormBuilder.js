@@ -8682,7 +8682,7 @@ module.exports = function(app) {
 
       // Create the common Layout tab markup.
       $templateCache.put('formio/components/common/conditional.html',
-        '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')></form-builder-conditional>'
+        '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\'")></form-builder-conditional>'
       );
 
       $templateCache.put('formio/components/common/customSettings.html',
@@ -12447,9 +12447,37 @@ module.exports = [
 
     var builderSettings = $rootScope.builderSettings;
 
+    function index(obj,is, value) {
+      if (typeof is === 'string')
+          return index(obj,is.split('.'), value);
+      if (typeof obj[is[0]] === 'undefined')
+          obj[is[0]] = {};
+      if (is.length === 1 && typeof value !== 'undefined')
+          return obj[is[0]] = value;
+      else if (is.length === 0)
+          return obj;
+      else{
+          return index(obj[is[0]],is.slice(1), value);
+      }
+
+    }
+
     $scope.filterViews = function(){
         if(!builderSettings) return;
         var ct = this.component.type;
+
+        /**Устанавливаем значения поумолчанию для выключенных свойств*/
+        for(var view in builderSettings[ct].view){
+            if(builderSettings[ct].view[view].hasOwnProperty('option')){
+                for(var optKey in builderSettings[ct].view[view].option){
+                    var opt = builderSettings[ct].view[view].option[optKey];
+                    if(!opt.enabled){
+                        index(this.component, optKey, opt.defaultValue);
+                    }
+                }
+            }
+        }
+        /**Фильтруем отображаемые представления*/
         this.formComponent.views = this.formComponent.views.filter(function(v){
             return builderSettings.hasOwnProperty(ct) &&
                 builderSettings[ct].view.hasOwnProperty(v.name) &&
@@ -12457,13 +12485,14 @@ module.exports = [
         })
     };
 
+    /**Показывать или нет данную настройку*/
     $scope.displayOption = function(view, option){
         if(!builderSettings) return true;
         var ct = this.component.type;
         return builderSettings.hasOwnProperty(ct) &&
             builderSettings[ct].view.hasOwnProperty(view) &&
             builderSettings[ct].view[view].enabled &&
-            builderSettings[ct].view[view].option[option];
+            builderSettings[ct].view[view].option[option].enabled;
     };
 
   }
