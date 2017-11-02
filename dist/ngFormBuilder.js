@@ -8688,7 +8688,7 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
            '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
-               'property="{{p.property}}" ' +
+               'property="p[property]" ' +
                'label="{{p.label}}"' +
                'placeholder="{{p.placeholder}}"' +
                'type="{{p.type}}"' +
@@ -12603,8 +12603,8 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
         placeholder: formioTranslate(placeholder)
       };
 
-      if(property.startsWith("{{")){
-          inputAttrs['ng-bind-model'] = "{{'component.' + " + property.replace(/\}/g, '').replace(/\{/g, '') + "}}"
+      if(property === "p[property]"){
+          inputAttrs['ng-model'] = property
       }else{
           inputAttrs['ng-model'] = "component."+property;
       }

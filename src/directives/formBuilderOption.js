@@ -32,8 +32,8 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
         placeholder: formioTranslate(placeholder)
       };
 
-      if(property.startsWith("{{")){
-          inputAttrs['ng-bind-model'] = "{{'component.' + " + property.replace(/\}/g, '').replace(/\{/g, '') + "}}"
+      if(property === "p[property]"){
+          inputAttrs['ng-model'] = property
       }else{
           inputAttrs['ng-model'] = "component."+property;
       }
