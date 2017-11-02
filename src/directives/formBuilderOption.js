@@ -24,13 +24,20 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       var tooltip = attrs.tooltip || (COMMON_OPTIONS[property] && COMMON_OPTIONS[property].tooltip) || '';
 
       var input = type === 'textarea' ? angular.element('<textarea></textarea>') : angular.element('<input>');
+
       var inputAttrs = {
         id: property,
         name: property,
         type: type,
-        'ng-model': 'component.' + property,
         placeholder: formioTranslate(placeholder)
       };
+
+      if(property.startsWith("{{")){
+          inputAttrs['ng-bind-model'] = "{{'component.' + " + property.replace(/\}/g, '').replace(/\{/g, '') + "}}"
+      }else{
+          inputAttrs['ng-model'] = "component."+property;
+      }
+
       // Pass through attributes from the directive to the input element
       angular.forEach(attrs.$attr, function(key) {
         var attrValue = attrs[attrs.$normalize(key)];
