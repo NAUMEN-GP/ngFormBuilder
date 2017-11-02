@@ -96,7 +96,7 @@ module.exports = function(app) {
         '<ng-form>' +
           '<form-builder-option-key ng-if="displayOption(\'API\', \'optionKey\')"></form-builder-option-key>' +
           '<form-builder-option-tags ng-if="displayOption(\'API\', \'optionTags\')"></form-builder-option-tags>' +
-          '<uib-accordion>' +
+          '<uib-accordion ng-if="displayOption(\'API\', \'customProperties\')">' +
             '<div uib-accordion-group heading="Custom Properties" class="panel panel-default">' +
               '<object-builder data="component.properties" label="Custom Properties" tooltip-text="This allows you to configure any custom properties for this component." />' +
             '</div>' +

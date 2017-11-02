@@ -360,6 +360,9 @@ module.exports = [
                     var opt = builderSettings[ct].view[view].option[optKey];
                     if(!builderSettings[ct].view[view].enabled || !opt.enabled){
                         index(this.component, optKey, opt.defaultValue);
+                        if(optKey === "optionKey" && opt.defaultValue){
+                            index(this.component, "key", opt.defaultValue);
+                        }
                     }
                 }
             }
