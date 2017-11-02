@@ -333,6 +333,7 @@ module.exports = [
     $scope.dndDragIframeWorkaround = dndDragIframeWorkaround;
 
     var builderSettings = $rootScope.builderSettings;
+    var fields = builderSettings ? builderSettings.fields : {};
 
     function index(obj,is, value) {
       if (typeof is === 'string')
@@ -354,11 +355,11 @@ module.exports = [
         var ct = this.component.type;
 
         /**Устанавливаем значения поумолчанию для выключенных свойств*/
-        for(var view in builderSettings[ct].view){
-            if(builderSettings[ct].view[view].hasOwnProperty('option')){
-                for(var optKey in builderSettings[ct].view[view].option){
-                    var opt = builderSettings[ct].view[view].option[optKey];
-                    if(!builderSettings[ct].view[view].enabled || !opt.enabled){
+        for(var view in fields[ct].view){
+            if(fields[ct].view[view].hasOwnProperty('option')){
+                for(var optKey in fields[ct].view[view].option){
+                    var opt = fields[ct].view[view].option[optKey];
+                    if(!fields[ct].view[view].enabled || !opt.enabled){
                         index(this.component, optKey, opt.defaultValue);
                         if(optKey === "optionKey" && opt.defaultValue){
                             index(this.component, "key", opt.defaultValue);
@@ -367,22 +368,32 @@ module.exports = [
                 }
             }
         }
+
         /**Фильтруем отображаемые представления*/
         this.formComponent.views = this.formComponent.views.filter(function(v){
-            return builderSettings.hasOwnProperty(ct) &&
-                builderSettings[ct].view.hasOwnProperty(v.name) &&
-                builderSettings[ct].view[v.name].enabled
-        })
+            return fields.hasOwnProperty(ct) &&
+                fields[ct].view.hasOwnProperty(v.name) &&
+                fields[ct].view[v.name].enabled
+        });
+
+        /**Собственные настройки*/
+        if(builderSettings.customView && builderSettings.customView.enabled){
+            this.formComponent.customViewProperties = builderSettings.customView.properties;
+            this.formComponent.views.push({
+                name: builderSettings.customView.title,
+                template: "formio/components/common/customView.html"
+            })
+        }
     };
 
     /**Показывать или нет данную настройку*/
     $scope.displayOption = function(view, option){
         if(!builderSettings) return true;
         var ct = this.component.type;
-        return builderSettings.hasOwnProperty(ct) &&
-            builderSettings[ct].view.hasOwnProperty(view) &&
-            builderSettings[ct].view[view].enabled &&
-            builderSettings[ct].view[view].option[option].enabled;
+        return fields.hasOwnProperty(ct) &&
+            fields[ct].view.hasOwnProperty(view) &&
+            fields[ct].view[view].enabled &&
+            fields[ct].view[view].option[option].enabled;
     };
 
   }
