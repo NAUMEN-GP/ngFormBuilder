@@ -8688,11 +8688,11 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
            '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
-               'property="p.property" ' +
-               'label="p.label"' +
-               'placeholder="p.placeholder"' +
-               'type="p.type"' +
-               'tooltip="p.tooltip">' +
+               'property="{{p.property}}" ' +
+               'label="{{p.label}}"' +
+               'placeholder="{{p.placeholder}}"' +
+               'type="{{p.type}}"' +
+               'tooltip="{{p.tooltip}}">' +
           '</form-builder-option>' +
         '</ng-form>'
       );
