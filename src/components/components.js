@@ -147,7 +147,7 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
            '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
-               'property="component.customProperties[p.property]" ' +
+               'property="customProperties[p.property]" ' +
                'label="{{p.label}}"' +
                'placeholder="{{p.placeholder}}"' +
                'type="{{p.type}}"' +

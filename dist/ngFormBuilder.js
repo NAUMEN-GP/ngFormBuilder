@@ -8688,7 +8688,7 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
            '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
-               'property="component.customProperties[p.property]" ' +
+               'property="customProperties[p.property]" ' +
                'label="{{p.label}}"' +
                'placeholder="{{p.placeholder}}"' +
                'type="{{p.type}}"' +
@@ -12496,6 +12496,7 @@ module.exports = [
 
         /**Собственные настройки*/
         if(builderSettings.customView && builderSettings.customView.enabled){
+            if(!this.component.hasOwnProperty("customProperties")) this.component.customProperties = {};
             this.formComponent.customViewProperties = builderSettings.customView.properties;
             this.formComponent.views.push({
                 name: builderSettings.customView.title,
@@ -12596,18 +12597,18 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
 
       var input = type === 'textarea' ? angular.element('<textarea></textarea>') : angular.element('<input>');
 
-      var inputAttrs = {
-        id: property,
-        name: property,
-        type: type,
-        placeholder: formioTranslate(placeholder)
-      };
+      var displayableProperty = property === "customProperties[p.property]" ? "{{component."+property+"}}" : property;
+      var displayableLabel = label.startsWith("{{") ? label : formioTranslate(label);
+      var displayableTooltip = tooltip.startsWith("{{") ? tooltip : formioTranslate(tooltip);
+      var displayablePlaceholder = placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder);
 
-      if(property.startsWith("component")){
-          inputAttrs['ng-model'] = property
-      }else{
-          inputAttrs['ng-model'] = "component."+property;
-      }
+      var inputAttrs = {
+        id: displayableProperty,
+        name: displayableProperty,
+        type: type,
+        placeholder: displayablePlaceholder,
+        'ng-model': "component."+property
+      };
 
       // Pass through attributes from the directive to the input element
       angular.forEach(attrs.$attr, function(key) {
@@ -12631,15 +12632,15 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       // Checkboxes have a slightly different layout
       if (inputAttrs.type && (inputAttrs.type.toLowerCase() === 'checkbox')) {
         return '<div class="checkbox">' +
-                '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' +
+                '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
                 input.prop('outerHTML') +
-                ' ' + formioTranslate(label) + '</label>' +
+                ' ' + displayableLabel + '</label>' +
               '</div>';
       }
 
       input.addClass('form-control');
       return '<div class="form-group">' +
-                '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' + formioTranslate(label) + '</label>' +
+                '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' + displayableLabel + '</label>' +
                 input.prop('outerHTML') +
               '</div>';
     }
