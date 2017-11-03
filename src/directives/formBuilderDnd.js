@@ -384,7 +384,7 @@ module.exports = [
                 if(p.useDefault && !this.component.customViewProperties.hasOwnProperty(p.property)){
                     this.component.customViewProperties[p.property] = p.defaultValue;
                 }
-            });
+            }, this);
             if(builderSettings.customView.displayable){
                 this.formComponent.views.push({
                     name: builderSettings.customView.title,
