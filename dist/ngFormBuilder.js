@@ -12635,17 +12635,19 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       input.attr(inputAttrs);
 
       // Checkboxes have a slightly different layout
-      var tpl = '<div class="checkbox" ng-if="\'checkbox\' == '+ conditionType + '">' +
-                    '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
-                        input.prop('outerHTML') + ' ' +
-                        displayableLabel +
-                    '</label>' +
-                '</div>' +
-                '<div class="form-group" ng-if="\'checkbox\' != ' + conditionType + '">' +
-                    '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
-                        displayableLabel +
-                    '</label>' +
-                     input.prop('outerHTML') +
+      var tpl = '<div>' +
+                    '<div class="checkbox" ng-if="\'checkbox\' == '+ conditionType + '">' +
+                        '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
+                            input.prop('outerHTML') + ' ' +
+                            displayableLabel +
+                        '</label>' +
+                    '</div>' +
+                    '<div class="form-group" ng-if="\'checkbox\' != ' + conditionType + '">' +
+                        '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
+                            displayableLabel +
+                        '</label>' +
+                        input.prop('outerHTML') +
+                    '</div>' +
                 '</div>';
 
       return tpl;
