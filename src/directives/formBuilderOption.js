@@ -46,7 +46,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       // Pass through attributes from the directive to the input element
       angular.forEach(attrs.$attr, function(key) {
         var attrValue = attrs[attrs.$normalize(key)];
-        if(!key.startsWith("ng")){
+        if(!key.startsWith("ng") && !inputAttrs.hasOwnProperty(key)){
             inputAttrs[key] = attrValue;
         }
         // Allow specifying tooltip via title attr
