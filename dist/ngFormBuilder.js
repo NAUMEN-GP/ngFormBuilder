@@ -8688,10 +8688,10 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
            '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
-               'property="customProperties[p.property]" ' +
+               'property="customViewProperties[p.property]" ' +
                'label="{{p.label}}"' +
                'placeholder="{{p.placeholder}}"' +
-               'type="{{p.type}}"' +
+               'type="p.type"' +
                'tooltip="{{p.tooltip}}">' +
           '</form-builder-option>' +
         '</ng-form>'
@@ -12496,7 +12496,7 @@ module.exports = [
 
         /**Собственные настройки*/
         if(builderSettings.customView && builderSettings.customView.enabled){
-            if(!this.component.hasOwnProperty("customProperties")) this.component.customProperties = {};
+            if(!this.component.hasOwnProperty("customViewProperties")) this.component.customViewProperties = {};
             this.formComponent.customViewProperties = builderSettings.customView.properties;
             this.formComponent.views.push({
                 name: builderSettings.customView.title,
@@ -12597,17 +12597,22 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
 
       var input = type === 'textarea' ? angular.element('<textarea></textarea>') : angular.element('<input>');
 
-      var displayableProperty = property === "customProperties[p.property]" ? "{{component."+property+"}}" : property;
+      var displayableProperty = property === "customViewProperties[p.property]" ? "{{component."+property+"}}" : property;
       var displayableLabel = label.startsWith("{{") ? label : formioTranslate(label);
       var displayableTooltip = tooltip.startsWith("{{") ? tooltip : formioTranslate(tooltip);
       var displayablePlaceholder = placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder);
 
+      var isCalculatedType = type === "p.type";
+      var displayableType = isCalculatedType ? "{{" + type + "}}" : type;
+      var conditionType = isCalculatedType ? type : "'"+type.toLowerCase()+"'";
+
       var inputAttrs = {
         id: displayableProperty,
         name: displayableProperty,
-        type: type,
+        type: displayableType,
         placeholder: displayablePlaceholder,
-        'ng-model': "component."+property
+        'ng-model': "component."+property,
+        'ng-class': "{'form-control': 'checkbox' != " + conditionType + "}"
       };
 
       // Pass through attributes from the directive to the input element
@@ -12630,7 +12635,22 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       input.attr(inputAttrs);
 
       // Checkboxes have a slightly different layout
-      if (inputAttrs.type && (inputAttrs.type.toLowerCase() === 'checkbox')) {
+      var tpl = '<div class="checkbox" ng-if="\'checkbox\' == '+ conditionType + '">' +
+                    '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
+                        input.prop('outerHTML') + ' ' +
+                        displayableLabel +
+                    '</label>' +
+                '</div>' +
+                '<div class="form-group" ng-if="\'checkbox\' != ' + conditionType + '">' +
+                    '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
+                        displayableLabel +
+                    '</label>' +
+                     input.prop('outerHTML') +
+                '</div>';
+
+      return tpl;
+
+    /*  if (inputAttrs.type && (inputAttrs.type.toLowerCase() === 'checkbox')) {
         return '<div class="checkbox">' +
                 '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
                 input.prop('outerHTML') +
@@ -12642,7 +12662,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       return '<div class="form-group">' +
                 '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' + displayableLabel + '</label>' +
                 input.prop('outerHTML') +
-              '</div>';
+              '</div>';*/
     }
   };
 }];

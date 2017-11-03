@@ -378,7 +378,7 @@ module.exports = [
 
         /**Собственные настройки*/
         if(builderSettings.customView && builderSettings.customView.enabled){
-            if(!this.component.hasOwnProperty("customProperties")) this.component.customProperties = {};
+            if(!this.component.hasOwnProperty("customViewProperties")) this.component.customViewProperties = {};
             this.formComponent.customViewProperties = builderSettings.customView.properties;
             this.formComponent.views.push({
                 name: builderSettings.customView.title,
