@@ -380,10 +380,17 @@ module.exports = [
         if(builderSettings.customView && builderSettings.customView.enabled){
             if(!this.component.hasOwnProperty("customViewProperties")) this.component.customViewProperties = {};
             this.formComponent.customViewProperties = builderSettings.customView.properties;
-            this.formComponent.views.push({
-                name: builderSettings.customView.title,
-                template: "formio/components/common/customView.html"
-            })
+            builderSettings.customView.properties.forEach(function(p){
+                if(p.useDefault && !this.component.customViewProperties.hasOwnProperty(p.property)){
+                    this.component.customViewProperties[p.property] = p.defaultValue;
+                }
+            });
+            if(builderSettings.customView.displayable){
+                this.formComponent.views.push({
+                    name: builderSettings.customView.title,
+                    template: "formio/components/common/customView.html"
+                })
+            }
         }
     };
 

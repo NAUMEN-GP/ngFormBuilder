@@ -28,7 +28,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       var displayableProperty = property === "customViewProperties[p.property]" ? "{{component."+property+"}}" : property;
       var displayableLabel = label.startsWith("{{") ? label : formioTranslate(label);
       var displayableTooltip = tooltip.startsWith("{{") ? tooltip : formioTranslate(tooltip);
-      var displayablePlaceholder = placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder);
+      var displayablePlaceholder = placeholder === null ? null : (placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder));
 
       var isCalculatedType = type === "p.type";
       var displayableType = isCalculatedType ? "{{" + type + "}}" : type;

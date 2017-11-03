@@ -8687,7 +8687,7 @@ module.exports = function(app) {
 
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
-           '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
+           '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties | filter:{displayable:true}"' +
                'property="customViewProperties[p.property]" ' +
                'label="{{p.label}}"' +
                'placeholder="{{p.placeholder}}"' +
@@ -12498,10 +12498,17 @@ module.exports = [
         if(builderSettings.customView && builderSettings.customView.enabled){
             if(!this.component.hasOwnProperty("customViewProperties")) this.component.customViewProperties = {};
             this.formComponent.customViewProperties = builderSettings.customView.properties;
-            this.formComponent.views.push({
-                name: builderSettings.customView.title,
-                template: "formio/components/common/customView.html"
-            })
+            builderSettings.customView.properties.forEach(function(p){
+                if(p.useDefault && !this.component.customViewProperties.hasOwnProperty(p.property)){
+                    this.component.customViewProperties[p.property] = p.defaultValue;
+                }
+            });
+            if(builderSettings.customView.displayable){
+                this.formComponent.views.push({
+                    name: builderSettings.customView.title,
+                    template: "formio/components/common/customView.html"
+                })
+            }
         }
     };
 
@@ -12600,7 +12607,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       var displayableProperty = property === "customViewProperties[p.property]" ? "{{component."+property+"}}" : property;
       var displayableLabel = label.startsWith("{{") ? label : formioTranslate(label);
       var displayableTooltip = tooltip.startsWith("{{") ? tooltip : formioTranslate(tooltip);
-      var displayablePlaceholder = placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder);
+      var displayablePlaceholder = placeholder === null ? null : (placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder));
 
       var isCalculatedType = type === "p.type";
       var displayableType = isCalculatedType ? "{{" + type + "}}" : type;
