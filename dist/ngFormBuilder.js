@@ -8688,7 +8688,7 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/customView.html',
         '<ng-form>' +
            '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties"' +
-               'property="p[property]" ' +
+               'property="component.customProperties[p.property]" ' +
                'label="{{p.label}}"' +
                'placeholder="{{p.placeholder}}"' +
                'type="{{p.type}}"' +
@@ -12603,7 +12603,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
         placeholder: formioTranslate(placeholder)
       };
 
-      if(property === "p[property]"){
+      if(property.startsWith("component")){
           inputAttrs['ng-model'] = property
       }else{
           inputAttrs['ng-model'] = "component."+property;
@@ -12612,7 +12612,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       // Pass through attributes from the directive to the input element
       angular.forEach(attrs.$attr, function(key) {
         var attrValue = attrs[attrs.$normalize(key)];
-        if(!key.startsWith("ng") && !attrValue.startsWith("{")){
+        if(!key.startsWith("ng")){
             inputAttrs[key] = attrValue;
         }
         // Allow specifying tooltip via title attr
@@ -12629,7 +12629,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       input.attr(inputAttrs);
 
       // Checkboxes have a slightly different layout
-      if (inputAttrs.type && inputAttrs.type.toLowerCase() === 'checkbox') {
+      if (inputAttrs.type && (inputAttrs.type.toLowerCase() === 'checkbox')) {
         return '<div class="checkbox">' +
                 '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' +
                 input.prop('outerHTML') +
