@@ -8685,11 +8685,16 @@ module.exports = function(app) {
         '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')"></form-builder-conditional>'
       );
 
-      $templateCache.put('formio/components/common/customSettings.html',
-          '<ng-form>' +
-              '<form-builder-option property="customSettings.customView"></form-builder-option>' +
-              '<form-builder-option property="customSettings.editOnConsideration"></form-builder-option>' +
-          '</ng-form>'
+      $templateCache.put('formio/components/common/customView.html',
+        '<ng-form>' +
+           '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties | filter:{displayable:true}"' +
+               'property="customViewProperties[p.property]" ' +
+               'label="{{p.label}}"' +
+               'placeholder="{{p.placeholder}}"' +
+               'type="p.type"' +
+               'tooltip="{{p.tooltip}}">' +
+          '</form-builder-option>' +
+        '</ng-form>'
       );
     }
   ]);
@@ -12446,6 +12451,7 @@ module.exports = [
     $scope.dndDragIframeWorkaround = dndDragIframeWorkaround;
 
     var builderSettings = $rootScope.builderSettings;
+    var fields = builderSettings ? builderSettings.fields : {};
 
     function index(obj,is, value) {
       if (typeof is === 'string')
@@ -12467,11 +12473,11 @@ module.exports = [
         var ct = this.component.type;
 
         /**Устанавливаем значения поумолчанию для выключенных свойств*/
-        for(var view in builderSettings[ct].view){
-            if(builderSettings[ct].view[view].hasOwnProperty('option')){
-                for(var optKey in builderSettings[ct].view[view].option){
-                    var opt = builderSettings[ct].view[view].option[optKey];
-                    if(!builderSettings[ct].view[view].enabled || !opt.enabled){
+        for(var view in fields[ct].view){
+            if(fields[ct].view[view].hasOwnProperty('option')){
+                for(var optKey in fields[ct].view[view].option){
+                    var opt = fields[ct].view[view].option[optKey];
+                    if(!fields[ct].view[view].enabled || !opt.enabled){
                         index(this.component, optKey, opt.defaultValue);
                         if(optKey === "optionKey" && opt.defaultValue){
                             index(this.component, "key", opt.defaultValue);
@@ -12480,22 +12486,40 @@ module.exports = [
                 }
             }
         }
+
         /**Фильтруем отображаемые представления*/
         this.formComponent.views = this.formComponent.views.filter(function(v){
-            return builderSettings.hasOwnProperty(ct) &&
-                builderSettings[ct].view.hasOwnProperty(v.name) &&
-                builderSettings[ct].view[v.name].enabled
-        })
+            return fields.hasOwnProperty(ct) &&
+                fields[ct].view.hasOwnProperty(v.name) &&
+                fields[ct].view[v.name].enabled
+        });
+
+        /**Собственные настройки*/
+        if(builderSettings.customView && builderSettings.customView.enabled){
+            if(!this.component.hasOwnProperty("customViewProperties")) this.component.customViewProperties = {};
+            this.formComponent.customViewProperties = builderSettings.customView.properties;
+            builderSettings.customView.properties.forEach(function(p){
+                if(p.useDefault && !this.component.customViewProperties.hasOwnProperty(p.property)){
+                    this.component.customViewProperties[p.property] = p.defaultValue;
+                }
+            }, this);
+            if(builderSettings.customView.displayable){
+                this.formComponent.views.push({
+                    name: builderSettings.customView.title,
+                    template: "formio/components/common/customView.html"
+                })
+            }
+        }
     };
 
     /**Показывать или нет данную настройку*/
     $scope.displayOption = function(view, option){
         if(!builderSettings) return true;
         var ct = this.component.type;
-        return builderSettings.hasOwnProperty(ct) &&
-            builderSettings[ct].view.hasOwnProperty(view) &&
-            builderSettings[ct].view[view].enabled &&
-            builderSettings[ct].view[view].option[option].enabled;
+        return fields.hasOwnProperty(ct) &&
+            fields[ct].view.hasOwnProperty(view) &&
+            fields[ct].view[view].enabled &&
+            fields[ct].view[view].option[option].enabled;
     };
 
   }
@@ -12579,17 +12603,30 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       var tooltip = attrs.tooltip || (COMMON_OPTIONS[property] && COMMON_OPTIONS[property].tooltip) || '';
 
       var input = type === 'textarea' ? angular.element('<textarea></textarea>') : angular.element('<input>');
+
+      var displayableProperty = property === "customViewProperties[p.property]" ? "{{component."+property+"}}" : property;
+      var displayableLabel = label.startsWith("{{") ? label : formioTranslate(label);
+      var displayableTooltip = tooltip.startsWith("{{") ? tooltip : formioTranslate(tooltip);
+      var displayablePlaceholder = placeholder === null ? null : (placeholder.startsWith("{{") ? placeholder : formioTranslate(placeholder));
+
+      var isCalculatedType = type === "p.type";
+      var displayableType = isCalculatedType ? "{{" + type + "}}" : type;
+      var conditionType = isCalculatedType ? type : "'"+type.toLowerCase()+"'";
+
       var inputAttrs = {
-        id: property,
-        name: property,
-        type: type,
-        'ng-model': 'component.' + property,
-        placeholder: formioTranslate(placeholder)
+        id: displayableProperty,
+        name: displayableProperty,
+        type: displayableType,
+        placeholder: displayablePlaceholder,
+        'ng-model': "component."+property,
+        'ng-class': "{'form-control': 'checkbox' != " + conditionType + "}"
       };
+
       // Pass through attributes from the directive to the input element
       angular.forEach(attrs.$attr, function(key) {
-        if(key !== 'ng-if'){
-          inputAttrs[key] = attrs[attrs.$normalize(key)];
+        var attrValue = attrs[attrs.$normalize(key)];
+        if(!key.startsWith("ng") && !inputAttrs.hasOwnProperty(key)){
+            inputAttrs[key] = attrValue;
         }
         // Allow specifying tooltip via title attr
         if (key.toLowerCase() === 'title') {
@@ -12605,19 +12642,36 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
       input.attr(inputAttrs);
 
       // Checkboxes have a slightly different layout
-      if (inputAttrs.type && inputAttrs.type.toLowerCase() === 'checkbox') {
+      var tpl = '<div>' +
+                    '<div class="checkbox" ng-if="\'checkbox\' == '+ conditionType + '">' +
+                        '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
+                            input.prop('outerHTML') + ' ' +
+                            displayableLabel +
+                        '</label>' +
+                    '</div>' +
+                    '<div class="form-group" ng-if="\'checkbox\' != ' + conditionType + '">' +
+                        '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
+                            displayableLabel +
+                        '</label>' +
+                        input.prop('outerHTML') +
+                    '</div>' +
+                '</div>';
+
+      return tpl;
+
+    /*  if (inputAttrs.type && (inputAttrs.type.toLowerCase() === 'checkbox')) {
         return '<div class="checkbox">' +
-                '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' +
+                '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' +
                 input.prop('outerHTML') +
-                ' ' + formioTranslate(label) + '</label>' +
+                ' ' + displayableLabel + '</label>' +
               '</div>';
       }
 
       input.addClass('form-control');
       return '<div class="form-group">' +
-                '<label for="' + property + '" form-builder-tooltip="' + formioTranslate(tooltip) + '">' + formioTranslate(label) + '</label>' +
+                '<label for="' + displayableProperty + '" form-builder-tooltip="' + displayableTooltip + '">' + displayableLabel + '</label>' +
                 input.prop('outerHTML') +
-              '</div>';
+              '</div>';*/
     }
   };
 }];
@@ -13293,6 +13347,19 @@ app.directive('formBuilderDroppable', function() {
       }, false);
     }
   };
+});
+
+app.directive('ngBindModel',function($compile){
+    return{
+        compile:function(tEl,tAtr){
+            tEl[0].removeAttribute('ng-bind-model');
+            return function(scope){
+                tEl[0].setAttribute('ng-model',scope.$eval(tAtr.ngBindModel));
+                $compile(tEl[0])(scope);
+                console.info('new compiled element:',tEl[0])
+            }
+        }
+    }
 });
 
 app.factory('BuilderUtils', _dereq_('./factories/BuilderUtils'));

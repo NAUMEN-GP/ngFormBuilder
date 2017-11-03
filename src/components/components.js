@@ -144,11 +144,16 @@ module.exports = function(app) {
         '<form-builder-conditional ng-if="displayOption(\'Conditional\', \'conditional\')"></form-builder-conditional>'
       );
 
-      $templateCache.put('formio/components/common/customSettings.html',
-          '<ng-form>' +
-              '<form-builder-option property="customSettings.customView"></form-builder-option>' +
-              '<form-builder-option property="customSettings.editOnConsideration"></form-builder-option>' +
-          '</ng-form>'
+      $templateCache.put('formio/components/common/customView.html',
+        '<ng-form>' +
+           '<form-builder-option ng-repeat="p in ::formComponent.customViewProperties | filter:{displayable:true}"' +
+               'property="customViewProperties[p.property]" ' +
+               'label="{{p.label}}"' +
+               'placeholder="{{p.placeholder}}"' +
+               'type="p.type"' +
+               'tooltip="{{p.tooltip}}">' +
+          '</form-builder-option>' +
+        '</ng-form>'
       );
     }
   ]);
