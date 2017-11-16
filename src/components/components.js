@@ -114,25 +114,25 @@ module.exports = function(app) {
           '<form-builder-option property="style[\'margin-left\']" ng-if="displayOption(\'Layout\', \'marginLeft\')"></form-builder-option>' +
           '<uib-accordion>' +
           '  <div uib-accordion-group heading="Overlay" class="panel panel-default">' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayStyle\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.style\')">' +
           '      <label for="overlay-style">Style</label>' +
-          '      <input class="form-control" id="overlay-style" name="overlay-style" ng-model="component.overlay.style"></input>' +
+          '      <input class="form-control" id="overlay-style" name="overlay-style" ng-model="component.overlay.style">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayLeft\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.left\')">' +
           '      <label for="overlay-left">Left</label>' +
-          '      <input class="form-control" id="overlay-left" name="overlay-left" ng-model="component.overlay.left"></input>' +
+          '      <input class="form-control" id="overlay-left" name="overlay-left" ng-model="component.overlay.left">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayRight\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.top\')">' +
           '      <label for="overlay-right">Top</label>' +
-          '      <input class="form-control" id="overlay-top" name="overlay-top" ng-model="component.overlay.top"></input>' +
+          '      <input class="form-control" id="overlay-top" name="overlay-top" ng-model="component.overlay.top">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayWidth\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.width\')">' +
           '      <label for="overlay-width">Width</label>' +
-          '      <input class="form-control" id="overlay-width" name="overlay-width" ng-model="component.overlay.width"></input>' +
+          '      <input class="form-control" id="overlay-width" name="overlay-width" ng-model="component.overlay.width">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayHeight\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.height\')">' +
           '      <label for="overlay-height">Height</label>' +
-          '      <input class="form-control" id="overlay-height" name="overlay-height" ng-model="component.overlay.height"></input>' +
+          '      <input class="form-control" id="overlay-height" name="overlay-height" ng-model="component.overlay.height">' +
           '    </div>' +
           '  </div>' +
           '</uib-accordion>' +

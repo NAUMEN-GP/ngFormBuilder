@@ -8655,25 +8655,25 @@ module.exports = function(app) {
           '<form-builder-option property="style[\'margin-left\']" ng-if="displayOption(\'Layout\', \'marginLeft\')"></form-builder-option>' +
           '<uib-accordion>' +
           '  <div uib-accordion-group heading="Overlay" class="panel panel-default">' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayStyle\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.style\')">' +
           '      <label for="overlay-style">Style</label>' +
-          '      <input class="form-control" id="overlay-style" name="overlay-style" ng-model="component.overlay.style"></input>' +
+          '      <input class="form-control" id="overlay-style" name="overlay-style" ng-model="component.overlay.style">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayLeft\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.left\')">' +
           '      <label for="overlay-left">Left</label>' +
-          '      <input class="form-control" id="overlay-left" name="overlay-left" ng-model="component.overlay.left"></input>' +
+          '      <input class="form-control" id="overlay-left" name="overlay-left" ng-model="component.overlay.left">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayRight\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.top\')">' +
           '      <label for="overlay-right">Top</label>' +
-          '      <input class="form-control" id="overlay-top" name="overlay-top" ng-model="component.overlay.top"></input>' +
+          '      <input class="form-control" id="overlay-top" name="overlay-top" ng-model="component.overlay.top">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayWidth\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.width\')">' +
           '      <label for="overlay-width">Width</label>' +
-          '      <input class="form-control" id="overlay-width" name="overlay-width" ng-model="component.overlay.width"></input>' +
+          '      <input class="form-control" id="overlay-width" name="overlay-width" ng-model="component.overlay.width">' +
           '    </div>' +
-          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlayHeight\')">' +
+          '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.height\')">' +
           '      <label for="overlay-height">Height</label>' +
-          '      <input class="form-control" id="overlay-height" name="overlay-height" ng-model="component.overlay.height"></input>' +
+          '      <input class="form-control" id="overlay-height" name="overlay-height" ng-model="component.overlay.height">' +
           '    </div>' +
           '  </div>' +
           '</uib-accordion>' +
@@ -9375,6 +9375,7 @@ module.exports = function(app) {
 
       $templateCache.put('formio/components/editgrid/validate.html',
         '<ng-form>' +
+          '<div ng-if="displayOption(\'Validation\', \'customValidation\')">' +
         '    <label>{{\'Row View Validation\' | formioTranslate}}</label>' +
         '    <textarea class="form-control" rows="5" id="custom" name="custom" ng-model="component.validate.row" placeholder="/*** Example Code ***/\nvalid = (row.myfield === \'some value\') ? true : \'Must be some value\';">{{ component.validate.row }}</textarea>' +
         '    <small>' +
@@ -9382,7 +9383,8 @@ module.exports = function(app) {
         '      <p>You must assign the <strong>valid</strong> variable as either <strong>true</strong> or an error message if validation fails.</p>' +
         '      <p>The variables <strong>row</strong>, <strong>component</strong>, and <strong>valid</strong> are provided.</p>' +
         '    </small>' +
-        '    <form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
+        '    <form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '</div>' +
         '</ng-form>'
       );
 
@@ -9823,7 +9825,7 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/htmlelement/display.html',
         '<ng-form>' +
-        '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'label\')" label="Container Custom Class"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')" label="Container Custom Class"></form-builder-option>' +
           '<form-builder-option property="tag" ng-if="displayOption(\'Display\', \'tag\')" label="HTML Tag" placeholder="HTML Element Tag" title="The tag of this HTML element."></form-builder-option>' +
           '<form-builder-option property="className" ng-if="displayOption(\'Display\', \'className\')" label="CSS Class" placeholder="CSS Class" title="The CSS class for this HTML element."></form-builder-option>' +
           '<value-builder ng-if="displayOption(\'Display\', \'attributes\')" ' +
@@ -10407,7 +10409,7 @@ module.exports = function(app) {
           '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
           '<form-builder-option property="reference" ng-if="displayOption(\'Display\', \'reference\')"></form-builder-option>' +
           '<form-builder-option property="addResource" ng-if="displayOption(\'Display\', \'addResource\')"></form-builder-option>' +
-          '<form-builder-option property="addResourceLabel" ng-if="displayOption(\'Display\', \'addResourceLabel\')" ng-if="component.addResource"></form-builder-option>' +
+          '<form-builder-option property="addResourceLabel" ng-if="displayOption(\'Display\', \'addResourceLabel\') && component.addResource"></form-builder-option>' +
           '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
           '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
           '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
@@ -10418,7 +10420,7 @@ module.exports = function(app) {
       // Create the API markup.
       $templateCache.put('formio/components/resource/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
@@ -10870,7 +10872,7 @@ module.exports = function(app) {
           '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
           '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
           '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
-          '<form-builder-option property="inline" ng-if="displayOption(\'Display\', \'inline" ng\')" type="checkbox" label="Inline Layout" title="Displays the radio buttons horizontally."></form-builder-option>' +
+          '<form-builder-option property="inline" ng-if="displayOption(\'Display\', \'inline\')" type="checkbox" label="Inline Layout" title="Displays the radio buttons horizontally."></form-builder-option>' +
           '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
           '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
           '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
@@ -11053,7 +11055,7 @@ module.exports = function(app) {
           '<form-builder-option property="inputMask" ng-if="displayOption(\'Display\', \'inputMask\')"></form-builder-option>' +
           '<div ng-controller="wysiwygSettings">' +
             '<div class="checkbox">' +
-              '<label><input type="checkbox" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
+              '<label><input type="checkbox" ng-show="displayOption(\'Display\', \'wysiwygEnabled\')" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
             '</div>' +
             '<div class="form-group">' +
               '<label for="wysiwyg">{{\'WYSIWYG Settings\' | formioTranslate}}</label>' +

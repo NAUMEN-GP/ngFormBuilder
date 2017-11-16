@@ -84,7 +84,7 @@ module.exports = function(app) {
           '<form-builder-option property="inputMask" ng-if="displayOption(\'Display\', \'inputMask\')"></form-builder-option>' +
           '<div ng-controller="wysiwygSettings">' +
             '<div class="checkbox">' +
-              '<label><input type="checkbox" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
+              '<label><input type="checkbox" ng-show="displayOption(\'Display\', \'wysiwygEnabled\')" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
             '</div>' +
             '<div class="form-group">' +
               '<label for="wysiwyg">{{\'WYSIWYG Settings\' | formioTranslate}}</label>' +

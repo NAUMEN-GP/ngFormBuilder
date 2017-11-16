@@ -73,7 +73,7 @@ module.exports = function(app) {
           '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
           '<form-builder-option property="reference" ng-if="displayOption(\'Display\', \'reference\')"></form-builder-option>' +
           '<form-builder-option property="addResource" ng-if="displayOption(\'Display\', \'addResource\')"></form-builder-option>' +
-          '<form-builder-option property="addResourceLabel" ng-if="displayOption(\'Display\', \'addResourceLabel\')" ng-if="component.addResource"></form-builder-option>' +
+          '<form-builder-option property="addResourceLabel" ng-if="displayOption(\'Display\', \'addResourceLabel\') && component.addResource"></form-builder-option>' +
           '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
           '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
           '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
@@ -84,7 +84,7 @@ module.exports = function(app) {
       // Create the API markup.
       $templateCache.put('formio/components/resource/validate.html',
         '<ng-form>' +
-          '<form-builder-option property="validate.required"></form-builder-option>' +
+          '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
         '</ng-form>'
       );
     }
