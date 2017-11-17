@@ -38,28 +38,35 @@ module.exports = function(app) {
     }
   ]);
   app.controller('wysiwygSettings', ['$scope', function($scope) {
-    $scope.wysiwygEnabled = !!$scope.component.wysiwyg;
-    $scope.wysiwygSettings = $scope.wysiwygEnabled && typeof($scope.component.wysiwyg) == "object" ? $scope.component.wysiwyg: {
-      toolbarGroups:  [
-        {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-        {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
-        {name: 'links', groups: ['links']},
-        {name: 'insert', groups: ['insert']},
-        '/',
-        {name: 'styles', groups: ['Styles', 'Format', 'Font', 'FontSize']},
-        {name: 'colors', groups: ['colors']},
-        {name: 'clipboard', groups: ['clipboard', 'undo']},
-        {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-        {name: 'document', groups: ['mode', 'document', 'doctools']},
-        {name: 'others', groups: ['others']},
-        {name: 'tools', groups: ['tools']}
-      ],
-      extraPlugins: 'justify,font',
-      removeButtons: 'Cut,Copy,Paste,Underline,Subscript,Superscript,Scayt,About',
-      uiColor: '#eeeeee',
-      height: '400px',
-      width: '100%'
+    $scope.wysiwygEnabled = !!$scope.component.wysiwyg || !!$scope.component.wysiwygEnabled;
+
+    var defaultWysiwygSettings = $scope.component.wysiwygSettings || {
+        toolbarGroups:  [
+            {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+            {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
+            {name: 'links', groups: ['links']},
+            {name: 'insert', groups: ['insert']},
+            '/',
+            {name: 'styles', groups: ['Styles', 'Format', 'Font', 'FontSize']},
+            {name: 'colors', groups: ['colors']},
+            {name: 'clipboard', groups: ['clipboard', 'undo']},
+            {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+            {name: 'document', groups: ['mode', 'document', 'doctools']},
+            {name: 'others', groups: ['others']},
+            {name: 'tools', groups: ['tools']}
+        ],
+        extraPlugins: 'justify,font',
+        removeButtons: 'Cut,Copy,Paste,Underline,Subscript,Superscript,Scayt,About',
+        uiColor: '#eeeeee',
+        height: '400px',
+        width: '100%'
     };
+
+    $scope.wysiwygSettings =
+        $scope.wysiwygEnabled && typeof($scope.component.wysiwyg) === "object" ? $scope.component.wysiwyg: defaultWysiwygSettings;
+
+    $scope.component.wysiwyg = $scope.wysiwygEnabled ? $scope.wysiwygSettings : false;
+
     $scope.$watch('wysiwygEnabled', function(value) {
       $scope.component.wysiwyg = value ? $scope.wysiwygSettings : false;
     });
@@ -86,7 +93,7 @@ module.exports = function(app) {
             '<div class="checkbox" ng-if="displayOption(\'Display\', \'wysiwygEnabled\')">' +
               '<label><input type="checkbox" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
             '</div>' +
-            '<div class="form-group">' +
+            '<div class="form-group" ng-if="displayOption(\'Display\', \'wysiwygSettings\')">' +
               '<label for="wysiwyg">{{\'WYSIWYG Settings\' | formioTranslate}}</label>' +
               '<textarea class="form-control" rows="5" id="wysiwyg" ng-model="wysiwygSettings" json-input placeholder="Enter the CKEditor JSON configuration to turn this TextArea into a WYSIWYG."></textarea>' +
             '</div>' +
