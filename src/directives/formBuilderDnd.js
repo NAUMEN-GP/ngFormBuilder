@@ -350,8 +350,6 @@ module.exports = [
 
     }
 
-    $scope.fieldBuilderSettings = fields[this.component.type];
-
     $scope.filterViews = function(){
         if(!builderSettings) return;
         var ct = this.component.type;
