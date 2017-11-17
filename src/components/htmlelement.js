@@ -36,7 +36,7 @@ module.exports = function(app) {
       // Create the settings markup.
       $templateCache.put('formio/components/htmlelement/display.html',
         '<ng-form>' +
-        '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'label\')" label="Container Custom Class"></form-builder-option>' +
+          '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')" label="Container Custom Class"></form-builder-option>' +
           '<form-builder-option property="tag" ng-if="displayOption(\'Display\', \'tag\')" label="HTML Tag" placeholder="HTML Element Tag" title="The tag of this HTML element."></form-builder-option>' +
           '<form-builder-option property="className" ng-if="displayOption(\'Display\', \'className\')" label="CSS Class" placeholder="CSS Class" title="The CSS class for this HTML element."></form-builder-option>' +
           '<value-builder ng-if="displayOption(\'Display\', \'attributes\')" ' +

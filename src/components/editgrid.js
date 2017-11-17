@@ -80,6 +80,7 @@ module.exports = function(app) {
 
       $templateCache.put('formio/components/editgrid/validate.html',
         '<ng-form>' +
+          '<div ng-if="displayOption(\'Validation\', \'customValidation\')">' +
         '    <label>{{\'Row View Validation\' | formioTranslate}}</label>' +
         '    <textarea class="form-control" rows="5" id="custom" name="custom" ng-model="component.validate.row" placeholder="/*** Example Code ***/\nvalid = (row.myfield === \'some value\') ? true : \'Must be some value\';">{{ component.validate.row }}</textarea>' +
         '    <small>' +
@@ -87,7 +88,8 @@ module.exports = function(app) {
         '      <p>You must assign the <strong>valid</strong> variable as either <strong>true</strong> or an error message if validation fails.</p>' +
         '      <p>The variables <strong>row</strong>, <strong>component</strong>, and <strong>valid</strong> are provided.</p>' +
         '    </small>' +
-        '    <form-builder-option-custom-validation ng-if="displayOption(\'Validation\', \'customValidation\')"></form-builder-option-custom-validation>' +
+        '    <form-builder-option-custom-validation></form-builder-option-custom-validation>' +
+          '</div>' +
         '</ng-form>'
       );
 
