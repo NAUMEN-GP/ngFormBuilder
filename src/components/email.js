@@ -27,7 +27,7 @@ module.exports = function(app) {
         '<ng-form>' +
           '<form-builder-option property="validate.required" ng-if="displayOption(\'Validation\', \'validate.required\')"></form-builder-option>' +
           '<form-builder-option property="unique" ng-if="displayOption(\'Validation\', \'unique\')"></form-builder-option>' +
-          '<div class="panel panel-default" ng-if="displayOption(\'Validation\', \'kickboxEnable\')>' +
+          '<div class="panel panel-default" ng-if="displayOption(\'Validation\', \'kickboxEnable\')">' +
             '<div class="panel-heading"><h3 class="panel-title">{{\'Kickbox\' | formioTranslate}}</h3></div>' +
             '<div class="panel-body">' +
               '<p>{{\'Validate this email using the Kickbox email validation service.\' | formioTranslate}}</p>' +
