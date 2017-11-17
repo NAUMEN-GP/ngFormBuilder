@@ -12477,6 +12477,8 @@ module.exports = [
 
     }
 
+    $scope.fieldBuilderSettings = fields[this.component.type];
+
     $scope.filterViews = function(){
         if(!builderSettings) return;
         var ct = this.component.type;
@@ -12850,11 +12852,11 @@ module.exports = function() {
     replace: true,
     template: function() {
       return '<div class="form-builder-table">' +
-        '  <div class="form-group">' +
+        '  <div class="form-group" ng-if="displayOption(\'Display\', \'numRows\')">' +
         '    <label for="label">Number of Rows</label>' +
         '    <input type="number" class="form-control" id="numRows" name="numRows" placeholder="Number of Rows" ng-model="component.numRows">' +
         '  </div>' +
-        '  <div class="form-group">' +
+        '  <div class="form-group" ng-if="displayOption(\'Display\', \'numCols\')">' +
         '    <label for="label">Number of Columns</label>' +
         '    <input type="number" class="form-control" id="numCols" name="numCols" placeholder="Number of Columns" ng-model="component.numCols">' +
         '  </div>' +
