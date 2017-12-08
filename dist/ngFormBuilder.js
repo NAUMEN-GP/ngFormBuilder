@@ -11060,11 +11060,11 @@ module.exports = function(app) {
           '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
           '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
           '<form-builder-option property="inputMask" ng-if="displayOption(\'Display\', \'inputMask\')"></form-builder-option>' +
-          '<div ng-controller="wysiwygSettings">' +
-            '<div class="checkbox" ng-if="displayOption(\'Display\', \'wysiwygEnabled\')">' +
+          '<div ng-controller="wysiwygSettings" ng-if="displayOption(\'Display\', \'wysiwygEnabled\')">' +
+            '<div class="checkbox">' +
               '<label><input type="checkbox" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
             '</div>' +
-            '<div class="form-group" ng-if="displayOption(\'Display\', \'wysiwygSettings\')">' +
+            '<div class="form-group">' +
               '<label for="wysiwyg">{{\'WYSIWYG Settings\' | formioTranslate}}</label>' +
               '<textarea class="form-control" rows="5" id="wysiwyg" ng-model="wysiwygSettings" json-input placeholder="Enter the CKEditor JSON configuration to turn this TextArea into a WYSIWYG."></textarea>' +
             '</div>' +
