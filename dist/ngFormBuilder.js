@@ -8649,10 +8649,10 @@ module.exports = function(app) {
       $templateCache.put('formio/components/common/layout.html',
         '<ng-form>' +
           // Need to use array notation to have dash in name
-          '<form-builder-option property="style[\'margin-top\']" ng-if="displayOption(\'Layout\', \'marginTop\')"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-right\']" ng-if="displayOption(\'Layout\', \'marginRight\')"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-bottom\']" ng-if="displayOption(\'Layout\', \'marginBottom\')"></form-builder-option>' +
-          '<form-builder-option property="style[\'margin-left\']" ng-if="displayOption(\'Layout\', \'marginLeft\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-top\']" ng-if="displayOption(\'Layout\', \'style.margin-top\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-right\']" ng-if="displayOption(\'Layout\', \'style.margin-right\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-bottom\']" ng-if="displayOption(\'Layout\', \'style.margin-bottom\')"></form-builder-option>' +
+          '<form-builder-option property="style[\'margin-left\']" ng-if="displayOption(\'Layout\', \'style.margin-left\')"></form-builder-option>' +
           '<uib-accordion>' +
           '  <div uib-accordion-group heading="Overlay" class="panel panel-default">' +
           '    <div class="form-group" ng-if="displayOption(\'Layout\', \'overlay.style\')">' +
