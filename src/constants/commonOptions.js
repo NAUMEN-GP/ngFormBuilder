@@ -196,6 +196,17 @@ module.exports = {
     type: 'checkbox',
     tooltip: 'Show the label when in a datagrid.'
   },
+  accept: {
+    label: 'Доступные для загрузки расширения',
+    placeholder: 'jpg,jpeg,png,pdf',
+    tooltip: 'Доступные для загрузки типы файлов, перечисленные через запятую'
+  },
+  maxCount: {
+    label: 'Максимальное количество файлов',
+    type: 'number',
+    placeholder: '',
+    tooltip: 'Максимальное количество файлов, которое можно загрузить'
+  },
   'validate.required': {
     label: 'Required',
     type: 'checkbox',

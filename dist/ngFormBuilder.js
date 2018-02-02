@@ -9576,6 +9576,7 @@ module.exports = function(app) {
         '<ng-form>' +
           '<form-builder-option property="label" ng-if="displayOption(\'Display\', \'label\')"></form-builder-option>' +
           '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
+          '<form-builder-option property="description" ng-if="displayOption(\'Display\', \'description\')"></form-builder-option>' +
           '<div class="form-group" ng-if="displayOption(\'Display\', \'storage\')">' +
             '<label for="storage" form-builder-tooltip="Which storage to save the files in.">{{\'Storage\' | formioTranslate}}</label>' +
             '<select class="form-control" id="storage" name="storage" ng-options="store.name as store.title | formioTranslate for store in storage" ng-model="component.storage"></select>' +
@@ -9587,12 +9588,14 @@ module.exports = function(app) {
           '<form-builder-option property="customClass" ng-if="displayOption(\'Display\', \'customClass\')"></form-builder-option>' +
           '<form-builder-option property="tabindex" ng-if="displayOption(\'Display\', \'tabindex\')"></form-builder-option>' +
           '<form-builder-option property="multiple" ng-if="displayOption(\'Display\', \'multiple\')"></form-builder-option>' +
+          '<form-builder-option property="maxCount" ng-show="displayOption(\'Display\', \'maxCount\') && component.multiple"></form-builder-option>' +
           '<form-builder-option property="clearOnHide" ng-if="displayOption(\'Display\', \'clearOnHide\')"></form-builder-option>' +
           '<form-builder-option property="protected" ng-if="displayOption(\'Display\', \'protected\')"></form-builder-option>' +
           '<form-builder-option property="persistent" ng-if="displayOption(\'Display\', \'persistent\')"></form-builder-option>' +
           '<form-builder-option property="hidden" ng-if="displayOption(\'Display\', \'hidden\')"></form-builder-option>' +
           '<form-builder-option property="disabled" ng-if="displayOption(\'Display\', \'disabled\')"></form-builder-option>' +
           '<form-builder-option property="tableView" ng-if="displayOption(\'Display\', \'tableView\')"></form-builder-option>' +
+          '<form-builder-option property="accept" ng-if="displayOption(\'Display\', \'accept\')"></form-builder-option>' +
         '</ng-form>'
       );
 
@@ -11470,6 +11473,17 @@ module.exports = {
     label: 'Datagrid Label',
     type: 'checkbox',
     tooltip: 'Show the label when in a datagrid.'
+  },
+  accept: {
+    label: 'Доступные для загрузки расширения',
+    placeholder: 'jpg,jpeg,png,pdf',
+    tooltip: 'Доступные для загрузки типы файлов, перечисленные через запятую'
+  },
+  maxCount: {
+    label: 'Максимальное количество файлов',
+    type: 'number',
+    placeholder: '',
+    tooltip: 'Максимальное количество файлов, которое можно загрузить'
   },
   'validate.required': {
     label: 'Required',
