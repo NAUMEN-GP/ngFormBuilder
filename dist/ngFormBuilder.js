@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.formioBuilder = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.formioBuilder = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -475,7 +475,7 @@ var FormioUtils = {
 module.exports = global.FormioUtils = FormioUtils;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"json-logic-js":3,"lodash/chunk":184,"lodash/clone":185,"lodash/get":193,"lodash/isNaN":205,"lodash/isString":210,"lodash/pad":220,"lodash/round":224,"lodash/template":227}],2:[function(_dereq_,module,exports){
+},{"json-logic-js":3,"lodash/chunk":183,"lodash/clone":184,"lodash/get":192,"lodash/isNaN":205,"lodash/isString":211,"lodash/pad":221,"lodash/round":225,"lodash/template":228}],2:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = _dereq_('./build/utils');
@@ -558,7 +558,7 @@ http://ricostacruz.com/cheatsheets/umdjs.html
       console.log(a); return a;
     },
     "in": function(a, b) {
-      if(typeof b.indexOf === "undefined") return false;
+      if(!b || typeof b.indexOf === "undefined") return false;
       return (b.indexOf(a) !== -1);
     },
     "cat": function() {
@@ -955,7 +955,7 @@ var DataView = getNative(root, 'DataView');
 
 module.exports = DataView;
 
-},{"./_getNative":112,"./_root":160}],5:[function(_dereq_,module,exports){
+},{"./_getNative":110,"./_root":158}],5:[function(_dereq_,module,exports){
 var hashClear = _dereq_('./_hashClear'),
     hashDelete = _dereq_('./_hashDelete'),
     hashGet = _dereq_('./_hashGet'),
@@ -989,7 +989,7 @@ Hash.prototype.set = hashSet;
 
 module.exports = Hash;
 
-},{"./_hashClear":122,"./_hashDelete":123,"./_hashGet":124,"./_hashHas":125,"./_hashSet":126}],6:[function(_dereq_,module,exports){
+},{"./_hashClear":120,"./_hashDelete":121,"./_hashGet":122,"./_hashHas":123,"./_hashSet":124}],6:[function(_dereq_,module,exports){
 var listCacheClear = _dereq_('./_listCacheClear'),
     listCacheDelete = _dereq_('./_listCacheDelete'),
     listCacheGet = _dereq_('./_listCacheGet'),
@@ -1023,7 +1023,7 @@ ListCache.prototype.set = listCacheSet;
 
 module.exports = ListCache;
 
-},{"./_listCacheClear":137,"./_listCacheDelete":138,"./_listCacheGet":139,"./_listCacheHas":140,"./_listCacheSet":141}],7:[function(_dereq_,module,exports){
+},{"./_listCacheClear":135,"./_listCacheDelete":136,"./_listCacheGet":137,"./_listCacheHas":138,"./_listCacheSet":139}],7:[function(_dereq_,module,exports){
 var getNative = _dereq_('./_getNative'),
     root = _dereq_('./_root');
 
@@ -1032,7 +1032,7 @@ var Map = getNative(root, 'Map');
 
 module.exports = Map;
 
-},{"./_getNative":112,"./_root":160}],8:[function(_dereq_,module,exports){
+},{"./_getNative":110,"./_root":158}],8:[function(_dereq_,module,exports){
 var mapCacheClear = _dereq_('./_mapCacheClear'),
     mapCacheDelete = _dereq_('./_mapCacheDelete'),
     mapCacheGet = _dereq_('./_mapCacheGet'),
@@ -1066,7 +1066,7 @@ MapCache.prototype.set = mapCacheSet;
 
 module.exports = MapCache;
 
-},{"./_mapCacheClear":142,"./_mapCacheDelete":143,"./_mapCacheGet":144,"./_mapCacheHas":145,"./_mapCacheSet":146}],9:[function(_dereq_,module,exports){
+},{"./_mapCacheClear":140,"./_mapCacheDelete":141,"./_mapCacheGet":142,"./_mapCacheHas":143,"./_mapCacheSet":144}],9:[function(_dereq_,module,exports){
 var getNative = _dereq_('./_getNative'),
     root = _dereq_('./_root');
 
@@ -1075,7 +1075,7 @@ var Promise = getNative(root, 'Promise');
 
 module.exports = Promise;
 
-},{"./_getNative":112,"./_root":160}],10:[function(_dereq_,module,exports){
+},{"./_getNative":110,"./_root":158}],10:[function(_dereq_,module,exports){
 var getNative = _dereq_('./_getNative'),
     root = _dereq_('./_root');
 
@@ -1084,7 +1084,7 @@ var Set = getNative(root, 'Set');
 
 module.exports = Set;
 
-},{"./_getNative":112,"./_root":160}],11:[function(_dereq_,module,exports){
+},{"./_getNative":110,"./_root":158}],11:[function(_dereq_,module,exports){
 var MapCache = _dereq_('./_MapCache'),
     setCacheAdd = _dereq_('./_setCacheAdd'),
     setCacheHas = _dereq_('./_setCacheHas');
@@ -1113,7 +1113,7 @@ SetCache.prototype.has = setCacheHas;
 
 module.exports = SetCache;
 
-},{"./_MapCache":8,"./_setCacheAdd":161,"./_setCacheHas":162}],12:[function(_dereq_,module,exports){
+},{"./_MapCache":8,"./_setCacheAdd":160,"./_setCacheHas":161}],12:[function(_dereq_,module,exports){
 var ListCache = _dereq_('./_ListCache'),
     stackClear = _dereq_('./_stackClear'),
     stackDelete = _dereq_('./_stackDelete'),
@@ -1142,7 +1142,7 @@ Stack.prototype.set = stackSet;
 
 module.exports = Stack;
 
-},{"./_ListCache":6,"./_stackClear":166,"./_stackDelete":167,"./_stackGet":168,"./_stackHas":169,"./_stackSet":170}],13:[function(_dereq_,module,exports){
+},{"./_ListCache":6,"./_stackClear":165,"./_stackDelete":166,"./_stackGet":167,"./_stackHas":168,"./_stackSet":169}],13:[function(_dereq_,module,exports){
 var root = _dereq_('./_root');
 
 /** Built-in value references. */
@@ -1150,7 +1150,7 @@ var Symbol = root.Symbol;
 
 module.exports = Symbol;
 
-},{"./_root":160}],14:[function(_dereq_,module,exports){
+},{"./_root":158}],14:[function(_dereq_,module,exports){
 var root = _dereq_('./_root');
 
 /** Built-in value references. */
@@ -1158,7 +1158,7 @@ var Uint8Array = root.Uint8Array;
 
 module.exports = Uint8Array;
 
-},{"./_root":160}],15:[function(_dereq_,module,exports){
+},{"./_root":158}],15:[function(_dereq_,module,exports){
 var getNative = _dereq_('./_getNative'),
     root = _dereq_('./_root');
 
@@ -1167,41 +1167,7 @@ var WeakMap = getNative(root, 'WeakMap');
 
 module.exports = WeakMap;
 
-},{"./_getNative":112,"./_root":160}],16:[function(_dereq_,module,exports){
-/**
- * Adds the key-value `pair` to `map`.
- *
- * @private
- * @param {Object} map The map to modify.
- * @param {Array} pair The key-value pair to add.
- * @returns {Object} Returns `map`.
- */
-function addMapEntry(map, pair) {
-  // Don't return `map.set` because it's not chainable in IE 11.
-  map.set(pair[0], pair[1]);
-  return map;
-}
-
-module.exports = addMapEntry;
-
-},{}],17:[function(_dereq_,module,exports){
-/**
- * Adds `value` to `set`.
- *
- * @private
- * @param {Object} set The set to modify.
- * @param {*} value The value to add.
- * @returns {Object} Returns `set`.
- */
-function addSetEntry(set, value) {
-  // Don't return `set.add` because it's not chainable in IE 11.
-  set.add(value);
-  return set;
-}
-
-module.exports = addSetEntry;
-
-},{}],18:[function(_dereq_,module,exports){
+},{"./_getNative":110,"./_root":158}],16:[function(_dereq_,module,exports){
 /**
  * A faster alternative to `Function#apply`, this function invokes `func`
  * with the `this` binding of `thisArg` and the arguments of `args`.
@@ -1224,7 +1190,7 @@ function apply(func, thisArg, args) {
 
 module.exports = apply;
 
-},{}],19:[function(_dereq_,module,exports){
+},{}],17:[function(_dereq_,module,exports){
 /**
  * A specialized version of `baseAggregator` for arrays.
  *
@@ -1248,7 +1214,7 @@ function arrayAggregator(array, setter, iteratee, accumulator) {
 
 module.exports = arrayAggregator;
 
-},{}],20:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
 /**
  * A specialized version of `_.forEach` for arrays without support for
  * iteratee shorthands.
@@ -1272,7 +1238,7 @@ function arrayEach(array, iteratee) {
 
 module.exports = arrayEach;
 
-},{}],21:[function(_dereq_,module,exports){
+},{}],19:[function(_dereq_,module,exports){
 /**
  * A specialized version of `_.filter` for arrays without support for
  * iteratee shorthands.
@@ -1299,7 +1265,7 @@ function arrayFilter(array, predicate) {
 
 module.exports = arrayFilter;
 
-},{}],22:[function(_dereq_,module,exports){
+},{}],20:[function(_dereq_,module,exports){
 var baseTimes = _dereq_('./_baseTimes'),
     isArguments = _dereq_('./isArguments'),
     isArray = _dereq_('./isArray'),
@@ -1350,7 +1316,7 @@ function arrayLikeKeys(value, inherited) {
 
 module.exports = arrayLikeKeys;
 
-},{"./_baseTimes":70,"./_isIndex":130,"./isArguments":197,"./isArray":198,"./isBuffer":201,"./isTypedArray":212}],23:[function(_dereq_,module,exports){
+},{"./_baseTimes":70,"./_isIndex":128,"./isArguments":196,"./isArray":197,"./isBuffer":200,"./isTypedArray":213}],21:[function(_dereq_,module,exports){
 /**
  * A specialized version of `_.map` for arrays without support for iteratee
  * shorthands.
@@ -1373,7 +1339,7 @@ function arrayMap(array, iteratee) {
 
 module.exports = arrayMap;
 
-},{}],24:[function(_dereq_,module,exports){
+},{}],22:[function(_dereq_,module,exports){
 /**
  * Appends the elements of `values` to `array`.
  *
@@ -1395,7 +1361,7 @@ function arrayPush(array, values) {
 
 module.exports = arrayPush;
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],23:[function(_dereq_,module,exports){
 /**
  * A specialized version of `_.reduce` for arrays without support for
  * iteratee shorthands.
@@ -1423,7 +1389,7 @@ function arrayReduce(array, iteratee, accumulator, initAccum) {
 
 module.exports = arrayReduce;
 
-},{}],26:[function(_dereq_,module,exports){
+},{}],24:[function(_dereq_,module,exports){
 /**
  * A specialized version of `_.some` for arrays without support for iteratee
  * shorthands.
@@ -1448,7 +1414,7 @@ function arraySome(array, predicate) {
 
 module.exports = arraySome;
 
-},{}],27:[function(_dereq_,module,exports){
+},{}],25:[function(_dereq_,module,exports){
 var baseProperty = _dereq_('./_baseProperty');
 
 /**
@@ -1462,7 +1428,7 @@ var asciiSize = baseProperty('length');
 
 module.exports = asciiSize;
 
-},{"./_baseProperty":62}],28:[function(_dereq_,module,exports){
+},{"./_baseProperty":62}],26:[function(_dereq_,module,exports){
 /**
  * Converts an ASCII `string` to an array.
  *
@@ -1476,7 +1442,7 @@ function asciiToArray(string) {
 
 module.exports = asciiToArray;
 
-},{}],29:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 /** Used to match words composed of alphanumeric characters. */
 var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
 
@@ -1493,7 +1459,7 @@ function asciiWords(string) {
 
 module.exports = asciiWords;
 
-},{}],30:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 var baseAssignValue = _dereq_('./_baseAssignValue'),
     eq = _dereq_('./eq');
 
@@ -1515,7 +1481,7 @@ function assignMergeValue(object, key, value) {
 
 module.exports = assignMergeValue;
 
-},{"./_baseAssignValue":36,"./eq":190}],31:[function(_dereq_,module,exports){
+},{"./_baseAssignValue":34,"./eq":189}],29:[function(_dereq_,module,exports){
 var baseAssignValue = _dereq_('./_baseAssignValue'),
     eq = _dereq_('./eq');
 
@@ -1545,7 +1511,7 @@ function assignValue(object, key, value) {
 
 module.exports = assignValue;
 
-},{"./_baseAssignValue":36,"./eq":190}],32:[function(_dereq_,module,exports){
+},{"./_baseAssignValue":34,"./eq":189}],30:[function(_dereq_,module,exports){
 var eq = _dereq_('./eq');
 
 /**
@@ -1568,7 +1534,7 @@ function assocIndexOf(array, key) {
 
 module.exports = assocIndexOf;
 
-},{"./eq":190}],33:[function(_dereq_,module,exports){
+},{"./eq":189}],31:[function(_dereq_,module,exports){
 var baseEach = _dereq_('./_baseEach');
 
 /**
@@ -1591,7 +1557,7 @@ function baseAggregator(collection, setter, iteratee, accumulator) {
 
 module.exports = baseAggregator;
 
-},{"./_baseEach":39}],34:[function(_dereq_,module,exports){
+},{"./_baseEach":37}],32:[function(_dereq_,module,exports){
 var copyObject = _dereq_('./_copyObject'),
     keys = _dereq_('./keys');
 
@@ -1610,7 +1576,7 @@ function baseAssign(object, source) {
 
 module.exports = baseAssign;
 
-},{"./_copyObject":87,"./keys":213}],35:[function(_dereq_,module,exports){
+},{"./_copyObject":85,"./keys":214}],33:[function(_dereq_,module,exports){
 var copyObject = _dereq_('./_copyObject'),
     keysIn = _dereq_('./keysIn');
 
@@ -1629,7 +1595,7 @@ function baseAssignIn(object, source) {
 
 module.exports = baseAssignIn;
 
-},{"./_copyObject":87,"./keysIn":214}],36:[function(_dereq_,module,exports){
+},{"./_copyObject":85,"./keysIn":215}],34:[function(_dereq_,module,exports){
 var defineProperty = _dereq_('./_defineProperty');
 
 /**
@@ -1656,7 +1622,7 @@ function baseAssignValue(object, key, value) {
 
 module.exports = baseAssignValue;
 
-},{"./_defineProperty":101}],37:[function(_dereq_,module,exports){
+},{"./_defineProperty":99}],35:[function(_dereq_,module,exports){
 var Stack = _dereq_('./_Stack'),
     arrayEach = _dereq_('./_arrayEach'),
     assignValue = _dereq_('./_assignValue'),
@@ -1674,7 +1640,9 @@ var Stack = _dereq_('./_Stack'),
     initCloneObject = _dereq_('./_initCloneObject'),
     isArray = _dereq_('./isArray'),
     isBuffer = _dereq_('./isBuffer'),
+    isMap = _dereq_('./isMap'),
     isObject = _dereq_('./isObject'),
+    isSet = _dereq_('./isSet'),
     keys = _dereq_('./keys');
 
 /** Used to compose bitmasks for cloning. */
@@ -1782,7 +1750,7 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
       if (!cloneableTags[tag]) {
         return object ? value : {};
       }
-      result = initCloneByTag(value, tag, baseClone, isDeep);
+      result = initCloneByTag(value, tag, isDeep);
     }
   }
   // Check for circular references and return its corresponding clone.
@@ -1792,6 +1760,22 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
     return stacked;
   }
   stack.set(value, result);
+
+  if (isSet(value)) {
+    value.forEach(function(subValue) {
+      result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
+    });
+
+    return result;
+  }
+
+  if (isMap(value)) {
+    value.forEach(function(subValue, key) {
+      result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
+    });
+
+    return result;
+  }
 
   var keysFunc = isFull
     ? (isFlat ? getAllKeysIn : getAllKeys)
@@ -1811,7 +1795,7 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
 
 module.exports = baseClone;
 
-},{"./_Stack":12,"./_arrayEach":20,"./_assignValue":31,"./_baseAssign":34,"./_baseAssignIn":35,"./_cloneBuffer":79,"./_copyArray":86,"./_copySymbols":88,"./_copySymbolsIn":89,"./_getAllKeys":108,"./_getAllKeysIn":109,"./_getTag":117,"./_initCloneArray":127,"./_initCloneByTag":128,"./_initCloneObject":129,"./isArray":198,"./isBuffer":201,"./isObject":207,"./keys":213}],38:[function(_dereq_,module,exports){
+},{"./_Stack":12,"./_arrayEach":18,"./_assignValue":29,"./_baseAssign":32,"./_baseAssignIn":33,"./_cloneBuffer":79,"./_copyArray":84,"./_copySymbols":86,"./_copySymbolsIn":87,"./_getAllKeys":106,"./_getAllKeysIn":107,"./_getTag":115,"./_initCloneArray":125,"./_initCloneByTag":126,"./_initCloneObject":127,"./isArray":197,"./isBuffer":200,"./isMap":204,"./isObject":207,"./isSet":210,"./keys":214}],36:[function(_dereq_,module,exports){
 var isObject = _dereq_('./isObject');
 
 /** Built-in value references. */
@@ -1843,7 +1827,7 @@ var baseCreate = (function() {
 
 module.exports = baseCreate;
 
-},{"./isObject":207}],39:[function(_dereq_,module,exports){
+},{"./isObject":207}],37:[function(_dereq_,module,exports){
 var baseForOwn = _dereq_('./_baseForOwn'),
     createBaseEach = _dereq_('./_createBaseEach');
 
@@ -1859,7 +1843,7 @@ var baseEach = createBaseEach(baseForOwn);
 
 module.exports = baseEach;
 
-},{"./_baseForOwn":42,"./_createBaseEach":93}],40:[function(_dereq_,module,exports){
+},{"./_baseForOwn":40,"./_createBaseEach":91}],38:[function(_dereq_,module,exports){
 var baseEach = _dereq_('./_baseEach');
 
 /**
@@ -1882,7 +1866,7 @@ function baseFilter(collection, predicate) {
 
 module.exports = baseFilter;
 
-},{"./_baseEach":39}],41:[function(_dereq_,module,exports){
+},{"./_baseEach":37}],39:[function(_dereq_,module,exports){
 var createBaseFor = _dereq_('./_createBaseFor');
 
 /**
@@ -1900,7 +1884,7 @@ var baseFor = createBaseFor();
 
 module.exports = baseFor;
 
-},{"./_createBaseFor":94}],42:[function(_dereq_,module,exports){
+},{"./_createBaseFor":92}],40:[function(_dereq_,module,exports){
 var baseFor = _dereq_('./_baseFor'),
     keys = _dereq_('./keys');
 
@@ -1918,7 +1902,7 @@ function baseForOwn(object, iteratee) {
 
 module.exports = baseForOwn;
 
-},{"./_baseFor":41,"./keys":213}],43:[function(_dereq_,module,exports){
+},{"./_baseFor":39,"./keys":214}],41:[function(_dereq_,module,exports){
 var castPath = _dereq_('./_castPath'),
     toKey = _dereq_('./_toKey');
 
@@ -1944,7 +1928,7 @@ function baseGet(object, path) {
 
 module.exports = baseGet;
 
-},{"./_castPath":76,"./_toKey":174}],44:[function(_dereq_,module,exports){
+},{"./_castPath":76,"./_toKey":173}],42:[function(_dereq_,module,exports){
 var arrayPush = _dereq_('./_arrayPush'),
     isArray = _dereq_('./isArray');
 
@@ -1966,7 +1950,7 @@ function baseGetAllKeys(object, keysFunc, symbolsFunc) {
 
 module.exports = baseGetAllKeys;
 
-},{"./_arrayPush":24,"./isArray":198}],45:[function(_dereq_,module,exports){
+},{"./_arrayPush":22,"./isArray":197}],43:[function(_dereq_,module,exports){
 var Symbol = _dereq_('./_Symbol'),
     getRawTag = _dereq_('./_getRawTag'),
     objectToString = _dereq_('./_objectToString');
@@ -1996,7 +1980,7 @@ function baseGetTag(value) {
 
 module.exports = baseGetTag;
 
-},{"./_Symbol":13,"./_getRawTag":114,"./_objectToString":154}],46:[function(_dereq_,module,exports){
+},{"./_Symbol":13,"./_getRawTag":112,"./_objectToString":152}],44:[function(_dereq_,module,exports){
 /**
  * The base implementation of `_.hasIn` without support for deep paths.
  *
@@ -2011,7 +1995,7 @@ function baseHasIn(object, key) {
 
 module.exports = baseHasIn;
 
-},{}],47:[function(_dereq_,module,exports){
+},{}],45:[function(_dereq_,module,exports){
 var baseGetTag = _dereq_('./_baseGetTag'),
     isObjectLike = _dereq_('./isObjectLike');
 
@@ -2031,7 +2015,7 @@ function baseIsArguments(value) {
 
 module.exports = baseIsArguments;
 
-},{"./_baseGetTag":45,"./isObjectLike":208}],48:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isObjectLike":208}],46:[function(_dereq_,module,exports){
 var baseIsEqualDeep = _dereq_('./_baseIsEqualDeep'),
     isObjectLike = _dereq_('./isObjectLike');
 
@@ -2061,7 +2045,7 @@ function baseIsEqual(value, other, bitmask, customizer, stack) {
 
 module.exports = baseIsEqual;
 
-},{"./_baseIsEqualDeep":49,"./isObjectLike":208}],49:[function(_dereq_,module,exports){
+},{"./_baseIsEqualDeep":47,"./isObjectLike":208}],47:[function(_dereq_,module,exports){
 var Stack = _dereq_('./_Stack'),
     equalArrays = _dereq_('./_equalArrays'),
     equalByTag = _dereq_('./_equalByTag'),
@@ -2146,7 +2130,27 @@ function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
 
 module.exports = baseIsEqualDeep;
 
-},{"./_Stack":12,"./_equalArrays":102,"./_equalByTag":103,"./_equalObjects":104,"./_getTag":117,"./isArray":198,"./isBuffer":201,"./isTypedArray":212}],50:[function(_dereq_,module,exports){
+},{"./_Stack":12,"./_equalArrays":100,"./_equalByTag":101,"./_equalObjects":102,"./_getTag":115,"./isArray":197,"./isBuffer":200,"./isTypedArray":213}],48:[function(_dereq_,module,exports){
+var getTag = _dereq_('./_getTag'),
+    isObjectLike = _dereq_('./isObjectLike');
+
+/** `Object#toString` result references. */
+var mapTag = '[object Map]';
+
+/**
+ * The base implementation of `_.isMap` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a map, else `false`.
+ */
+function baseIsMap(value) {
+  return isObjectLike(value) && getTag(value) == mapTag;
+}
+
+module.exports = baseIsMap;
+
+},{"./_getTag":115,"./isObjectLike":208}],49:[function(_dereq_,module,exports){
 var Stack = _dereq_('./_Stack'),
     baseIsEqual = _dereq_('./_baseIsEqual');
 
@@ -2210,7 +2214,7 @@ function baseIsMatch(object, source, matchData, customizer) {
 
 module.exports = baseIsMatch;
 
-},{"./_Stack":12,"./_baseIsEqual":48}],51:[function(_dereq_,module,exports){
+},{"./_Stack":12,"./_baseIsEqual":46}],50:[function(_dereq_,module,exports){
 var isFunction = _dereq_('./isFunction'),
     isMasked = _dereq_('./_isMasked'),
     isObject = _dereq_('./isObject'),
@@ -2259,7 +2263,27 @@ function baseIsNative(value) {
 
 module.exports = baseIsNative;
 
-},{"./_isMasked":134,"./_toSource":175,"./isFunction":203,"./isObject":207}],52:[function(_dereq_,module,exports){
+},{"./_isMasked":132,"./_toSource":174,"./isFunction":202,"./isObject":207}],51:[function(_dereq_,module,exports){
+var getTag = _dereq_('./_getTag'),
+    isObjectLike = _dereq_('./isObjectLike');
+
+/** `Object#toString` result references. */
+var setTag = '[object Set]';
+
+/**
+ * The base implementation of `_.isSet` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a set, else `false`.
+ */
+function baseIsSet(value) {
+  return isObjectLike(value) && getTag(value) == setTag;
+}
+
+module.exports = baseIsSet;
+
+},{"./_getTag":115,"./isObjectLike":208}],52:[function(_dereq_,module,exports){
 var baseGetTag = _dereq_('./_baseGetTag'),
     isLength = _dereq_('./isLength'),
     isObjectLike = _dereq_('./isObjectLike');
@@ -2321,7 +2345,7 @@ function baseIsTypedArray(value) {
 
 module.exports = baseIsTypedArray;
 
-},{"./_baseGetTag":45,"./isLength":204,"./isObjectLike":208}],53:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isLength":203,"./isObjectLike":208}],53:[function(_dereq_,module,exports){
 var baseMatches = _dereq_('./_baseMatches'),
     baseMatchesProperty = _dereq_('./_baseMatchesProperty'),
     identity = _dereq_('./identity'),
@@ -2354,7 +2378,7 @@ function baseIteratee(value) {
 
 module.exports = baseIteratee;
 
-},{"./_baseMatches":57,"./_baseMatchesProperty":58,"./identity":196,"./isArray":198,"./property":222}],54:[function(_dereq_,module,exports){
+},{"./_baseMatches":57,"./_baseMatchesProperty":58,"./identity":195,"./isArray":197,"./property":223}],54:[function(_dereq_,module,exports){
 var isPrototype = _dereq_('./_isPrototype'),
     nativeKeys = _dereq_('./_nativeKeys');
 
@@ -2386,7 +2410,7 @@ function baseKeys(object) {
 
 module.exports = baseKeys;
 
-},{"./_isPrototype":135,"./_nativeKeys":151}],55:[function(_dereq_,module,exports){
+},{"./_isPrototype":133,"./_nativeKeys":149}],55:[function(_dereq_,module,exports){
 var isObject = _dereq_('./isObject'),
     isPrototype = _dereq_('./_isPrototype'),
     nativeKeysIn = _dereq_('./_nativeKeysIn');
@@ -2421,7 +2445,7 @@ function baseKeysIn(object) {
 
 module.exports = baseKeysIn;
 
-},{"./_isPrototype":135,"./_nativeKeysIn":152,"./isObject":207}],56:[function(_dereq_,module,exports){
+},{"./_isPrototype":133,"./_nativeKeysIn":150,"./isObject":207}],56:[function(_dereq_,module,exports){
 var baseEach = _dereq_('./_baseEach'),
     isArrayLike = _dereq_('./isArrayLike');
 
@@ -2445,7 +2469,7 @@ function baseMap(collection, iteratee) {
 
 module.exports = baseMap;
 
-},{"./_baseEach":39,"./isArrayLike":199}],57:[function(_dereq_,module,exports){
+},{"./_baseEach":37,"./isArrayLike":198}],57:[function(_dereq_,module,exports){
 var baseIsMatch = _dereq_('./_baseIsMatch'),
     getMatchData = _dereq_('./_getMatchData'),
     matchesStrictComparable = _dereq_('./_matchesStrictComparable');
@@ -2469,7 +2493,7 @@ function baseMatches(source) {
 
 module.exports = baseMatches;
 
-},{"./_baseIsMatch":50,"./_getMatchData":111,"./_matchesStrictComparable":148}],58:[function(_dereq_,module,exports){
+},{"./_baseIsMatch":49,"./_getMatchData":109,"./_matchesStrictComparable":146}],58:[function(_dereq_,module,exports){
 var baseIsEqual = _dereq_('./_baseIsEqual'),
     get = _dereq_('./get'),
     hasIn = _dereq_('./hasIn'),
@@ -2504,13 +2528,14 @@ function baseMatchesProperty(path, srcValue) {
 
 module.exports = baseMatchesProperty;
 
-},{"./_baseIsEqual":48,"./_isKey":132,"./_isStrictComparable":136,"./_matchesStrictComparable":148,"./_toKey":174,"./get":193,"./hasIn":195}],59:[function(_dereq_,module,exports){
+},{"./_baseIsEqual":46,"./_isKey":130,"./_isStrictComparable":134,"./_matchesStrictComparable":146,"./_toKey":173,"./get":192,"./hasIn":194}],59:[function(_dereq_,module,exports){
 var Stack = _dereq_('./_Stack'),
     assignMergeValue = _dereq_('./_assignMergeValue'),
     baseFor = _dereq_('./_baseFor'),
     baseMergeDeep = _dereq_('./_baseMergeDeep'),
     isObject = _dereq_('./isObject'),
-    keysIn = _dereq_('./keysIn');
+    keysIn = _dereq_('./keysIn'),
+    safeGet = _dereq_('./_safeGet');
 
 /**
  * The base implementation of `_.merge` without support for multiple sources.
@@ -2534,7 +2559,7 @@ function baseMerge(object, source, srcIndex, customizer, stack) {
     }
     else {
       var newValue = customizer
-        ? customizer(object[key], srcValue, (key + ''), object, source, stack)
+        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
         : undefined;
 
       if (newValue === undefined) {
@@ -2547,7 +2572,7 @@ function baseMerge(object, source, srcIndex, customizer, stack) {
 
 module.exports = baseMerge;
 
-},{"./_Stack":12,"./_assignMergeValue":30,"./_baseFor":41,"./_baseMergeDeep":60,"./isObject":207,"./keysIn":214}],60:[function(_dereq_,module,exports){
+},{"./_Stack":12,"./_assignMergeValue":28,"./_baseFor":39,"./_baseMergeDeep":60,"./_safeGet":159,"./isObject":207,"./keysIn":215}],60:[function(_dereq_,module,exports){
 var assignMergeValue = _dereq_('./_assignMergeValue'),
     cloneBuffer = _dereq_('./_cloneBuffer'),
     cloneTypedArray = _dereq_('./_cloneTypedArray'),
@@ -2561,6 +2586,7 @@ var assignMergeValue = _dereq_('./_assignMergeValue'),
     isObject = _dereq_('./isObject'),
     isPlainObject = _dereq_('./isPlainObject'),
     isTypedArray = _dereq_('./isTypedArray'),
+    safeGet = _dereq_('./_safeGet'),
     toPlainObject = _dereq_('./toPlainObject');
 
 /**
@@ -2579,8 +2605,8 @@ var assignMergeValue = _dereq_('./_assignMergeValue'),
  *  counterparts.
  */
 function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
-  var objValue = object[key],
-      srcValue = source[key],
+  var objValue = safeGet(object, key),
+      srcValue = safeGet(source, key),
       stacked = stack.get(srcValue);
 
   if (stacked) {
@@ -2623,7 +2649,7 @@ function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, sta
       if (isArguments(objValue)) {
         newValue = toPlainObject(objValue);
       }
-      else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+      else if (!isObject(objValue) || isFunction(objValue)) {
         newValue = initCloneObject(srcValue);
       }
     }
@@ -2642,7 +2668,7 @@ function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, sta
 
 module.exports = baseMergeDeep;
 
-},{"./_assignMergeValue":30,"./_cloneBuffer":79,"./_cloneTypedArray":85,"./_copyArray":86,"./_initCloneObject":129,"./isArguments":197,"./isArray":198,"./isArrayLikeObject":200,"./isBuffer":201,"./isFunction":203,"./isObject":207,"./isPlainObject":209,"./isTypedArray":212,"./toPlainObject":232}],61:[function(_dereq_,module,exports){
+},{"./_assignMergeValue":28,"./_cloneBuffer":79,"./_cloneTypedArray":83,"./_copyArray":84,"./_initCloneObject":127,"./_safeGet":159,"./isArguments":196,"./isArray":197,"./isArrayLikeObject":199,"./isBuffer":200,"./isFunction":202,"./isObject":207,"./isPlainObject":209,"./isTypedArray":213,"./toPlainObject":233}],61:[function(_dereq_,module,exports){
 var baseGet = _dereq_('./_baseGet'),
     baseSet = _dereq_('./_baseSet'),
     castPath = _dereq_('./_castPath');
@@ -2674,7 +2700,7 @@ function basePickBy(object, paths, predicate) {
 
 module.exports = basePickBy;
 
-},{"./_baseGet":43,"./_baseSet":67,"./_castPath":76}],62:[function(_dereq_,module,exports){
+},{"./_baseGet":41,"./_baseSet":67,"./_castPath":76}],62:[function(_dereq_,module,exports){
 /**
  * The base implementation of `_.property` without support for deep paths.
  *
@@ -2708,7 +2734,7 @@ function basePropertyDeep(path) {
 
 module.exports = basePropertyDeep;
 
-},{"./_baseGet":43}],64:[function(_dereq_,module,exports){
+},{"./_baseGet":41}],64:[function(_dereq_,module,exports){
 /**
  * The base implementation of `_.propertyOf` without support for deep paths.
  *
@@ -2780,7 +2806,7 @@ function baseRest(func, start) {
 
 module.exports = baseRest;
 
-},{"./_overRest":156,"./_setToString":164,"./identity":196}],67:[function(_dereq_,module,exports){
+},{"./_overRest":154,"./_setToString":163,"./identity":195}],67:[function(_dereq_,module,exports){
 var assignValue = _dereq_('./_assignValue'),
     castPath = _dereq_('./_castPath'),
     isIndex = _dereq_('./_isIndex'),
@@ -2829,7 +2855,7 @@ function baseSet(object, path, value, customizer) {
 
 module.exports = baseSet;
 
-},{"./_assignValue":31,"./_castPath":76,"./_isIndex":130,"./_toKey":174,"./isObject":207}],68:[function(_dereq_,module,exports){
+},{"./_assignValue":29,"./_castPath":76,"./_isIndex":128,"./_toKey":173,"./isObject":207}],68:[function(_dereq_,module,exports){
 var constant = _dereq_('./constant'),
     defineProperty = _dereq_('./_defineProperty'),
     identity = _dereq_('./identity');
@@ -2853,7 +2879,7 @@ var baseSetToString = !defineProperty ? identity : function(func, string) {
 
 module.exports = baseSetToString;
 
-},{"./_defineProperty":101,"./constant":187,"./identity":196}],69:[function(_dereq_,module,exports){
+},{"./_defineProperty":99,"./constant":186,"./identity":195}],69:[function(_dereq_,module,exports){
 /**
  * The base implementation of `_.slice` without an iteratee call guard.
  *
@@ -2947,7 +2973,7 @@ function baseToString(value) {
 
 module.exports = baseToString;
 
-},{"./_Symbol":13,"./_arrayMap":23,"./isArray":198,"./isSymbol":211}],72:[function(_dereq_,module,exports){
+},{"./_Symbol":13,"./_arrayMap":21,"./isArray":197,"./isSymbol":212}],72:[function(_dereq_,module,exports){
 /**
  * The base implementation of `_.unary` without support for storing metadata.
  *
@@ -2984,7 +3010,7 @@ function baseValues(object, props) {
 
 module.exports = baseValues;
 
-},{"./_arrayMap":23}],74:[function(_dereq_,module,exports){
+},{"./_arrayMap":21}],74:[function(_dereq_,module,exports){
 /**
  * Checks if a `cache` value for `key` exists.
  *
@@ -3015,7 +3041,7 @@ function castFunction(value) {
 
 module.exports = castFunction;
 
-},{"./identity":196}],76:[function(_dereq_,module,exports){
+},{"./identity":195}],76:[function(_dereq_,module,exports){
 var isArray = _dereq_('./isArray'),
     isKey = _dereq_('./_isKey'),
     stringToPath = _dereq_('./_stringToPath'),
@@ -3038,7 +3064,7 @@ function castPath(value, object) {
 
 module.exports = castPath;
 
-},{"./_isKey":132,"./_stringToPath":173,"./isArray":198,"./toString":233}],77:[function(_dereq_,module,exports){
+},{"./_isKey":130,"./_stringToPath":172,"./isArray":197,"./toString":234}],77:[function(_dereq_,module,exports){
 var baseSlice = _dereq_('./_baseSlice');
 
 /**
@@ -3113,7 +3139,7 @@ function cloneBuffer(buffer, isDeep) {
 
 module.exports = cloneBuffer;
 
-},{"./_root":160}],80:[function(_dereq_,module,exports){
+},{"./_root":158}],80:[function(_dereq_,module,exports){
 var cloneArrayBuffer = _dereq_('./_cloneArrayBuffer');
 
 /**
@@ -3132,30 +3158,6 @@ function cloneDataView(dataView, isDeep) {
 module.exports = cloneDataView;
 
 },{"./_cloneArrayBuffer":78}],81:[function(_dereq_,module,exports){
-var addMapEntry = _dereq_('./_addMapEntry'),
-    arrayReduce = _dereq_('./_arrayReduce'),
-    mapToArray = _dereq_('./_mapToArray');
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1;
-
-/**
- * Creates a clone of `map`.
- *
- * @private
- * @param {Object} map The map to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned map.
- */
-function cloneMap(map, isDeep, cloneFunc) {
-  var array = isDeep ? cloneFunc(mapToArray(map), CLONE_DEEP_FLAG) : mapToArray(map);
-  return arrayReduce(array, addMapEntry, new map.constructor);
-}
-
-module.exports = cloneMap;
-
-},{"./_addMapEntry":16,"./_arrayReduce":25,"./_mapToArray":147}],82:[function(_dereq_,module,exports){
 /** Used to match `RegExp` flags from their coerced string values. */
 var reFlags = /\w*$/;
 
@@ -3174,31 +3176,7 @@ function cloneRegExp(regexp) {
 
 module.exports = cloneRegExp;
 
-},{}],83:[function(_dereq_,module,exports){
-var addSetEntry = _dereq_('./_addSetEntry'),
-    arrayReduce = _dereq_('./_arrayReduce'),
-    setToArray = _dereq_('./_setToArray');
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1;
-
-/**
- * Creates a clone of `set`.
- *
- * @private
- * @param {Object} set The set to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned set.
- */
-function cloneSet(set, isDeep, cloneFunc) {
-  var array = isDeep ? cloneFunc(setToArray(set), CLONE_DEEP_FLAG) : setToArray(set);
-  return arrayReduce(array, addSetEntry, new set.constructor);
-}
-
-module.exports = cloneSet;
-
-},{"./_addSetEntry":17,"./_arrayReduce":25,"./_setToArray":163}],84:[function(_dereq_,module,exports){
+},{}],82:[function(_dereq_,module,exports){
 var Symbol = _dereq_('./_Symbol');
 
 /** Used to convert symbols to primitives and strings. */
@@ -3218,7 +3196,7 @@ function cloneSymbol(symbol) {
 
 module.exports = cloneSymbol;
 
-},{"./_Symbol":13}],85:[function(_dereq_,module,exports){
+},{"./_Symbol":13}],83:[function(_dereq_,module,exports){
 var cloneArrayBuffer = _dereq_('./_cloneArrayBuffer');
 
 /**
@@ -3236,7 +3214,7 @@ function cloneTypedArray(typedArray, isDeep) {
 
 module.exports = cloneTypedArray;
 
-},{"./_cloneArrayBuffer":78}],86:[function(_dereq_,module,exports){
+},{"./_cloneArrayBuffer":78}],84:[function(_dereq_,module,exports){
 /**
  * Copies the values of `source` to `array`.
  *
@@ -3258,7 +3236,7 @@ function copyArray(source, array) {
 
 module.exports = copyArray;
 
-},{}],87:[function(_dereq_,module,exports){
+},{}],85:[function(_dereq_,module,exports){
 var assignValue = _dereq_('./_assignValue'),
     baseAssignValue = _dereq_('./_baseAssignValue');
 
@@ -3300,7 +3278,7 @@ function copyObject(source, props, object, customizer) {
 
 module.exports = copyObject;
 
-},{"./_assignValue":31,"./_baseAssignValue":36}],88:[function(_dereq_,module,exports){
+},{"./_assignValue":29,"./_baseAssignValue":34}],86:[function(_dereq_,module,exports){
 var copyObject = _dereq_('./_copyObject'),
     getSymbols = _dereq_('./_getSymbols');
 
@@ -3318,7 +3296,7 @@ function copySymbols(source, object) {
 
 module.exports = copySymbols;
 
-},{"./_copyObject":87,"./_getSymbols":115}],89:[function(_dereq_,module,exports){
+},{"./_copyObject":85,"./_getSymbols":113}],87:[function(_dereq_,module,exports){
 var copyObject = _dereq_('./_copyObject'),
     getSymbolsIn = _dereq_('./_getSymbolsIn');
 
@@ -3336,7 +3314,7 @@ function copySymbolsIn(source, object) {
 
 module.exports = copySymbolsIn;
 
-},{"./_copyObject":87,"./_getSymbolsIn":116}],90:[function(_dereq_,module,exports){
+},{"./_copyObject":85,"./_getSymbolsIn":114}],88:[function(_dereq_,module,exports){
 var root = _dereq_('./_root');
 
 /** Used to detect overreaching core-js shims. */
@@ -3344,7 +3322,7 @@ var coreJsData = root['__core-js_shared__'];
 
 module.exports = coreJsData;
 
-},{"./_root":160}],91:[function(_dereq_,module,exports){
+},{"./_root":158}],89:[function(_dereq_,module,exports){
 var arrayAggregator = _dereq_('./_arrayAggregator'),
     baseAggregator = _dereq_('./_baseAggregator'),
     baseIteratee = _dereq_('./_baseIteratee'),
@@ -3369,7 +3347,7 @@ function createAggregator(setter, initializer) {
 
 module.exports = createAggregator;
 
-},{"./_arrayAggregator":19,"./_baseAggregator":33,"./_baseIteratee":53,"./isArray":198}],92:[function(_dereq_,module,exports){
+},{"./_arrayAggregator":17,"./_baseAggregator":31,"./_baseIteratee":53,"./isArray":197}],90:[function(_dereq_,module,exports){
 var baseRest = _dereq_('./_baseRest'),
     isIterateeCall = _dereq_('./_isIterateeCall');
 
@@ -3408,7 +3386,7 @@ function createAssigner(assigner) {
 
 module.exports = createAssigner;
 
-},{"./_baseRest":66,"./_isIterateeCall":131}],93:[function(_dereq_,module,exports){
+},{"./_baseRest":66,"./_isIterateeCall":129}],91:[function(_dereq_,module,exports){
 var isArrayLike = _dereq_('./isArrayLike');
 
 /**
@@ -3442,7 +3420,7 @@ function createBaseEach(eachFunc, fromRight) {
 
 module.exports = createBaseEach;
 
-},{"./isArrayLike":199}],94:[function(_dereq_,module,exports){
+},{"./isArrayLike":198}],92:[function(_dereq_,module,exports){
 /**
  * Creates a base function for methods like `_.forIn` and `_.forOwn`.
  *
@@ -3469,7 +3447,7 @@ function createBaseFor(fromRight) {
 
 module.exports = createBaseFor;
 
-},{}],95:[function(_dereq_,module,exports){
+},{}],93:[function(_dereq_,module,exports){
 var castSlice = _dereq_('./_castSlice'),
     hasUnicode = _dereq_('./_hasUnicode'),
     stringToArray = _dereq_('./_stringToArray'),
@@ -3504,7 +3482,7 @@ function createCaseFirst(methodName) {
 
 module.exports = createCaseFirst;
 
-},{"./_castSlice":77,"./_hasUnicode":120,"./_stringToArray":172,"./toString":233}],96:[function(_dereq_,module,exports){
+},{"./_castSlice":77,"./_hasUnicode":118,"./_stringToArray":171,"./toString":234}],94:[function(_dereq_,module,exports){
 var arrayReduce = _dereq_('./_arrayReduce'),
     deburr = _dereq_('./deburr'),
     words = _dereq_('./words');
@@ -3530,7 +3508,7 @@ function createCompounder(callback) {
 
 module.exports = createCompounder;
 
-},{"./_arrayReduce":25,"./deburr":188,"./words":235}],97:[function(_dereq_,module,exports){
+},{"./_arrayReduce":23,"./deburr":187,"./words":236}],95:[function(_dereq_,module,exports){
 var baseRepeat = _dereq_('./_baseRepeat'),
     baseToString = _dereq_('./_baseToString'),
     castSlice = _dereq_('./_castSlice'),
@@ -3565,7 +3543,7 @@ function createPadding(length, chars) {
 
 module.exports = createPadding;
 
-},{"./_baseRepeat":65,"./_baseToString":71,"./_castSlice":77,"./_hasUnicode":120,"./_stringSize":171,"./_stringToArray":172}],98:[function(_dereq_,module,exports){
+},{"./_baseRepeat":65,"./_baseToString":71,"./_castSlice":77,"./_hasUnicode":118,"./_stringSize":170,"./_stringToArray":171}],96:[function(_dereq_,module,exports){
 var toInteger = _dereq_('./toInteger'),
     toNumber = _dereq_('./toNumber'),
     toString = _dereq_('./toString');
@@ -3600,7 +3578,7 @@ function createRound(methodName) {
 
 module.exports = createRound;
 
-},{"./toInteger":230,"./toNumber":231,"./toString":233}],99:[function(_dereq_,module,exports){
+},{"./toInteger":231,"./toNumber":232,"./toString":234}],97:[function(_dereq_,module,exports){
 var eq = _dereq_('./eq');
 
 /** Used for built-in method references. */
@@ -3631,7 +3609,7 @@ function customDefaultsAssignIn(objValue, srcValue, key, object) {
 
 module.exports = customDefaultsAssignIn;
 
-},{"./eq":190}],100:[function(_dereq_,module,exports){
+},{"./eq":189}],98:[function(_dereq_,module,exports){
 var basePropertyOf = _dereq_('./_basePropertyOf');
 
 /** Used to map Latin Unicode letters to basic Latin letters. */
@@ -3704,7 +3682,7 @@ var deburrLetter = basePropertyOf(deburredLetters);
 
 module.exports = deburrLetter;
 
-},{"./_basePropertyOf":64}],101:[function(_dereq_,module,exports){
+},{"./_basePropertyOf":64}],99:[function(_dereq_,module,exports){
 var getNative = _dereq_('./_getNative');
 
 var defineProperty = (function() {
@@ -3717,7 +3695,7 @@ var defineProperty = (function() {
 
 module.exports = defineProperty;
 
-},{"./_getNative":112}],102:[function(_dereq_,module,exports){
+},{"./_getNative":110}],100:[function(_dereq_,module,exports){
 var SetCache = _dereq_('./_SetCache'),
     arraySome = _dereq_('./_arraySome'),
     cacheHas = _dereq_('./_cacheHas');
@@ -3802,7 +3780,7 @@ function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
 
 module.exports = equalArrays;
 
-},{"./_SetCache":11,"./_arraySome":26,"./_cacheHas":74}],103:[function(_dereq_,module,exports){
+},{"./_SetCache":11,"./_arraySome":24,"./_cacheHas":74}],101:[function(_dereq_,module,exports){
 var Symbol = _dereq_('./_Symbol'),
     Uint8Array = _dereq_('./_Uint8Array'),
     eq = _dereq_('./eq'),
@@ -3916,7 +3894,7 @@ function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
 
 module.exports = equalByTag;
 
-},{"./_Symbol":13,"./_Uint8Array":14,"./_equalArrays":102,"./_mapToArray":147,"./_setToArray":163,"./eq":190}],104:[function(_dereq_,module,exports){
+},{"./_Symbol":13,"./_Uint8Array":14,"./_equalArrays":100,"./_mapToArray":145,"./_setToArray":162,"./eq":189}],102:[function(_dereq_,module,exports){
 var getAllKeys = _dereq_('./_getAllKeys');
 
 /** Used to compose bitmasks for value comparisons. */
@@ -4007,7 +3985,7 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
 
 module.exports = equalObjects;
 
-},{"./_getAllKeys":108}],105:[function(_dereq_,module,exports){
+},{"./_getAllKeys":106}],103:[function(_dereq_,module,exports){
 var basePropertyOf = _dereq_('./_basePropertyOf');
 
 /** Used to map characters to HTML entities. */
@@ -4030,7 +4008,7 @@ var escapeHtmlChar = basePropertyOf(htmlEscapes);
 
 module.exports = escapeHtmlChar;
 
-},{"./_basePropertyOf":64}],106:[function(_dereq_,module,exports){
+},{"./_basePropertyOf":64}],104:[function(_dereq_,module,exports){
 /** Used to escape characters for inclusion in compiled string literals. */
 var stringEscapes = {
   '\\': '\\',
@@ -4054,7 +4032,7 @@ function escapeStringChar(chr) {
 
 module.exports = escapeStringChar;
 
-},{}],107:[function(_dereq_,module,exports){
+},{}],105:[function(_dereq_,module,exports){
 (function (global){
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -4062,7 +4040,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 module.exports = freeGlobal;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],108:[function(_dereq_,module,exports){
+},{}],106:[function(_dereq_,module,exports){
 var baseGetAllKeys = _dereq_('./_baseGetAllKeys'),
     getSymbols = _dereq_('./_getSymbols'),
     keys = _dereq_('./keys');
@@ -4080,7 +4058,7 @@ function getAllKeys(object) {
 
 module.exports = getAllKeys;
 
-},{"./_baseGetAllKeys":44,"./_getSymbols":115,"./keys":213}],109:[function(_dereq_,module,exports){
+},{"./_baseGetAllKeys":42,"./_getSymbols":113,"./keys":214}],107:[function(_dereq_,module,exports){
 var baseGetAllKeys = _dereq_('./_baseGetAllKeys'),
     getSymbolsIn = _dereq_('./_getSymbolsIn'),
     keysIn = _dereq_('./keysIn');
@@ -4099,7 +4077,7 @@ function getAllKeysIn(object) {
 
 module.exports = getAllKeysIn;
 
-},{"./_baseGetAllKeys":44,"./_getSymbolsIn":116,"./keysIn":214}],110:[function(_dereq_,module,exports){
+},{"./_baseGetAllKeys":42,"./_getSymbolsIn":114,"./keysIn":215}],108:[function(_dereq_,module,exports){
 var isKeyable = _dereq_('./_isKeyable');
 
 /**
@@ -4119,7 +4097,7 @@ function getMapData(map, key) {
 
 module.exports = getMapData;
 
-},{"./_isKeyable":133}],111:[function(_dereq_,module,exports){
+},{"./_isKeyable":131}],109:[function(_dereq_,module,exports){
 var isStrictComparable = _dereq_('./_isStrictComparable'),
     keys = _dereq_('./keys');
 
@@ -4145,7 +4123,7 @@ function getMatchData(object) {
 
 module.exports = getMatchData;
 
-},{"./_isStrictComparable":136,"./keys":213}],112:[function(_dereq_,module,exports){
+},{"./_isStrictComparable":134,"./keys":214}],110:[function(_dereq_,module,exports){
 var baseIsNative = _dereq_('./_baseIsNative'),
     getValue = _dereq_('./_getValue');
 
@@ -4164,7 +4142,7 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-},{"./_baseIsNative":51,"./_getValue":118}],113:[function(_dereq_,module,exports){
+},{"./_baseIsNative":50,"./_getValue":116}],111:[function(_dereq_,module,exports){
 var overArg = _dereq_('./_overArg');
 
 /** Built-in value references. */
@@ -4172,7 +4150,7 @@ var getPrototype = overArg(Object.getPrototypeOf, Object);
 
 module.exports = getPrototype;
 
-},{"./_overArg":155}],114:[function(_dereq_,module,exports){
+},{"./_overArg":153}],112:[function(_dereq_,module,exports){
 var Symbol = _dereq_('./_Symbol');
 
 /** Used for built-in method references. */
@@ -4220,7 +4198,7 @@ function getRawTag(value) {
 
 module.exports = getRawTag;
 
-},{"./_Symbol":13}],115:[function(_dereq_,module,exports){
+},{"./_Symbol":13}],113:[function(_dereq_,module,exports){
 var arrayFilter = _dereq_('./_arrayFilter'),
     stubArray = _dereq_('./stubArray');
 
@@ -4252,7 +4230,7 @@ var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
 
 module.exports = getSymbols;
 
-},{"./_arrayFilter":21,"./stubArray":225}],116:[function(_dereq_,module,exports){
+},{"./_arrayFilter":19,"./stubArray":226}],114:[function(_dereq_,module,exports){
 var arrayPush = _dereq_('./_arrayPush'),
     getPrototype = _dereq_('./_getPrototype'),
     getSymbols = _dereq_('./_getSymbols'),
@@ -4279,7 +4257,7 @@ var getSymbolsIn = !nativeGetSymbols ? stubArray : function(object) {
 
 module.exports = getSymbolsIn;
 
-},{"./_arrayPush":24,"./_getPrototype":113,"./_getSymbols":115,"./stubArray":225}],117:[function(_dereq_,module,exports){
+},{"./_arrayPush":22,"./_getPrototype":111,"./_getSymbols":113,"./stubArray":226}],115:[function(_dereq_,module,exports){
 var DataView = _dereq_('./_DataView'),
     Map = _dereq_('./_Map'),
     Promise = _dereq_('./_Promise'),
@@ -4339,7 +4317,7 @@ if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
 
 module.exports = getTag;
 
-},{"./_DataView":4,"./_Map":7,"./_Promise":9,"./_Set":10,"./_WeakMap":15,"./_baseGetTag":45,"./_toSource":175}],118:[function(_dereq_,module,exports){
+},{"./_DataView":4,"./_Map":7,"./_Promise":9,"./_Set":10,"./_WeakMap":15,"./_baseGetTag":43,"./_toSource":174}],116:[function(_dereq_,module,exports){
 /**
  * Gets the value at `key` of `object`.
  *
@@ -4354,7 +4332,7 @@ function getValue(object, key) {
 
 module.exports = getValue;
 
-},{}],119:[function(_dereq_,module,exports){
+},{}],117:[function(_dereq_,module,exports){
 var castPath = _dereq_('./_castPath'),
     isArguments = _dereq_('./isArguments'),
     isArray = _dereq_('./isArray'),
@@ -4395,7 +4373,7 @@ function hasPath(object, path, hasFunc) {
 
 module.exports = hasPath;
 
-},{"./_castPath":76,"./_isIndex":130,"./_toKey":174,"./isArguments":197,"./isArray":198,"./isLength":204}],120:[function(_dereq_,module,exports){
+},{"./_castPath":76,"./_isIndex":128,"./_toKey":173,"./isArguments":196,"./isArray":197,"./isLength":203}],118:[function(_dereq_,module,exports){
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff',
     rsComboMarksRange = '\\u0300-\\u036f',
@@ -4423,9 +4401,9 @@ function hasUnicode(string) {
 
 module.exports = hasUnicode;
 
-},{}],121:[function(_dereq_,module,exports){
+},{}],119:[function(_dereq_,module,exports){
 /** Used to detect strings that need a more robust regexp to match words. */
-var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
 /**
  * Checks if `string` contains a word composed of Unicode symbols.
@@ -4440,7 +4418,7 @@ function hasUnicodeWord(string) {
 
 module.exports = hasUnicodeWord;
 
-},{}],122:[function(_dereq_,module,exports){
+},{}],120:[function(_dereq_,module,exports){
 var nativeCreate = _dereq_('./_nativeCreate');
 
 /**
@@ -4457,7 +4435,7 @@ function hashClear() {
 
 module.exports = hashClear;
 
-},{"./_nativeCreate":150}],123:[function(_dereq_,module,exports){
+},{"./_nativeCreate":148}],121:[function(_dereq_,module,exports){
 /**
  * Removes `key` and its value from the hash.
  *
@@ -4476,7 +4454,7 @@ function hashDelete(key) {
 
 module.exports = hashDelete;
 
-},{}],124:[function(_dereq_,module,exports){
+},{}],122:[function(_dereq_,module,exports){
 var nativeCreate = _dereq_('./_nativeCreate');
 
 /** Used to stand-in for `undefined` hash values. */
@@ -4508,7 +4486,7 @@ function hashGet(key) {
 
 module.exports = hashGet;
 
-},{"./_nativeCreate":150}],125:[function(_dereq_,module,exports){
+},{"./_nativeCreate":148}],123:[function(_dereq_,module,exports){
 var nativeCreate = _dereq_('./_nativeCreate');
 
 /** Used for built-in method references. */
@@ -4533,7 +4511,7 @@ function hashHas(key) {
 
 module.exports = hashHas;
 
-},{"./_nativeCreate":150}],126:[function(_dereq_,module,exports){
+},{"./_nativeCreate":148}],124:[function(_dereq_,module,exports){
 var nativeCreate = _dereq_('./_nativeCreate');
 
 /** Used to stand-in for `undefined` hash values. */
@@ -4558,7 +4536,7 @@ function hashSet(key, value) {
 
 module.exports = hashSet;
 
-},{"./_nativeCreate":150}],127:[function(_dereq_,module,exports){
+},{"./_nativeCreate":148}],125:[function(_dereq_,module,exports){
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -4574,7 +4552,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  */
 function initCloneArray(array) {
   var length = array.length,
-      result = array.constructor(length);
+      result = new array.constructor(length);
 
   // Add properties assigned by `RegExp#exec`.
   if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
@@ -4586,12 +4564,10 @@ function initCloneArray(array) {
 
 module.exports = initCloneArray;
 
-},{}],128:[function(_dereq_,module,exports){
+},{}],126:[function(_dereq_,module,exports){
 var cloneArrayBuffer = _dereq_('./_cloneArrayBuffer'),
     cloneDataView = _dereq_('./_cloneDataView'),
-    cloneMap = _dereq_('./_cloneMap'),
     cloneRegExp = _dereq_('./_cloneRegExp'),
-    cloneSet = _dereq_('./_cloneSet'),
     cloneSymbol = _dereq_('./_cloneSymbol'),
     cloneTypedArray = _dereq_('./_cloneTypedArray');
 
@@ -4621,16 +4597,15 @@ var arrayBufferTag = '[object ArrayBuffer]',
  * Initializes an object clone based on its `toStringTag`.
  *
  * **Note:** This function only supports cloning values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+ * `Boolean`, `Date`, `Error`, `Map`, `Number`, `RegExp`, `Set`, or `String`.
  *
  * @private
  * @param {Object} object The object to clone.
  * @param {string} tag The `toStringTag` of the object to clone.
- * @param {Function} cloneFunc The function to clone values.
  * @param {boolean} [isDeep] Specify a deep clone.
  * @returns {Object} Returns the initialized clone.
  */
-function initCloneByTag(object, tag, cloneFunc, isDeep) {
+function initCloneByTag(object, tag, isDeep) {
   var Ctor = object.constructor;
   switch (tag) {
     case arrayBufferTag:
@@ -4649,7 +4624,7 @@ function initCloneByTag(object, tag, cloneFunc, isDeep) {
       return cloneTypedArray(object, isDeep);
 
     case mapTag:
-      return cloneMap(object, isDeep, cloneFunc);
+      return new Ctor;
 
     case numberTag:
     case stringTag:
@@ -4659,7 +4634,7 @@ function initCloneByTag(object, tag, cloneFunc, isDeep) {
       return cloneRegExp(object);
 
     case setTag:
-      return cloneSet(object, isDeep, cloneFunc);
+      return new Ctor;
 
     case symbolTag:
       return cloneSymbol(object);
@@ -4668,7 +4643,7 @@ function initCloneByTag(object, tag, cloneFunc, isDeep) {
 
 module.exports = initCloneByTag;
 
-},{"./_cloneArrayBuffer":78,"./_cloneDataView":80,"./_cloneMap":81,"./_cloneRegExp":82,"./_cloneSet":83,"./_cloneSymbol":84,"./_cloneTypedArray":85}],129:[function(_dereq_,module,exports){
+},{"./_cloneArrayBuffer":78,"./_cloneDataView":80,"./_cloneRegExp":81,"./_cloneSymbol":82,"./_cloneTypedArray":83}],127:[function(_dereq_,module,exports){
 var baseCreate = _dereq_('./_baseCreate'),
     getPrototype = _dereq_('./_getPrototype'),
     isPrototype = _dereq_('./_isPrototype');
@@ -4688,7 +4663,7 @@ function initCloneObject(object) {
 
 module.exports = initCloneObject;
 
-},{"./_baseCreate":38,"./_getPrototype":113,"./_isPrototype":135}],130:[function(_dereq_,module,exports){
+},{"./_baseCreate":36,"./_getPrototype":111,"./_isPrototype":133}],128:[function(_dereq_,module,exports){
 /** Used as references for various `Number` constants. */
 var MAX_SAFE_INTEGER = 9007199254740991;
 
@@ -4704,15 +4679,18 @@ var reIsUint = /^(?:0|[1-9]\d*)$/;
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
  */
 function isIndex(value, length) {
+  var type = typeof value;
   length = length == null ? MAX_SAFE_INTEGER : length;
+
   return !!length &&
-    (typeof value == 'number' || reIsUint.test(value)) &&
-    (value > -1 && value % 1 == 0 && value < length);
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
 }
 
 module.exports = isIndex;
 
-},{}],131:[function(_dereq_,module,exports){
+},{}],129:[function(_dereq_,module,exports){
 var eq = _dereq_('./eq'),
     isArrayLike = _dereq_('./isArrayLike'),
     isIndex = _dereq_('./_isIndex'),
@@ -4744,7 +4722,7 @@ function isIterateeCall(value, index, object) {
 
 module.exports = isIterateeCall;
 
-},{"./_isIndex":130,"./eq":190,"./isArrayLike":199,"./isObject":207}],132:[function(_dereq_,module,exports){
+},{"./_isIndex":128,"./eq":189,"./isArrayLike":198,"./isObject":207}],130:[function(_dereq_,module,exports){
 var isArray = _dereq_('./isArray'),
     isSymbol = _dereq_('./isSymbol');
 
@@ -4775,7 +4753,7 @@ function isKey(value, object) {
 
 module.exports = isKey;
 
-},{"./isArray":198,"./isSymbol":211}],133:[function(_dereq_,module,exports){
+},{"./isArray":197,"./isSymbol":212}],131:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is suitable for use as unique object key.
  *
@@ -4792,7 +4770,7 @@ function isKeyable(value) {
 
 module.exports = isKeyable;
 
-},{}],134:[function(_dereq_,module,exports){
+},{}],132:[function(_dereq_,module,exports){
 var coreJsData = _dereq_('./_coreJsData');
 
 /** Used to detect methods masquerading as native. */
@@ -4814,7 +4792,7 @@ function isMasked(func) {
 
 module.exports = isMasked;
 
-},{"./_coreJsData":90}],135:[function(_dereq_,module,exports){
+},{"./_coreJsData":88}],133:[function(_dereq_,module,exports){
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -4834,7 +4812,7 @@ function isPrototype(value) {
 
 module.exports = isPrototype;
 
-},{}],136:[function(_dereq_,module,exports){
+},{}],134:[function(_dereq_,module,exports){
 var isObject = _dereq_('./isObject');
 
 /**
@@ -4851,7 +4829,7 @@ function isStrictComparable(value) {
 
 module.exports = isStrictComparable;
 
-},{"./isObject":207}],137:[function(_dereq_,module,exports){
+},{"./isObject":207}],135:[function(_dereq_,module,exports){
 /**
  * Removes all key-value entries from the list cache.
  *
@@ -4866,7 +4844,7 @@ function listCacheClear() {
 
 module.exports = listCacheClear;
 
-},{}],138:[function(_dereq_,module,exports){
+},{}],136:[function(_dereq_,module,exports){
 var assocIndexOf = _dereq_('./_assocIndexOf');
 
 /** Used for built-in method references. */
@@ -4903,7 +4881,7 @@ function listCacheDelete(key) {
 
 module.exports = listCacheDelete;
 
-},{"./_assocIndexOf":32}],139:[function(_dereq_,module,exports){
+},{"./_assocIndexOf":30}],137:[function(_dereq_,module,exports){
 var assocIndexOf = _dereq_('./_assocIndexOf');
 
 /**
@@ -4924,7 +4902,7 @@ function listCacheGet(key) {
 
 module.exports = listCacheGet;
 
-},{"./_assocIndexOf":32}],140:[function(_dereq_,module,exports){
+},{"./_assocIndexOf":30}],138:[function(_dereq_,module,exports){
 var assocIndexOf = _dereq_('./_assocIndexOf');
 
 /**
@@ -4942,7 +4920,7 @@ function listCacheHas(key) {
 
 module.exports = listCacheHas;
 
-},{"./_assocIndexOf":32}],141:[function(_dereq_,module,exports){
+},{"./_assocIndexOf":30}],139:[function(_dereq_,module,exports){
 var assocIndexOf = _dereq_('./_assocIndexOf');
 
 /**
@@ -4970,7 +4948,7 @@ function listCacheSet(key, value) {
 
 module.exports = listCacheSet;
 
-},{"./_assocIndexOf":32}],142:[function(_dereq_,module,exports){
+},{"./_assocIndexOf":30}],140:[function(_dereq_,module,exports){
 var Hash = _dereq_('./_Hash'),
     ListCache = _dereq_('./_ListCache'),
     Map = _dereq_('./_Map');
@@ -4993,7 +4971,7 @@ function mapCacheClear() {
 
 module.exports = mapCacheClear;
 
-},{"./_Hash":5,"./_ListCache":6,"./_Map":7}],143:[function(_dereq_,module,exports){
+},{"./_Hash":5,"./_ListCache":6,"./_Map":7}],141:[function(_dereq_,module,exports){
 var getMapData = _dereq_('./_getMapData');
 
 /**
@@ -5013,7 +4991,7 @@ function mapCacheDelete(key) {
 
 module.exports = mapCacheDelete;
 
-},{"./_getMapData":110}],144:[function(_dereq_,module,exports){
+},{"./_getMapData":108}],142:[function(_dereq_,module,exports){
 var getMapData = _dereq_('./_getMapData');
 
 /**
@@ -5031,7 +5009,7 @@ function mapCacheGet(key) {
 
 module.exports = mapCacheGet;
 
-},{"./_getMapData":110}],145:[function(_dereq_,module,exports){
+},{"./_getMapData":108}],143:[function(_dereq_,module,exports){
 var getMapData = _dereq_('./_getMapData');
 
 /**
@@ -5049,7 +5027,7 @@ function mapCacheHas(key) {
 
 module.exports = mapCacheHas;
 
-},{"./_getMapData":110}],146:[function(_dereq_,module,exports){
+},{"./_getMapData":108}],144:[function(_dereq_,module,exports){
 var getMapData = _dereq_('./_getMapData');
 
 /**
@@ -5073,7 +5051,7 @@ function mapCacheSet(key, value) {
 
 module.exports = mapCacheSet;
 
-},{"./_getMapData":110}],147:[function(_dereq_,module,exports){
+},{"./_getMapData":108}],145:[function(_dereq_,module,exports){
 /**
  * Converts `map` to its key-value pairs.
  *
@@ -5093,7 +5071,7 @@ function mapToArray(map) {
 
 module.exports = mapToArray;
 
-},{}],148:[function(_dereq_,module,exports){
+},{}],146:[function(_dereq_,module,exports){
 /**
  * A specialized version of `matchesProperty` for source values suitable
  * for strict equality comparisons, i.e. `===`.
@@ -5115,7 +5093,7 @@ function matchesStrictComparable(key, srcValue) {
 
 module.exports = matchesStrictComparable;
 
-},{}],149:[function(_dereq_,module,exports){
+},{}],147:[function(_dereq_,module,exports){
 var memoize = _dereq_('./memoize');
 
 /** Used as the maximum memoize cache size. */
@@ -5143,7 +5121,7 @@ function memoizeCapped(func) {
 
 module.exports = memoizeCapped;
 
-},{"./memoize":216}],150:[function(_dereq_,module,exports){
+},{"./memoize":217}],148:[function(_dereq_,module,exports){
 var getNative = _dereq_('./_getNative');
 
 /* Built-in method references that are verified to be native. */
@@ -5151,7 +5129,7 @@ var nativeCreate = getNative(Object, 'create');
 
 module.exports = nativeCreate;
 
-},{"./_getNative":112}],151:[function(_dereq_,module,exports){
+},{"./_getNative":110}],149:[function(_dereq_,module,exports){
 var overArg = _dereq_('./_overArg');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
@@ -5159,7 +5137,7 @@ var nativeKeys = overArg(Object.keys, Object);
 
 module.exports = nativeKeys;
 
-},{"./_overArg":155}],152:[function(_dereq_,module,exports){
+},{"./_overArg":153}],150:[function(_dereq_,module,exports){
 /**
  * This function is like
  * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
@@ -5181,7 +5159,7 @@ function nativeKeysIn(object) {
 
 module.exports = nativeKeysIn;
 
-},{}],153:[function(_dereq_,module,exports){
+},{}],151:[function(_dereq_,module,exports){
 var freeGlobal = _dereq_('./_freeGlobal');
 
 /** Detect free variable `exports`. */
@@ -5199,13 +5177,21 @@ var freeProcess = moduleExports && freeGlobal.process;
 /** Used to access faster Node.js helpers. */
 var nodeUtil = (function() {
   try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
     return freeProcess && freeProcess.binding && freeProcess.binding('util');
   } catch (e) {}
 }());
 
 module.exports = nodeUtil;
 
-},{"./_freeGlobal":107}],154:[function(_dereq_,module,exports){
+},{"./_freeGlobal":105}],152:[function(_dereq_,module,exports){
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -5229,7 +5215,7 @@ function objectToString(value) {
 
 module.exports = objectToString;
 
-},{}],155:[function(_dereq_,module,exports){
+},{}],153:[function(_dereq_,module,exports){
 /**
  * Creates a unary function that invokes `func` with its argument transformed.
  *
@@ -5246,7 +5232,7 @@ function overArg(func, transform) {
 
 module.exports = overArg;
 
-},{}],156:[function(_dereq_,module,exports){
+},{}],154:[function(_dereq_,module,exports){
 var apply = _dereq_('./_apply');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
@@ -5284,25 +5270,25 @@ function overRest(func, start, transform) {
 
 module.exports = overRest;
 
-},{"./_apply":18}],157:[function(_dereq_,module,exports){
+},{"./_apply":16}],155:[function(_dereq_,module,exports){
 /** Used to match template delimiters. */
 var reEscape = /<%-([\s\S]+?)%>/g;
 
 module.exports = reEscape;
 
-},{}],158:[function(_dereq_,module,exports){
+},{}],156:[function(_dereq_,module,exports){
 /** Used to match template delimiters. */
 var reEvaluate = /<%([\s\S]+?)%>/g;
 
 module.exports = reEvaluate;
 
-},{}],159:[function(_dereq_,module,exports){
+},{}],157:[function(_dereq_,module,exports){
 /** Used to match template delimiters. */
 var reInterpolate = /<%=([\s\S]+?)%>/g;
 
 module.exports = reInterpolate;
 
-},{}],160:[function(_dereq_,module,exports){
+},{}],158:[function(_dereq_,module,exports){
 var freeGlobal = _dereq_('./_freeGlobal');
 
 /** Detect free variable `self`. */
@@ -5313,7 +5299,26 @@ var root = freeGlobal || freeSelf || Function('return this')();
 
 module.exports = root;
 
-},{"./_freeGlobal":107}],161:[function(_dereq_,module,exports){
+},{"./_freeGlobal":105}],159:[function(_dereq_,module,exports){
+/**
+ * Gets the value at `key`, unless `key` is "__proto__".
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function safeGet(object, key) {
+  if (key == '__proto__') {
+    return;
+  }
+
+  return object[key];
+}
+
+module.exports = safeGet;
+
+},{}],160:[function(_dereq_,module,exports){
 /** Used to stand-in for `undefined` hash values. */
 var HASH_UNDEFINED = '__lodash_hash_undefined__';
 
@@ -5334,7 +5339,7 @@ function setCacheAdd(value) {
 
 module.exports = setCacheAdd;
 
-},{}],162:[function(_dereq_,module,exports){
+},{}],161:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is in the array cache.
  *
@@ -5350,7 +5355,7 @@ function setCacheHas(value) {
 
 module.exports = setCacheHas;
 
-},{}],163:[function(_dereq_,module,exports){
+},{}],162:[function(_dereq_,module,exports){
 /**
  * Converts `set` to an array of its values.
  *
@@ -5370,7 +5375,7 @@ function setToArray(set) {
 
 module.exports = setToArray;
 
-},{}],164:[function(_dereq_,module,exports){
+},{}],163:[function(_dereq_,module,exports){
 var baseSetToString = _dereq_('./_baseSetToString'),
     shortOut = _dereq_('./_shortOut');
 
@@ -5386,7 +5391,7 @@ var setToString = shortOut(baseSetToString);
 
 module.exports = setToString;
 
-},{"./_baseSetToString":68,"./_shortOut":165}],165:[function(_dereq_,module,exports){
+},{"./_baseSetToString":68,"./_shortOut":164}],164:[function(_dereq_,module,exports){
 /** Used to detect hot functions by number of calls within a span of milliseconds. */
 var HOT_COUNT = 800,
     HOT_SPAN = 16;
@@ -5425,7 +5430,7 @@ function shortOut(func) {
 
 module.exports = shortOut;
 
-},{}],166:[function(_dereq_,module,exports){
+},{}],165:[function(_dereq_,module,exports){
 var ListCache = _dereq_('./_ListCache');
 
 /**
@@ -5442,7 +5447,7 @@ function stackClear() {
 
 module.exports = stackClear;
 
-},{"./_ListCache":6}],167:[function(_dereq_,module,exports){
+},{"./_ListCache":6}],166:[function(_dereq_,module,exports){
 /**
  * Removes `key` and its value from the stack.
  *
@@ -5462,7 +5467,7 @@ function stackDelete(key) {
 
 module.exports = stackDelete;
 
-},{}],168:[function(_dereq_,module,exports){
+},{}],167:[function(_dereq_,module,exports){
 /**
  * Gets the stack value for `key`.
  *
@@ -5478,7 +5483,7 @@ function stackGet(key) {
 
 module.exports = stackGet;
 
-},{}],169:[function(_dereq_,module,exports){
+},{}],168:[function(_dereq_,module,exports){
 /**
  * Checks if a stack value for `key` exists.
  *
@@ -5494,7 +5499,7 @@ function stackHas(key) {
 
 module.exports = stackHas;
 
-},{}],170:[function(_dereq_,module,exports){
+},{}],169:[function(_dereq_,module,exports){
 var ListCache = _dereq_('./_ListCache'),
     Map = _dereq_('./_Map'),
     MapCache = _dereq_('./_MapCache');
@@ -5530,7 +5535,7 @@ function stackSet(key, value) {
 
 module.exports = stackSet;
 
-},{"./_ListCache":6,"./_Map":7,"./_MapCache":8}],171:[function(_dereq_,module,exports){
+},{"./_ListCache":6,"./_Map":7,"./_MapCache":8}],170:[function(_dereq_,module,exports){
 var asciiSize = _dereq_('./_asciiSize'),
     hasUnicode = _dereq_('./_hasUnicode'),
     unicodeSize = _dereq_('./_unicodeSize');
@@ -5550,7 +5555,7 @@ function stringSize(string) {
 
 module.exports = stringSize;
 
-},{"./_asciiSize":27,"./_hasUnicode":120,"./_unicodeSize":176}],172:[function(_dereq_,module,exports){
+},{"./_asciiSize":25,"./_hasUnicode":118,"./_unicodeSize":175}],171:[function(_dereq_,module,exports){
 var asciiToArray = _dereq_('./_asciiToArray'),
     hasUnicode = _dereq_('./_hasUnicode'),
     unicodeToArray = _dereq_('./_unicodeToArray');
@@ -5570,12 +5575,11 @@ function stringToArray(string) {
 
 module.exports = stringToArray;
 
-},{"./_asciiToArray":28,"./_hasUnicode":120,"./_unicodeToArray":177}],173:[function(_dereq_,module,exports){
+},{"./_asciiToArray":26,"./_hasUnicode":118,"./_unicodeToArray":176}],172:[function(_dereq_,module,exports){
 var memoizeCapped = _dereq_('./_memoizeCapped');
 
 /** Used to match property names within property paths. */
-var reLeadingDot = /^\./,
-    rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
 
 /** Used to match backslashes in property paths. */
 var reEscapeChar = /\\(\\)?/g;
@@ -5589,18 +5593,18 @@ var reEscapeChar = /\\(\\)?/g;
  */
 var stringToPath = memoizeCapped(function(string) {
   var result = [];
-  if (reLeadingDot.test(string)) {
+  if (string.charCodeAt(0) === 46 /* . */) {
     result.push('');
   }
-  string.replace(rePropName, function(match, number, quote, string) {
-    result.push(quote ? string.replace(reEscapeChar, '$1') : (number || match));
+  string.replace(rePropName, function(match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
   });
   return result;
 });
 
 module.exports = stringToPath;
 
-},{"./_memoizeCapped":149}],174:[function(_dereq_,module,exports){
+},{"./_memoizeCapped":147}],173:[function(_dereq_,module,exports){
 var isSymbol = _dereq_('./isSymbol');
 
 /** Used as references for various `Number` constants. */
@@ -5623,7 +5627,7 @@ function toKey(value) {
 
 module.exports = toKey;
 
-},{"./isSymbol":211}],175:[function(_dereq_,module,exports){
+},{"./isSymbol":212}],174:[function(_dereq_,module,exports){
 /** Used for built-in method references. */
 var funcProto = Function.prototype;
 
@@ -5651,7 +5655,7 @@ function toSource(func) {
 
 module.exports = toSource;
 
-},{}],176:[function(_dereq_,module,exports){
+},{}],175:[function(_dereq_,module,exports){
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff',
     rsComboMarksRange = '\\u0300-\\u036f',
@@ -5697,7 +5701,7 @@ function unicodeSize(string) {
 
 module.exports = unicodeSize;
 
-},{}],177:[function(_dereq_,module,exports){
+},{}],176:[function(_dereq_,module,exports){
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff',
     rsComboMarksRange = '\\u0300-\\u036f',
@@ -5739,7 +5743,7 @@ function unicodeToArray(string) {
 
 module.exports = unicodeToArray;
 
-},{}],178:[function(_dereq_,module,exports){
+},{}],177:[function(_dereq_,module,exports){
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff',
     rsComboMarksRange = '\\u0300-\\u036f',
@@ -5780,8 +5784,8 @@ var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
     reOptMod = rsModifier + '?',
     rsOptVar = '[' + rsVarRange + ']?',
     rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsOrdLower = '\\d*(?:(?:1st|2nd|3rd|(?![123])\\dth)\\b)',
-    rsOrdUpper = '\\d*(?:(?:1ST|2ND|3RD|(?![123])\\dTH)\\b)',
+    rsOrdLower = '\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])',
+    rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])',
     rsSeq = rsOptVar + reOptMod + rsOptJoin,
     rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq;
 
@@ -5810,7 +5814,7 @@ function unicodeWords(string) {
 
 module.exports = unicodeWords;
 
-},{}],179:[function(_dereq_,module,exports){
+},{}],178:[function(_dereq_,module,exports){
 var assignValue = _dereq_('./_assignValue'),
     copyObject = _dereq_('./_copyObject'),
     createAssigner = _dereq_('./_createAssigner'),
@@ -5870,7 +5874,7 @@ var assign = createAssigner(function(object, source) {
 
 module.exports = assign;
 
-},{"./_assignValue":31,"./_copyObject":87,"./_createAssigner":92,"./_isPrototype":135,"./isArrayLike":199,"./keys":213}],180:[function(_dereq_,module,exports){
+},{"./_assignValue":29,"./_copyObject":85,"./_createAssigner":90,"./_isPrototype":133,"./isArrayLike":198,"./keys":214}],179:[function(_dereq_,module,exports){
 var copyObject = _dereq_('./_copyObject'),
     createAssigner = _dereq_('./_createAssigner'),
     keysIn = _dereq_('./keysIn');
@@ -5910,7 +5914,7 @@ var assignInWith = createAssigner(function(object, source, srcIndex, customizer)
 
 module.exports = assignInWith;
 
-},{"./_copyObject":87,"./_createAssigner":92,"./keysIn":214}],181:[function(_dereq_,module,exports){
+},{"./_copyObject":85,"./_createAssigner":90,"./keysIn":215}],180:[function(_dereq_,module,exports){
 var apply = _dereq_('./_apply'),
     baseRest = _dereq_('./_baseRest'),
     isError = _dereq_('./isError');
@@ -5947,7 +5951,7 @@ var attempt = baseRest(function(func, args) {
 
 module.exports = attempt;
 
-},{"./_apply":18,"./_baseRest":66,"./isError":202}],182:[function(_dereq_,module,exports){
+},{"./_apply":16,"./_baseRest":66,"./isError":201}],181:[function(_dereq_,module,exports){
 var capitalize = _dereq_('./capitalize'),
     createCompounder = _dereq_('./_createCompounder');
 
@@ -5978,7 +5982,7 @@ var camelCase = createCompounder(function(result, word, index) {
 
 module.exports = camelCase;
 
-},{"./_createCompounder":96,"./capitalize":183}],183:[function(_dereq_,module,exports){
+},{"./_createCompounder":94,"./capitalize":182}],182:[function(_dereq_,module,exports){
 var toString = _dereq_('./toString'),
     upperFirst = _dereq_('./upperFirst');
 
@@ -6003,7 +6007,7 @@ function capitalize(string) {
 
 module.exports = capitalize;
 
-},{"./toString":233,"./upperFirst":234}],184:[function(_dereq_,module,exports){
+},{"./toString":234,"./upperFirst":235}],183:[function(_dereq_,module,exports){
 var baseSlice = _dereq_('./_baseSlice'),
     isIterateeCall = _dereq_('./_isIterateeCall'),
     toInteger = _dereq_('./toInteger');
@@ -6055,7 +6059,7 @@ function chunk(array, size, guard) {
 
 module.exports = chunk;
 
-},{"./_baseSlice":69,"./_isIterateeCall":131,"./toInteger":230}],185:[function(_dereq_,module,exports){
+},{"./_baseSlice":69,"./_isIterateeCall":129,"./toInteger":231}],184:[function(_dereq_,module,exports){
 var baseClone = _dereq_('./_baseClone');
 
 /** Used to compose bitmasks for cloning. */
@@ -6093,7 +6097,7 @@ function clone(value) {
 
 module.exports = clone;
 
-},{"./_baseClone":37}],186:[function(_dereq_,module,exports){
+},{"./_baseClone":35}],185:[function(_dereq_,module,exports){
 var baseClone = _dereq_('./_baseClone');
 
 /** Used to compose bitmasks for cloning. */
@@ -6124,7 +6128,7 @@ function cloneDeep(value) {
 
 module.exports = cloneDeep;
 
-},{"./_baseClone":37}],187:[function(_dereq_,module,exports){
+},{"./_baseClone":35}],186:[function(_dereq_,module,exports){
 /**
  * Creates a function that returns `value`.
  *
@@ -6152,7 +6156,7 @@ function constant(value) {
 
 module.exports = constant;
 
-},{}],188:[function(_dereq_,module,exports){
+},{}],187:[function(_dereq_,module,exports){
 var deburrLetter = _dereq_('./_deburrLetter'),
     toString = _dereq_('./toString');
 
@@ -6199,10 +6203,10 @@ function deburr(string) {
 
 module.exports = deburr;
 
-},{"./_deburrLetter":100,"./toString":233}],189:[function(_dereq_,module,exports){
+},{"./_deburrLetter":98,"./toString":234}],188:[function(_dereq_,module,exports){
 module.exports = _dereq_('./forEach');
 
-},{"./forEach":192}],190:[function(_dereq_,module,exports){
+},{"./forEach":191}],189:[function(_dereq_,module,exports){
 /**
  * Performs a
  * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
@@ -6241,7 +6245,7 @@ function eq(value, other) {
 
 module.exports = eq;
 
-},{}],191:[function(_dereq_,module,exports){
+},{}],190:[function(_dereq_,module,exports){
 var escapeHtmlChar = _dereq_('./_escapeHtmlChar'),
     toString = _dereq_('./toString');
 
@@ -6286,7 +6290,7 @@ function escape(string) {
 
 module.exports = escape;
 
-},{"./_escapeHtmlChar":105,"./toString":233}],192:[function(_dereq_,module,exports){
+},{"./_escapeHtmlChar":103,"./toString":234}],191:[function(_dereq_,module,exports){
 var arrayEach = _dereq_('./_arrayEach'),
     baseEach = _dereq_('./_baseEach'),
     castFunction = _dereq_('./_castFunction'),
@@ -6329,7 +6333,7 @@ function forEach(collection, iteratee) {
 
 module.exports = forEach;
 
-},{"./_arrayEach":20,"./_baseEach":39,"./_castFunction":75,"./isArray":198}],193:[function(_dereq_,module,exports){
+},{"./_arrayEach":18,"./_baseEach":37,"./_castFunction":75,"./isArray":197}],192:[function(_dereq_,module,exports){
 var baseGet = _dereq_('./_baseGet');
 
 /**
@@ -6364,7 +6368,7 @@ function get(object, path, defaultValue) {
 
 module.exports = get;
 
-},{"./_baseGet":43}],194:[function(_dereq_,module,exports){
+},{"./_baseGet":41}],193:[function(_dereq_,module,exports){
 var baseAssignValue = _dereq_('./_baseAssignValue'),
     createAggregator = _dereq_('./_createAggregator');
 
@@ -6407,7 +6411,7 @@ var groupBy = createAggregator(function(result, value, key) {
 
 module.exports = groupBy;
 
-},{"./_baseAssignValue":36,"./_createAggregator":91}],195:[function(_dereq_,module,exports){
+},{"./_baseAssignValue":34,"./_createAggregator":89}],194:[function(_dereq_,module,exports){
 var baseHasIn = _dereq_('./_baseHasIn'),
     hasPath = _dereq_('./_hasPath');
 
@@ -6443,7 +6447,7 @@ function hasIn(object, path) {
 
 module.exports = hasIn;
 
-},{"./_baseHasIn":46,"./_hasPath":119}],196:[function(_dereq_,module,exports){
+},{"./_baseHasIn":44,"./_hasPath":117}],195:[function(_dereq_,module,exports){
 /**
  * This method returns the first argument it receives.
  *
@@ -6466,7 +6470,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],197:[function(_dereq_,module,exports){
+},{}],196:[function(_dereq_,module,exports){
 var baseIsArguments = _dereq_('./_baseIsArguments'),
     isObjectLike = _dereq_('./isObjectLike');
 
@@ -6504,7 +6508,7 @@ var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsAr
 
 module.exports = isArguments;
 
-},{"./_baseIsArguments":47,"./isObjectLike":208}],198:[function(_dereq_,module,exports){
+},{"./_baseIsArguments":45,"./isObjectLike":208}],197:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is classified as an `Array` object.
  *
@@ -6532,7 +6536,7 @@ var isArray = Array.isArray;
 
 module.exports = isArray;
 
-},{}],199:[function(_dereq_,module,exports){
+},{}],198:[function(_dereq_,module,exports){
 var isFunction = _dereq_('./isFunction'),
     isLength = _dereq_('./isLength');
 
@@ -6567,7 +6571,7 @@ function isArrayLike(value) {
 
 module.exports = isArrayLike;
 
-},{"./isFunction":203,"./isLength":204}],200:[function(_dereq_,module,exports){
+},{"./isFunction":202,"./isLength":203}],199:[function(_dereq_,module,exports){
 var isArrayLike = _dereq_('./isArrayLike'),
     isObjectLike = _dereq_('./isObjectLike');
 
@@ -6602,7 +6606,7 @@ function isArrayLikeObject(value) {
 
 module.exports = isArrayLikeObject;
 
-},{"./isArrayLike":199,"./isObjectLike":208}],201:[function(_dereq_,module,exports){
+},{"./isArrayLike":198,"./isObjectLike":208}],200:[function(_dereq_,module,exports){
 var root = _dereq_('./_root'),
     stubFalse = _dereq_('./stubFalse');
 
@@ -6642,7 +6646,7 @@ var isBuffer = nativeIsBuffer || stubFalse;
 
 module.exports = isBuffer;
 
-},{"./_root":160,"./stubFalse":226}],202:[function(_dereq_,module,exports){
+},{"./_root":158,"./stubFalse":227}],201:[function(_dereq_,module,exports){
 var baseGetTag = _dereq_('./_baseGetTag'),
     isObjectLike = _dereq_('./isObjectLike'),
     isPlainObject = _dereq_('./isPlainObject');
@@ -6680,7 +6684,7 @@ function isError(value) {
 
 module.exports = isError;
 
-},{"./_baseGetTag":45,"./isObjectLike":208,"./isPlainObject":209}],203:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isObjectLike":208,"./isPlainObject":209}],202:[function(_dereq_,module,exports){
 var baseGetTag = _dereq_('./_baseGetTag'),
     isObject = _dereq_('./isObject');
 
@@ -6719,7 +6723,7 @@ function isFunction(value) {
 
 module.exports = isFunction;
 
-},{"./_baseGetTag":45,"./isObject":207}],204:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isObject":207}],203:[function(_dereq_,module,exports){
 /** Used as references for various `Number` constants. */
 var MAX_SAFE_INTEGER = 9007199254740991;
 
@@ -6756,7 +6760,36 @@ function isLength(value) {
 
 module.exports = isLength;
 
-},{}],205:[function(_dereq_,module,exports){
+},{}],204:[function(_dereq_,module,exports){
+var baseIsMap = _dereq_('./_baseIsMap'),
+    baseUnary = _dereq_('./_baseUnary'),
+    nodeUtil = _dereq_('./_nodeUtil');
+
+/* Node.js helper references. */
+var nodeIsMap = nodeUtil && nodeUtil.isMap;
+
+/**
+ * Checks if `value` is classified as a `Map` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a map, else `false`.
+ * @example
+ *
+ * _.isMap(new Map);
+ * // => true
+ *
+ * _.isMap(new WeakMap);
+ * // => false
+ */
+var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
+
+module.exports = isMap;
+
+},{"./_baseIsMap":48,"./_baseUnary":72,"./_nodeUtil":151}],205:[function(_dereq_,module,exports){
 var isNumber = _dereq_('./isNumber');
 
 /**
@@ -6836,7 +6869,7 @@ function isNumber(value) {
 
 module.exports = isNumber;
 
-},{"./_baseGetTag":45,"./isObjectLike":208}],207:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isObjectLike":208}],207:[function(_dereq_,module,exports){
 /**
  * Checks if `value` is the
  * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
@@ -6964,7 +6997,36 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"./_baseGetTag":45,"./_getPrototype":113,"./isObjectLike":208}],210:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./_getPrototype":111,"./isObjectLike":208}],210:[function(_dereq_,module,exports){
+var baseIsSet = _dereq_('./_baseIsSet'),
+    baseUnary = _dereq_('./_baseUnary'),
+    nodeUtil = _dereq_('./_nodeUtil');
+
+/* Node.js helper references. */
+var nodeIsSet = nodeUtil && nodeUtil.isSet;
+
+/**
+ * Checks if `value` is classified as a `Set` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a set, else `false`.
+ * @example
+ *
+ * _.isSet(new Set);
+ * // => true
+ *
+ * _.isSet(new WeakSet);
+ * // => false
+ */
+var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
+
+module.exports = isSet;
+
+},{"./_baseIsSet":51,"./_baseUnary":72,"./_nodeUtil":151}],211:[function(_dereq_,module,exports){
 var baseGetTag = _dereq_('./_baseGetTag'),
     isArray = _dereq_('./isArray'),
     isObjectLike = _dereq_('./isObjectLike');
@@ -6996,7 +7058,7 @@ function isString(value) {
 
 module.exports = isString;
 
-},{"./_baseGetTag":45,"./isArray":198,"./isObjectLike":208}],211:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isArray":197,"./isObjectLike":208}],212:[function(_dereq_,module,exports){
 var baseGetTag = _dereq_('./_baseGetTag'),
     isObjectLike = _dereq_('./isObjectLike');
 
@@ -7027,7 +7089,7 @@ function isSymbol(value) {
 
 module.exports = isSymbol;
 
-},{"./_baseGetTag":45,"./isObjectLike":208}],212:[function(_dereq_,module,exports){
+},{"./_baseGetTag":43,"./isObjectLike":208}],213:[function(_dereq_,module,exports){
 var baseIsTypedArray = _dereq_('./_baseIsTypedArray'),
     baseUnary = _dereq_('./_baseUnary'),
     nodeUtil = _dereq_('./_nodeUtil');
@@ -7056,7 +7118,7 @@ var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedA
 
 module.exports = isTypedArray;
 
-},{"./_baseIsTypedArray":52,"./_baseUnary":72,"./_nodeUtil":153}],213:[function(_dereq_,module,exports){
+},{"./_baseIsTypedArray":52,"./_baseUnary":72,"./_nodeUtil":151}],214:[function(_dereq_,module,exports){
 var arrayLikeKeys = _dereq_('./_arrayLikeKeys'),
     baseKeys = _dereq_('./_baseKeys'),
     isArrayLike = _dereq_('./isArrayLike');
@@ -7095,7 +7157,7 @@ function keys(object) {
 
 module.exports = keys;
 
-},{"./_arrayLikeKeys":22,"./_baseKeys":54,"./isArrayLike":199}],214:[function(_dereq_,module,exports){
+},{"./_arrayLikeKeys":20,"./_baseKeys":54,"./isArrayLike":198}],215:[function(_dereq_,module,exports){
 var arrayLikeKeys = _dereq_('./_arrayLikeKeys'),
     baseKeysIn = _dereq_('./_baseKeysIn'),
     isArrayLike = _dereq_('./isArrayLike');
@@ -7129,7 +7191,7 @@ function keysIn(object) {
 
 module.exports = keysIn;
 
-},{"./_arrayLikeKeys":22,"./_baseKeysIn":55,"./isArrayLike":199}],215:[function(_dereq_,module,exports){
+},{"./_arrayLikeKeys":20,"./_baseKeysIn":55,"./isArrayLike":198}],216:[function(_dereq_,module,exports){
 var arrayMap = _dereq_('./_arrayMap'),
     baseIteratee = _dereq_('./_baseIteratee'),
     baseMap = _dereq_('./_baseMap'),
@@ -7184,7 +7246,7 @@ function map(collection, iteratee) {
 
 module.exports = map;
 
-},{"./_arrayMap":23,"./_baseIteratee":53,"./_baseMap":56,"./isArray":198}],216:[function(_dereq_,module,exports){
+},{"./_arrayMap":21,"./_baseIteratee":53,"./_baseMap":56,"./isArray":197}],217:[function(_dereq_,module,exports){
 var MapCache = _dereq_('./_MapCache');
 
 /** Error message constants. */
@@ -7259,7 +7321,7 @@ memoize.Cache = MapCache;
 
 module.exports = memoize;
 
-},{"./_MapCache":8}],217:[function(_dereq_,module,exports){
+},{"./_MapCache":8}],218:[function(_dereq_,module,exports){
 var baseMerge = _dereq_('./_baseMerge'),
     createAssigner = _dereq_('./_createAssigner');
 
@@ -7300,7 +7362,7 @@ var merge = createAssigner(function(object, source, srcIndex) {
 
 module.exports = merge;
 
-},{"./_baseMerge":59,"./_createAssigner":92}],218:[function(_dereq_,module,exports){
+},{"./_baseMerge":59,"./_createAssigner":90}],219:[function(_dereq_,module,exports){
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
 
@@ -7342,7 +7404,7 @@ function negate(predicate) {
 
 module.exports = negate;
 
-},{}],219:[function(_dereq_,module,exports){
+},{}],220:[function(_dereq_,module,exports){
 var baseIteratee = _dereq_('./_baseIteratee'),
     negate = _dereq_('./negate'),
     pickBy = _dereq_('./pickBy');
@@ -7373,7 +7435,7 @@ function omitBy(object, predicate) {
 
 module.exports = omitBy;
 
-},{"./_baseIteratee":53,"./negate":218,"./pickBy":221}],220:[function(_dereq_,module,exports){
+},{"./_baseIteratee":53,"./negate":219,"./pickBy":222}],221:[function(_dereq_,module,exports){
 var createPadding = _dereq_('./_createPadding'),
     stringSize = _dereq_('./_stringSize'),
     toInteger = _dereq_('./toInteger'),
@@ -7424,7 +7486,7 @@ function pad(string, length, chars) {
 
 module.exports = pad;
 
-},{"./_createPadding":97,"./_stringSize":171,"./toInteger":230,"./toString":233}],221:[function(_dereq_,module,exports){
+},{"./_createPadding":95,"./_stringSize":170,"./toInteger":231,"./toString":234}],222:[function(_dereq_,module,exports){
 var arrayMap = _dereq_('./_arrayMap'),
     baseIteratee = _dereq_('./_baseIteratee'),
     basePickBy = _dereq_('./_basePickBy'),
@@ -7463,7 +7525,7 @@ function pickBy(object, predicate) {
 
 module.exports = pickBy;
 
-},{"./_arrayMap":23,"./_baseIteratee":53,"./_basePickBy":61,"./_getAllKeysIn":109}],222:[function(_dereq_,module,exports){
+},{"./_arrayMap":21,"./_baseIteratee":53,"./_basePickBy":61,"./_getAllKeysIn":107}],223:[function(_dereq_,module,exports){
 var baseProperty = _dereq_('./_baseProperty'),
     basePropertyDeep = _dereq_('./_basePropertyDeep'),
     isKey = _dereq_('./_isKey'),
@@ -7497,7 +7559,7 @@ function property(path) {
 
 module.exports = property;
 
-},{"./_baseProperty":62,"./_basePropertyDeep":63,"./_isKey":132,"./_toKey":174}],223:[function(_dereq_,module,exports){
+},{"./_baseProperty":62,"./_basePropertyDeep":63,"./_isKey":130,"./_toKey":173}],224:[function(_dereq_,module,exports){
 var arrayFilter = _dereq_('./_arrayFilter'),
     baseFilter = _dereq_('./_baseFilter'),
     baseIteratee = _dereq_('./_baseIteratee'),
@@ -7545,7 +7607,7 @@ function reject(collection, predicate) {
 
 module.exports = reject;
 
-},{"./_arrayFilter":21,"./_baseFilter":40,"./_baseIteratee":53,"./isArray":198,"./negate":218}],224:[function(_dereq_,module,exports){
+},{"./_arrayFilter":19,"./_baseFilter":38,"./_baseIteratee":53,"./isArray":197,"./negate":219}],225:[function(_dereq_,module,exports){
 var createRound = _dereq_('./_createRound');
 
 /**
@@ -7573,7 +7635,7 @@ var round = createRound('round');
 
 module.exports = round;
 
-},{"./_createRound":98}],225:[function(_dereq_,module,exports){
+},{"./_createRound":96}],226:[function(_dereq_,module,exports){
 /**
  * This method returns a new empty array.
  *
@@ -7598,7 +7660,7 @@ function stubArray() {
 
 module.exports = stubArray;
 
-},{}],226:[function(_dereq_,module,exports){
+},{}],227:[function(_dereq_,module,exports){
 /**
  * This method returns `false`.
  *
@@ -7618,7 +7680,7 @@ function stubFalse() {
 
 module.exports = stubFalse;
 
-},{}],227:[function(_dereq_,module,exports){
+},{}],228:[function(_dereq_,module,exports){
 var assignInWith = _dereq_('./assignInWith'),
     attempt = _dereq_('./attempt'),
     baseValues = _dereq_('./_baseValues'),
@@ -7858,7 +7920,7 @@ function template(string, options, guard) {
 
 module.exports = template;
 
-},{"./_baseValues":73,"./_customDefaultsAssignIn":99,"./_escapeStringChar":106,"./_isIterateeCall":131,"./_reInterpolate":159,"./assignInWith":180,"./attempt":181,"./isError":202,"./keys":213,"./templateSettings":228,"./toString":233}],228:[function(_dereq_,module,exports){
+},{"./_baseValues":73,"./_customDefaultsAssignIn":97,"./_escapeStringChar":104,"./_isIterateeCall":129,"./_reInterpolate":157,"./assignInWith":179,"./attempt":180,"./isError":201,"./keys":214,"./templateSettings":229,"./toString":234}],229:[function(_dereq_,module,exports){
 var escape = _dereq_('./escape'),
     reEscape = _dereq_('./_reEscape'),
     reEvaluate = _dereq_('./_reEvaluate'),
@@ -7927,7 +7989,7 @@ var templateSettings = {
 
 module.exports = templateSettings;
 
-},{"./_reEscape":157,"./_reEvaluate":158,"./_reInterpolate":159,"./escape":191}],229:[function(_dereq_,module,exports){
+},{"./_reEscape":155,"./_reEvaluate":156,"./_reInterpolate":157,"./escape":190}],230:[function(_dereq_,module,exports){
 var toNumber = _dereq_('./toNumber');
 
 /** Used as references for various `Number` constants. */
@@ -7971,7 +8033,7 @@ function toFinite(value) {
 
 module.exports = toFinite;
 
-},{"./toNumber":231}],230:[function(_dereq_,module,exports){
+},{"./toNumber":232}],231:[function(_dereq_,module,exports){
 var toFinite = _dereq_('./toFinite');
 
 /**
@@ -8009,7 +8071,7 @@ function toInteger(value) {
 
 module.exports = toInteger;
 
-},{"./toFinite":229}],231:[function(_dereq_,module,exports){
+},{"./toFinite":230}],232:[function(_dereq_,module,exports){
 var isObject = _dereq_('./isObject'),
     isSymbol = _dereq_('./isSymbol');
 
@@ -8077,7 +8139,7 @@ function toNumber(value) {
 
 module.exports = toNumber;
 
-},{"./isObject":207,"./isSymbol":211}],232:[function(_dereq_,module,exports){
+},{"./isObject":207,"./isSymbol":212}],233:[function(_dereq_,module,exports){
 var copyObject = _dereq_('./_copyObject'),
     keysIn = _dereq_('./keysIn');
 
@@ -8111,7 +8173,7 @@ function toPlainObject(value) {
 
 module.exports = toPlainObject;
 
-},{"./_copyObject":87,"./keysIn":214}],233:[function(_dereq_,module,exports){
+},{"./_copyObject":85,"./keysIn":215}],234:[function(_dereq_,module,exports){
 var baseToString = _dereq_('./_baseToString');
 
 /**
@@ -8141,7 +8203,7 @@ function toString(value) {
 
 module.exports = toString;
 
-},{"./_baseToString":71}],234:[function(_dereq_,module,exports){
+},{"./_baseToString":71}],235:[function(_dereq_,module,exports){
 var createCaseFirst = _dereq_('./_createCaseFirst');
 
 /**
@@ -8165,7 +8227,7 @@ var upperFirst = createCaseFirst('toUpperCase');
 
 module.exports = upperFirst;
 
-},{"./_createCaseFirst":95}],235:[function(_dereq_,module,exports){
+},{"./_createCaseFirst":93}],236:[function(_dereq_,module,exports){
 var asciiWords = _dereq_('./_asciiWords'),
     hasUnicodeWord = _dereq_('./_hasUnicodeWord'),
     toString = _dereq_('./toString'),
@@ -8202,7 +8264,7 @@ function words(string, pattern, guard) {
 
 module.exports = words;
 
-},{"./_asciiWords":29,"./_hasUnicodeWord":121,"./_unicodeWords":178,"./toString":233}],236:[function(_dereq_,module,exports){
+},{"./_asciiWords":27,"./_hasUnicodeWord":119,"./_unicodeWords":177,"./toString":234}],237:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8279,7 +8341,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],237:[function(_dereq_,module,exports){
+},{}],238:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8359,7 +8421,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],238:[function(_dereq_,module,exports){
+},{}],239:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8453,7 +8515,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],239:[function(_dereq_,module,exports){
+},{}],240:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8537,7 +8599,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],240:[function(_dereq_,module,exports){
+},{}],241:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.run([
@@ -8700,7 +8762,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],241:[function(_dereq_,module,exports){
+},{}],242:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8760,7 +8822,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],242:[function(_dereq_,module,exports){
+},{}],243:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8834,7 +8896,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],243:[function(_dereq_,module,exports){
+},{}],244:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8909,7 +8971,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],244:[function(_dereq_,module,exports){
+},{}],245:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -8975,7 +9037,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],245:[function(_dereq_,module,exports){
+},{}],246:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9046,7 +9108,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],246:[function(_dereq_,module,exports){
+},{}],247:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9211,7 +9273,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],247:[function(_dereq_,module,exports){
+},{}],248:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9291,7 +9353,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],248:[function(_dereq_,module,exports){
+},{}],249:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9402,7 +9464,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],249:[function(_dereq_,module,exports){
+},{}],250:[function(_dereq_,module,exports){
 "use strict";
 var _cloneDeep = _dereq_('lodash/cloneDeep');
 var _each = _dereq_('lodash/each');
@@ -9454,7 +9516,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{"lodash/cloneDeep":186,"lodash/each":189}],250:[function(_dereq_,module,exports){
+},{"lodash/cloneDeep":185,"lodash/each":188}],251:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9517,7 +9579,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],251:[function(_dereq_,module,exports){
+},{}],252:[function(_dereq_,module,exports){
 "use strict";
 var _map = _dereq_('lodash/map');
 module.exports = function(app) {
@@ -9608,7 +9670,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{"lodash/map":215}],252:[function(_dereq_,module,exports){
+},{"lodash/map":216}],253:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9725,7 +9787,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],253:[function(_dereq_,module,exports){
+},{}],254:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9788,7 +9850,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],254:[function(_dereq_,module,exports){
+},{}],255:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9851,7 +9913,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],255:[function(_dereq_,module,exports){
+},{}],256:[function(_dereq_,module,exports){
 "use strict";
 var app = angular.module('ngFormBuilder');
 
@@ -9896,7 +9958,7 @@ _dereq_('./panel')(app);
 _dereq_('./table')(app);
 _dereq_('./well')(app);
 
-},{"./address":236,"./button":237,"./checkbox":238,"./columns":239,"./components":240,"./container":241,"./content":242,"./currency":243,"./custom":244,"./datagrid":245,"./datetime":246,"./day":247,"./editgrid":248,"./email":249,"./fieldset":250,"./file":251,"./form":252,"./hidden":253,"./htmlelement":254,"./number":256,"./page":257,"./panel":258,"./password":259,"./phonenumber":260,"./radio":261,"./resource":262,"./select":263,"./selectboxes":264,"./signature":265,"./survey":266,"./table":267,"./textarea":268,"./textfield":269,"./time":270,"./well":271}],256:[function(_dereq_,module,exports){
+},{"./address":237,"./button":238,"./checkbox":239,"./columns":240,"./components":241,"./container":242,"./content":243,"./currency":244,"./custom":245,"./datagrid":246,"./datetime":247,"./day":248,"./editgrid":249,"./email":250,"./fieldset":251,"./file":252,"./form":253,"./hidden":254,"./htmlelement":255,"./number":257,"./page":258,"./panel":259,"./password":260,"./phonenumber":261,"./radio":262,"./resource":263,"./select":264,"./selectboxes":265,"./signature":266,"./survey":267,"./table":268,"./textarea":269,"./textfield":270,"./time":271,"./well":272}],257:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9976,7 +10038,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],257:[function(_dereq_,module,exports){
+},{}],258:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -9997,7 +10059,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],258:[function(_dereq_,module,exports){
+},{}],259:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10109,7 +10171,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],259:[function(_dereq_,module,exports){
+},{}],260:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10184,7 +10246,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],260:[function(_dereq_,module,exports){
+},{}],261:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10262,7 +10324,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],261:[function(_dereq_,module,exports){
+},{}],262:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10335,7 +10397,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],262:[function(_dereq_,module,exports){
+},{}],263:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10430,7 +10492,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],263:[function(_dereq_,module,exports){
+},{}],264:[function(_dereq_,module,exports){
 "use strict";
 var _clone = _dereq_('lodash/clone');
 module.exports = function(app) {
@@ -10680,7 +10742,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{"lodash/clone":185}],264:[function(_dereq_,module,exports){
+},{"lodash/clone":184}],265:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10757,7 +10819,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],265:[function(_dereq_,module,exports){
+},{}],266:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10824,7 +10886,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],266:[function(_dereq_,module,exports){
+},{}],267:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10895,7 +10957,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],267:[function(_dereq_,module,exports){
+},{}],268:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -10970,7 +11032,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],268:[function(_dereq_,module,exports){
+},{}],269:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -11088,7 +11150,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],269:[function(_dereq_,module,exports){
+},{}],270:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -11173,7 +11235,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],270:[function(_dereq_,module,exports){
+},{}],271:[function(_dereq_,module,exports){
 "use strict";
 var _cloneDeep = _dereq_('lodash/cloneDeep');
 var _each = _dereq_('lodash/each');
@@ -11224,7 +11286,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{"lodash/cloneDeep":186,"lodash/each":189}],271:[function(_dereq_,module,exports){
+},{"lodash/cloneDeep":185,"lodash/each":188}],272:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(app) {
   app.config([
@@ -11274,7 +11336,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],272:[function(_dereq_,module,exports){
+},{}],273:[function(_dereq_,module,exports){
 "use strict";
 /**
   * These are component options that can be reused
@@ -11595,7 +11657,7 @@ module.exports = {
   }
 };
 
-},{}],273:[function(_dereq_,module,exports){
+},{}],274:[function(_dereq_,module,exports){
 "use strict";
 module.exports = {
   actions: [
@@ -11666,7 +11728,7 @@ module.exports = {
   ]
 };
 
-},{}],274:[function(_dereq_,module,exports){
+},{}],275:[function(_dereq_,module,exports){
 "use strict";
 /*eslint max-statements: 0*/
 var _cloneDeep = _dereq_('lodash/cloneDeep');
@@ -12026,7 +12088,7 @@ module.exports = ['debounce', function(debounce) {
   };
 }];
 
-},{"lodash/capitalize":183,"lodash/cloneDeep":186,"lodash/each":189,"lodash/groupBy":194,"lodash/merge":217,"lodash/omitBy":219,"lodash/upperFirst":234}],275:[function(_dereq_,module,exports){
+},{"lodash/capitalize":182,"lodash/cloneDeep":185,"lodash/each":188,"lodash/groupBy":193,"lodash/merge":218,"lodash/omitBy":220,"lodash/upperFirst":235}],276:[function(_dereq_,module,exports){
 "use strict";
 /**
  * Create the form-builder-component directive.
@@ -12042,7 +12104,7 @@ module.exports = [
   }
 ];
 
-},{}],276:[function(_dereq_,module,exports){
+},{}],277:[function(_dereq_,module,exports){
 "use strict";
 'use strict';
 var utils = _dereq_('formiojs/utils');
@@ -12137,7 +12199,7 @@ module.exports = [
   }
 ];
 
-},{"formiojs/utils":2,"lodash/get":193,"lodash/reject":223}],277:[function(_dereq_,module,exports){
+},{"formiojs/utils":2,"lodash/get":192,"lodash/reject":224}],278:[function(_dereq_,module,exports){
 "use strict";
 var _isNumber = _dereq_('lodash/isNumber');
 var _camelCase = _dereq_('lodash/camelCase');
@@ -12548,7 +12610,7 @@ module.exports = [
   }
 ];
 
-},{"lodash/assign":179,"lodash/camelCase":182,"lodash/isNumber":206}],278:[function(_dereq_,module,exports){
+},{"lodash/assign":178,"lodash/camelCase":181,"lodash/isNumber":206}],279:[function(_dereq_,module,exports){
 "use strict";
 module.exports = [
   'formioElementDirective',
@@ -12573,7 +12635,7 @@ module.exports = [
   }
 ];
 
-},{}],279:[function(_dereq_,module,exports){
+},{}],280:[function(_dereq_,module,exports){
 "use strict";
 module.exports = [
   function() {
@@ -12598,7 +12660,7 @@ module.exports = [
   }
 ];
 
-},{}],280:[function(_dereq_,module,exports){
+},{}],281:[function(_dereq_,module,exports){
 "use strict";
 /**
 * This directive creates a field for tweaking component options.
@@ -12699,7 +12761,7 @@ module.exports = ['COMMON_OPTIONS', '$filter', function(COMMON_OPTIONS, $filter)
   };
 }];
 
-},{}],281:[function(_dereq_,module,exports){
+},{}],282:[function(_dereq_,module,exports){
 "use strict";
 /**
 * A directive for editing a component's custom validation.
@@ -12740,7 +12802,7 @@ module.exports = function() {
   };
 };
 
-},{}],282:[function(_dereq_,module,exports){
+},{}],283:[function(_dereq_,module,exports){
 "use strict";
 /**
 * A directive for a field to edit a component's key.
@@ -12786,7 +12848,7 @@ module.exports = function() {
   };
 };
 
-},{}],283:[function(_dereq_,module,exports){
+},{}],284:[function(_dereq_,module,exports){
 "use strict";
 /**
 * A directive for a field to edit a component's tags.
@@ -12830,7 +12892,7 @@ module.exports = function() {
   };
 };
 
-},{"lodash/map":215}],284:[function(_dereq_,module,exports){
+},{"lodash/map":216}],285:[function(_dereq_,module,exports){
 "use strict";
 module.exports = [
   function() {
@@ -12852,7 +12914,7 @@ module.exports = [
   }
 ];
 
-},{}],285:[function(_dereq_,module,exports){
+},{}],286:[function(_dereq_,module,exports){
 "use strict";
 /**
  * A directive for a table builder
@@ -12906,7 +12968,7 @@ module.exports = function() {
   };
 };
 
-},{"lodash/merge":217}],286:[function(_dereq_,module,exports){
+},{"lodash/merge":218}],287:[function(_dereq_,module,exports){
 "use strict";
 /**
 * Invokes Bootstrap's popover jquery plugin on an element
@@ -12947,7 +13009,7 @@ module.exports = ['$filter', function($filter) {
   };
 }];
 
-},{}],287:[function(_dereq_,module,exports){
+},{}],288:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function() {
   return {
@@ -12971,7 +13033,8 @@ module.exports = function() {
           return '';
         }
         try {
-          var str = angular.toJson(data, true);
+          var dataObj = typeof data === 'string' ? JSON.parse(data) : data;
+          var str = angular.toJson(dataObj, true);
           ctrl.$setValidity('jsonInput', true);
           return str;
         }
@@ -12984,7 +13047,7 @@ module.exports = function() {
   };
 };
 
-},{}],288:[function(_dereq_,module,exports){
+},{}],289:[function(_dereq_,module,exports){
 "use strict";
 /**
 * A directive that provides a UI to add key-value pair object.
@@ -13051,7 +13114,7 @@ module.exports = function() {
   };
 };
 
-},{}],289:[function(_dereq_,module,exports){
+},{}],290:[function(_dereq_,module,exports){
 "use strict";
 /*
 * Prevents user inputting invalid api key characters.
@@ -13074,7 +13137,7 @@ module.exports = function() {
   };
 };
 
-},{}],290:[function(_dereq_,module,exports){
+},{}],291:[function(_dereq_,module,exports){
 "use strict";
 /**
 * A directive that provides a UI to add {value, label} objects to an array.
@@ -13156,7 +13219,7 @@ module.exports = function() {
   };
 };
 
-},{"lodash/camelCase":182,"lodash/map":215}],291:[function(_dereq_,module,exports){
+},{"lodash/camelCase":181,"lodash/map":216}],292:[function(_dereq_,module,exports){
 "use strict";
 'use strict';
 
@@ -13265,7 +13328,7 @@ module.exports = ['FormioUtils', function(FormioUtils) {
   };
 }];
 
-},{}],292:[function(_dereq_,module,exports){
+},{}],293:[function(_dereq_,module,exports){
 "use strict";
 // Create an AngularJS service called debounce
 module.exports = ['$timeout','$q', function($timeout, $q) {
@@ -13299,7 +13362,7 @@ module.exports = ['$timeout','$q', function($timeout, $q) {
   };
 }];
 
-},{}],293:[function(_dereq_,module,exports){
+},{}],294:[function(_dereq_,module,exports){
 "use strict";
 /*! ng-formio-builder v2.23.10 | https://unpkg.com/ng-formio-builder@2.23.10/LICENSE.txt */
 /*global window: false, console: false, jQuery: false */
@@ -13477,5 +13540,5 @@ app.run([
 
 _dereq_('./components');
 
-},{"./components":255,"./constants/commonOptions":272,"./constants/formOptions":273,"./directives/formBuilder":274,"./directives/formBuilderComponent":275,"./directives/formBuilderConditional":276,"./directives/formBuilderDnd":277,"./directives/formBuilderElement":278,"./directives/formBuilderList":279,"./directives/formBuilderOption":280,"./directives/formBuilderOptionCustomValidation":281,"./directives/formBuilderOptionKey":282,"./directives/formBuilderOptionTags":283,"./directives/formBuilderRow":284,"./directives/formBuilderTable":285,"./directives/formBuilderTooltip":286,"./directives/jsonInput":287,"./directives/objectBuilder":288,"./directives/validApiKey":289,"./directives/valueBuilder":290,"./factories/BuilderUtils":291,"./factories/debounce":292}]},{},[293])(293)
+},{"./components":256,"./constants/commonOptions":273,"./constants/formOptions":274,"./directives/formBuilder":275,"./directives/formBuilderComponent":276,"./directives/formBuilderConditional":277,"./directives/formBuilderDnd":278,"./directives/formBuilderElement":279,"./directives/formBuilderList":280,"./directives/formBuilderOption":281,"./directives/formBuilderOptionCustomValidation":282,"./directives/formBuilderOptionKey":283,"./directives/formBuilderOptionTags":284,"./directives/formBuilderRow":285,"./directives/formBuilderTable":286,"./directives/formBuilderTooltip":287,"./directives/jsonInput":288,"./directives/objectBuilder":289,"./directives/validApiKey":290,"./directives/valueBuilder":291,"./factories/BuilderUtils":292,"./factories/debounce":293}]},{},[294])(294)
 });

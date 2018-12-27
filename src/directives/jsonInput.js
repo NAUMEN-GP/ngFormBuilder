@@ -20,7 +20,8 @@ module.exports = function() {
           return '';
         }
         try {
-          var str = angular.toJson(data, true);
+          var dataObj = typeof data === 'string' ? JSON.parse(data) : data;
+          var str = angular.toJson(dataObj, true);
           ctrl.$setValidity('jsonInput', true);
           return str;
         }
