@@ -11076,7 +11076,18 @@ module.exports = function(app) {
   app.controller('wysiwygSettings', ['$scope', function($scope) {
     $scope.wysiwygEnabled = !!$scope.component.wysiwyg || !!$scope.component.wysiwygEnabled;
 
-    var defaultWysiwygSettings = $scope.component.wysiwygSettings || {
+    var componentWysiwygSettings;
+    if (typeof $scope.component.wysiwygSettings === 'string') {
+      try {
+        componentWysiwygSettings = JSON.parse($scope.component.wysiwygSettings);
+      } catch (e) {
+        componentWysiwygSettings = undefined;
+      }
+    } else {
+      componentWysiwygSettings = $scope.component.wysiwygSettings;
+    }
+
+    var defaultWysiwygSettings = componentWysiwygSettings || {
         toolbarGroups:  [
             {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
             {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
