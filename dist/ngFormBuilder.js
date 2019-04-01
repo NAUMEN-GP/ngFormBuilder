@@ -11136,7 +11136,7 @@ module.exports = function(app) {
           '<form-builder-option property="tooltip" ng-if="displayOption(\'Display\', \'tooltip\')"></form-builder-option>' +
           '<form-builder-option property="errorLabel" ng-if="displayOption(\'Display\', \'errorLabel\')"></form-builder-option>' +
           '<form-builder-option property="inputMask" ng-if="displayOption(\'Display\', \'inputMask\')"></form-builder-option>' +
-          '<div ng-controller="wysiwygEnabled" ng-if="displayOption(\'Display\', \'wysiwygEnabled\')">' +
+          '<div ng-if="displayOption(\'Display\', \'wysiwygEnabled\')">' +
             '<div class="checkbox">' +
               '<label><input type="checkbox" ng-model="wysiwygEnabled"> {{\'Enable WYSIWYG\' | formioTranslate}}</label>' +
             '</div>' +
